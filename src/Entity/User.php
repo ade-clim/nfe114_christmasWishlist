@@ -52,6 +52,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le prenom doit etre renseigné")
      * @Groups({"user_read"})
      */
     private $firstName;
@@ -59,6 +60,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"user_read"})
+     * @Assert\NotBlank(message="Le nom doit etre renseigné")
      */
     private $lastName;
 
