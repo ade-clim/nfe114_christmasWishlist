@@ -23,23 +23,27 @@ class Items
      */
     private $id;
 
-    /**@Groups({"items_read"})
+    /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"items_read"})
      */
     private $title;
 
-    /**@Groups({"items_read"})
+    /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"items_read"})
      */
     private $description;
 
-    /**@Groups({"items_read"})
+    /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"items_read"})
      */
     private $price;
 
-    /**@Groups({"items_read"})
+    /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"items_read"})
      */
     private $picture;
 

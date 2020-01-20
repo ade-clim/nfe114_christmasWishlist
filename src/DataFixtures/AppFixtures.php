@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Address;
+use App\Entity\Items;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -44,6 +45,16 @@ class AppFixtures extends Fixture
                 ->setAddress($adresse);
 
             $manager->persist($client);
+        }
+
+        for ($i = 0; $i <50; $i++){
+            $items = new Items();
+            $items->setTitle($faker->text($maxNbChars = 10))
+                ->setDescription($faker->text($maxNbChars = 20))
+                ->setPrice(mt_rand(5, 150))
+                ->setPicture("https://via.placeholder.com/150");
+
+            $manager->persist($items);
         }
         $manager->flush();
     }

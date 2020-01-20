@@ -21,13 +21,15 @@ class ListeItems
      */
     private $id;
 
-    /**@Groups({"listeItems_read"})
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Liste", inversedBy="listItems")
+     * @Groups({"listeItems_read"})
      */
     private $liste;
 
-    /**@Groups({"listeItems_read"})
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Items", inversedBy="listItems")
+     * @Groups({"listeItems_read"})
      */
     private $item;
 
