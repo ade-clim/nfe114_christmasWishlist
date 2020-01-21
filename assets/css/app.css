@@ -2,7 +2,7 @@ body {
 
 }
 .homecontainer{
-    padding-top: 200px;
+    padding-top: 100px;
     margin-bottom: 300px;
 }
 
@@ -25,4 +25,11 @@ body {
 
 .info-list{
     margin-top: 50px;
+}
+
+.motif{
+    z-index: 1;
+    position: absolute;
+    margin-top: -131px;
+
 }

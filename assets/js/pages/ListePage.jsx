@@ -8,7 +8,7 @@ import Ice from '../../img/Ice.png';
 import Snow from '../../img/Snow.png';
 import Stars from '../../img/Stars.png';
 import Trees from '../../img/Trees.png';
-
+import rennes from "../../img/rennes.png";
 
 const ListePage = ({history, match}) => {
 
@@ -105,8 +105,10 @@ const ListePage = ({history, match}) => {
     }, [id]);
 
 const contourStyle = {
-  backgroundImage: `url(${Trees})`
+  backgroundImage: `url(${Bow})`
 };
+
+
 
   return(
       <div className={"container homecontainer"}>
@@ -115,7 +117,11 @@ const contourStyle = {
 
         <div className={"container contour-list d-flex"}>
             <div className={"container col-11 wallpaper-list"} style={contourStyle}>
+                <div className={"container col-6"}>
+                    <img src={rennes} className={"motif"}/>
+                </div>
                 <div className={"container col-11 list"}>
+
                     <div className={"container info-list"}>
                         <form onSubmit={handleSubmit}>
                             <Field name={"title"}
