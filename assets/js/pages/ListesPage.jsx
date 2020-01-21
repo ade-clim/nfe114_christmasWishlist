@@ -64,10 +64,6 @@ const ListesPage = (props) => {
     return(
         <>
             <div className={"container homecontainer"}>
-            <div className={"mb-5 d-flex justify-content-between align-items-center"}>
-                <h1>Liste des catégories</h1>
-                <Link to={"/categorys/new"} className={"btn btn-primary"} >Créer une catégorie</Link>
-            </div>
             <div className={"form-group"}>
                 <input type={"text"} onChange={handleSearch} value={search} className={"form-control"} placeholder={"Rechercher ..."}/>
             </div>
@@ -76,18 +72,20 @@ const ListesPage = (props) => {
                 <tr>
                     <th>Id.</th>
                     <th>Title</th>
+                    <th className={"text-center"}>Cadeaux</th>
                 </tr>
                 </thead>
                 <tbody>
                 {paginatedListes.map(liste => <tr key={liste.id}>
                     <td>{liste.id}</td>
                     <td>{liste.title}</td>
-                    <td className={"text-center"}><Link to={"/listes/"+ liste.id} className={"badge badge-pill badge-info"}>uu</Link></td>
+                    <td className={"text-center"}><span className={"badge badge-pill badge-info"}>{liste.listeItems.length}</span></td>
 
                     <td>
-                        <Link  to={"/categorys/" + liste.id} className={"btn btn-sm btn-primary mr-1"}>Editer</Link>
+                        <Link  to={"/listes/" + liste.id} className={"btn btn-sm btn-primary mr-1"}>Editer</Link>
                         <button  className={"btn btn-sm btn-danger"} onClick={() => handleDelete(liste.id)}>supprimer</button>
                     </td>
+                    <td><input type={"text"} onChange={handleSearch} value={search} placeholder={"Rechercher ..."}/></td>
                 </tr>)}
                 </tbody>
             </table>

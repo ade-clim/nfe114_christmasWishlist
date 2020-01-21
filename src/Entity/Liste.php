@@ -37,6 +37,7 @@ class Liste
 
     /**
      * @ORM\OneToMany(targetEntity="ListeItems", mappedBy="liste")
+     * @Groups({"liste_read"})
      */
     private $listeItems;
 

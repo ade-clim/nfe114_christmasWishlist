@@ -3,6 +3,12 @@ import Field from "../components/forms/Fields";
 import itemApi from "../services/itemApi";
 import listeApi from "../services/listeApi";
 import {Link} from "react-router-dom";
+import Bow from '../../img/Bow.png';
+import Ice from '../../img/Ice.png';
+import Snow from '../../img/Snow.png';
+import Stars from '../../img/Stars.png';
+import Trees from '../../img/Trees.png';
+
 
 const ListePage = ({history, match}) => {
 
@@ -45,7 +51,7 @@ const ListePage = ({history, match}) => {
                     description: ""
                 });
                 setErrors({});
-                history.replace("/");
+                history.replace("/listes");
             }
 
 
@@ -98,41 +104,57 @@ const ListePage = ({history, match}) => {
         handleItems();
     }, [id]);
 
-
+const contourStyle = {
+  backgroundImage: `url(${Trees})`
+};
 
   return(
       <div className={"container homecontainer"}>
-          {(!editing && <h1>Création d'une liste</h1>) || (<h1>Modification de la liste</h1>) }
-          <form onSubmit={handleSubmit}>
-              <Field name={"title"}
-                  placeholder={"Titre du produit"}
-                  label={"Titre"}
-                  onChange={handleChange}
-                  value={liste.title}
-                  error={errors.title}
-              />
-              <Field name={"description"}
-                     placeholder={"Description du produit"}
-                     label={"Description"}
-                     onChange={handleChange}
-                     value={liste.description}
-                     error={errors.description}
-              />
-              <div className={"form-group"}>
-                  <input type={"text"} onChange={handleSearch} value={search} className={"form-control"} placeholder={"Rechercher vos cadeaux"}/>
-              </div>
+          {/* {(!editing && <h1>Création d'une liste</h1>) || (<h1>Modification de la liste</h1>) }*/}
 
-              {search.length !== 0 &&  <div>
-                  {items.map(item => <p>
-                      <img src={item.picture}/>{item.title} {item.description} {item.price}
-                  </p>)}
-              </div>}
 
-              <div className={"form-group"}>
-                  <button className={"btn btn-success"} type={"submit"}>Enregistrer</button>
-                  <Link to={"/"} className={"btn btn-link"}>Retour à la liste</Link>
-              </div>
-          </form>
+        <div className={"container contour-list d-flex"}>
+            <div className={"container col-11 wallpaper-list"} style={contourStyle}>
+                <div className={"container col-11 list"}>
+                    <div className={"container info-list"}>
+                        <form onSubmit={handleSubmit}>
+                            <Field name={"title"}
+                                   placeholder={"Titre du produit"}
+                                   label={"Titre"}
+                                   onChange={handleChange}
+                                   value={liste.title}
+                                   error={errors.title}
+                            />
+                            <Field name={"description"}
+                                   placeholder={"Description du produit"}
+                                   label={"Description"}
+                                   onChange={handleChange}
+                                   value={liste.description}
+                                   error={errors.description}
+                            />
+                            <div className={"form-group"}>
+                                <input type={"text"} onChange={handleSearch} value={search} className={"form-control"} placeholder={"Rechercher vos cadeaux"}/>
+                            </div>
+
+                            {search.length !== 0 &&  <div>
+                                {items.map(item => <p>
+                                    <img src={item.picture}/>{item.title} {item.description} {item.price}
+                                </p>)}
+                            </div>}
+
+                            <div className={"form-group"}>
+                                <button className={"btn btn-success"} type={"submit"}>Enregistrer</button>
+                                <Link to={"/"} className={"btn btn-link"}>Retour à la liste</Link>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
 
       </div>
   )

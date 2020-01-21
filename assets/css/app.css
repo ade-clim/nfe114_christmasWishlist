@@ -5,3 +5,24 @@ body {
     padding-top: 200px;
     margin-bottom: 300px;
 }
+
+.contour-list{
+}
+
+.wallpaper-list{
+    margin-top: 60px;
+    margin-bottom: 60px;
+    background-size: 100%;
+
+}
+
+.list{
+    min-height: 800px;
+    background-color: white;
+    margin-top: 150px;
+    margin-bottom: 150px;
+}
+
+.info-list{
+    margin-top: 50px;
+}

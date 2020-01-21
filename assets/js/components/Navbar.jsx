@@ -52,6 +52,7 @@ const Navbar = ({history}) => {
                         <li className="nav-item">
                             <NavLink to={"/listes/new"} className="nav-link text-dark">Creer ma liste</NavLink>
                         </li>
+
                         <li className="nav-item">
                             <NavLink to={"/listes"} className="nav-link text-dark"><img src={gift} width={"60px"}/></NavLink>
                         </li>
