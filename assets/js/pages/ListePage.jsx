@@ -14,6 +14,8 @@ const ListePage = ({history, match}) => {
 
     const {id} = match.params;
 
+    const [borderColor, setBorderColor] = useState("");
+    const [wallpaper, setWallpaper] = useState(Bow);
     const [items, setItems] = useState([]);
     const [search, setSearch] = useState("");
     const [liste, setListe] = useState({
@@ -104,20 +106,50 @@ const ListePage = ({history, match}) => {
         handleItems();
     }, [id]);
 
-const contourStyle = {
-  backgroundImage: `url(${Bow})`
-};
 
+    const contourStyle = {
+        backgroundImage: `url(${wallpaper})`
+    };
+
+    const borderStyle = {
+        backgroundColor: `${borderColor}`
+    };
+
+
+    const handleChangeWallpaper = (value) => {
+        setWallpaper(value);
+    };
+
+    const handleChangeBorder = (value) => {
+        console.log(value)
+        setBorderColor(value);
+    };
 
 
   return(
       <div className={"container homecontainer"}>
           {/* {(!editing && <h1>Création d'une liste</h1>) || (<h1>Modification de la liste</h1>) }*/}
+    <div className={"container"}>
+        <section>
+            <img src={Bow} width={"40px"} onClick={() => handleChangeWallpaper(Bow)}/>
+            <img src={Ice} width={"40px"} onClick={() => handleChangeWallpaper(Ice)}/>
+            <img src={Snow} width={"40px"} onClick={() => handleChangeWallpaper(Snow)}/>
+            <img src={Stars} width={"40px"} onClick={() => handleChangeWallpaper(Stars)}/>
+            <img src={Trees} width={"40px"} onClick={() => handleChangeWallpaper(Trees)}/>
+        </section>
+        <section>
+            <span className={"btn"} onClick={() => handleChangeBorder("#ffea00")}> yellow</span>
+            <span className={"btn"} onClick={() => handleChangeBorder("#cc3300")}> d</span>
+            <span className={"btn"} onClick={() => handleChangeBorder("#0033cc")}> e</span>
+            <span className={"btn"} onClick={() => handleChangeBorder("#ff6600")}> r</span>
+            <span className={"btn"} onClick={() => handleChangeBorder("#009900")}> t</span>
 
+        </section>
+    </div>
 
-        <div className={"container contour-list d-flex"}>
-            <div className={"container col-11 wallpaper-list"} style={contourStyle}>
-                <div className={"container col-6"}>
+        <div className={"container contour-list d-flex"} style={borderStyle}>
+            <div className={"container col-12 wallpaper-list"} style={contourStyle}>
+                <div className={"container col-lg-6"}>
                     <img src={rennes} className={"motif"}/>
                 </div>
                 <div className={"container col-11 list"}>
