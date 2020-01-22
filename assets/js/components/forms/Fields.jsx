@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Field = ({name, label, value="", onChange, placeholder = "", type = "text", error = ""}) =>
+const Field = ({name, label, value="", onChange, placeholder = "", type = "text", error = "", supp}) =>
     (
         <div className={"form-group"}>
             <label htmlFor={name}>{label}</label>
@@ -11,7 +11,7 @@ const Field = ({name, label, value="", onChange, placeholder = "", type = "text"
                 id={name}
                 placeholder={placeholder || label}
                 name={name}
-                className={"form-control" + (error && " is-invalid")}/>
+                className={supp +" form-control" + (error && " is-invalid")}/>
             {error && <p className={"invalid-feedback"}>{error}</p>}
         </div>
     );

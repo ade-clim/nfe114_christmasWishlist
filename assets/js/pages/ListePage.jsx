@@ -14,7 +14,7 @@ import decoListeApi from "../services/decoListeApi";
 const ListePage = ({history, match}) => {
 
     const {id} = match.params;
-
+    let i = 0;
     const [borderColor, setBorderColor] = useState("#F5624D");
     const [wallpaper, setWallpaper] = useState(Bow);
     const [items, setItems] = useState([]);
@@ -156,11 +156,24 @@ const ListePage = ({history, match}) => {
     };
 
     const handleAddGift = ({id, title, description,price, picture}) => {
-        const gift = {id, title, description ,price, picture};
+        const gift = {idProvisoire:0,id, title, description ,price, picture};
         setItemsListe([...itemsListe,gift]);
         setSearch("");
     };
 
+
+    // On supprime le cadeaux dans la liste, on utilise une id provisoire (cpt) pour eviter de supprimer les produits avec la meme id (produit identique)
+    const handleDelete = async (id) => {
+        const originalItemsListe = [...itemsListe];
+        setItemsListe(itemsListe.filter(item => item.idProvisoire !== id));
+
+        try{
+
+        }catch (error) {
+            console.log(error.response)
+            setItemsListe(originalItemsListe);
+        }
+    };
 
   return(
       <div className={"container homecontainer"}>
@@ -185,50 +198,59 @@ const ListePage = ({history, match}) => {
 
         <div className={"container contour-list d-flex"} style={borderStyle}>
             <div className={"container col-12 wallpaper-list"} style={contourStyle}>
-                <div className={"container col-lg-6"}>
+                <div className={"container col-lg-6 col-md-10"}>
                     <img src={rennes} className={"motif"}/>
                 </div>
                 <div className={"container col-11 list"}>
-
                     <div className={"container info-list"}>
                         <form onSubmit={handleSubmit}>
                             <Field name={"title"}
                                    placeholder={"Titre du produit"}
-                                   label={"Titre"}
                                    onChange={handleChange}
                                    value={liste.title}
                                    error={errors.title}
+                                   supp={"inputTransparent text-center text-uppercase"}
                             />
                             <Field name={"description"}
                                    placeholder={"Description du produit"}
-                                   label={"Description"}
                                    onChange={handleChange}
                                    value={liste.description}
                                    error={errors.description}
+                                   supp={"inputTransparent"}
                             />
-                            <div className={"form-group"}>
-                                <label>Mes cadeaux</label>
-                                <input type={"text"} onChange={handleSearch} value={search} className={"form-control"} placeholder={"Rechercher vos cadeaux"}/>
+                            <div className={"form-group text-center"}>
+                                <input type={"text"} onChange={handleSearch} value={search} className={"form-control col-4"} placeholder={"Rechercher vos cadeaux"}/>
                             </div>
 
                             {/* Boucle pour afficher la selection de cadeaux disponible */}
                             {search.length !== 0 &&  <div>
                                 {items.map(item => <p>
                                     <img src={item.picture}/> {item.title} {item.description} {item.price}
-                                    <span className={"btn"} onClick={() => handleAddGift(item)}>Add</span>
+                                    <span className={"btn btn-success btn-sm"} onClick={() => handleAddGift(item)}>Add</span>
                                 </p>
                                 )}
                             </div>
                             }
 
                             {/* Boucle pour afficher les cadeaux dans la liste */}
-                            {itemsListe.map(itemListe => <p>
-                                <img src={itemListe.picture}/> {itemListe.title} {itemListe.description} {itemListe.price}
-                            </p>)}
+                            {itemsListe.map(itemListe =>{
+                                i++;
+                                return(
+                                    <p>
+                                        <span hidden>{itemListe.idProvisoire = i}</span>
+                                        <img src={itemListe.picture}/>
+                                        {itemListe.title}
+                                        {itemListe.description}
+                                        {itemListe.price}
+                                        <span className={"btn btn-danger btn-sm"} onClick={() => handleDelete(itemListe.idProvisoire)}>Delete</span>
+                                    </p>)}
+                                )
+                            }
+
+
 
                             <div className={"form-group text-center mt-5"}>
                                 <button className={"btn btn-success"} type={"submit"}>Enregistrer</button>
-                                <Link to={"/"} className={"btn btn-link"}>Retour à la liste</Link>
                             </div>
                         </form>
                     </div>
