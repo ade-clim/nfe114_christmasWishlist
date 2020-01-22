@@ -10,6 +10,7 @@ import Stars from '../../img/Stars.png';
 import Trees from '../../img/Trees.png';
 import rennes from "../../img/rennes.png";
 import decoListeApi from "../services/decoListeApi";
+import listeItemsApi from "../services/listeItemsApi";
 
 const ListePage = ({history, match}) => {
 
@@ -64,7 +65,6 @@ const ListePage = ({history, match}) => {
                 await listeApi.update(id, liste);
 
             }else{
-                // Recuperation des valeurs pour la decoListe
 
                 // Envoie de la decoListe en base de donnée
                 const maDecoListe = await decoListeApi.create(decoListe);
@@ -73,24 +73,24 @@ const ListePage = ({history, match}) => {
                 const maListe = {...liste, title:"leleelel",decoListe:maDecoListe.data.id};
 
                 // Envoie de la liste en base de donnée
-                await listeApi.create(maListe);
+                 const data = await listeApi.create(maListe);
+                 const idMaListe = data.data.id;
 
+                 // tab de stockage du useState des items selectionner dans la liste
+                 const maListeItems = [...itemsListe];
+
+                 for(let i = 0; i < maListeItems.length; i++){
+                     await listeItemsApi.create({liste:idMaListe, item:maListeItems[i].id});
+                 };
 
                 // TODO : Flash notification success
-                // Reinitialisation des valeurs du formulaire
-                setListe({
-                    title: "",
-                    description: ""
-                });
 
                 setErrors({});
                 history.replace("/listes");
             };
 
         }catch ({response}) {
-
             const {violations} = response.data;
-
             if(violations){
                 const apiErrors = {};
                 violations.forEach(({propertyPath, message}) => {
@@ -156,7 +156,7 @@ const ListePage = ({history, match}) => {
     };
 
     const handleAddGift = ({id, title, description,price, picture}) => {
-        const gift = {idProvisoire:0,id, title, description ,price, picture};
+        const gift = {idProvisoire:0, id, title, description ,price, picture};
         setItemsListe([...itemsListe,gift]);
         setSearch("");
     };
@@ -205,14 +205,14 @@ const ListePage = ({history, match}) => {
                     <div className={"container info-list"}>
                         <form onSubmit={handleSubmit}>
                             <Field name={"title"}
-                                   placeholder={"Titre du produit"}
+                                   placeholder={"Titre de ma liste"}
                                    onChange={handleChange}
                                    value={liste.title}
                                    error={errors.title}
                                    supp={"inputTransparent text-center text-uppercase"}
                             />
                             <Field name={"description"}
-                                   placeholder={"Description du produit"}
+                                   placeholder={"Description de ma liste"}
                                    onChange={handleChange}
                                    value={liste.description}
                                    error={errors.description}
@@ -224,7 +224,7 @@ const ListePage = ({history, match}) => {
 
                             {/* Boucle pour afficher la selection de cadeaux disponible */}
                             {search.length !== 0 &&  <div>
-                                {items.map(item => <p>
+                                {items.map(item => <p key={item.id}>
                                     <img src={item.picture}/> {item.title} {item.description} {item.price}
                                     <span className={"btn btn-success btn-sm"} onClick={() => handleAddGift(item)}>Add</span>
                                 </p>
@@ -236,8 +236,8 @@ const ListePage = ({history, match}) => {
                             {itemsListe.map(itemListe =>{
                                 i++;
                                 return(
-                                    <p>
-                                        <span hidden>{itemListe.idProvisoire = i}</span>
+                                    <p key={i}>
+                                        <span hidden >{itemListe.idProvisoire = i}</span>
                                         <img src={itemListe.picture}/>
                                         {itemListe.title}
                                         {itemListe.description}
