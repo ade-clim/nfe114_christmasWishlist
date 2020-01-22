@@ -41,6 +41,12 @@ class Liste
      */
     private $listeItems;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\DecoListe", cascade={"persist", "remove"})
+     * @Groups({"liste_read"})
+     */
+    private $decoListe;
+
     public function __construct()
     {
         $this->listeItems = new ArrayCollection();
@@ -102,6 +108,18 @@ class Liste
                 $listeItem->setListe(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDecoListe(): ?DecoListe
+    {
+        return $this->decoListe;
+    }
+
+    public function setDecoListe(?DecoListe $decoListe): self
+    {
+        $this->decoListe = $decoListe;
 
         return $this;
     }

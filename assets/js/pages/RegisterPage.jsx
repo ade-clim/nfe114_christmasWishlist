@@ -54,7 +54,6 @@ const RegisterPage = ({history}) => {
             // AJOUTER UNE  VERIFICATION AVANT ENVOIE DE L'ADRESSES
             //Creation addresses par default
             const addresseUser = await addressApi.create(address);
-            console.log(addresseUser.data.id);
             const myUser = {...user, address: addresseUser.data.id};
             await registerApi.register(myUser);
             // TODO : Flash notification success

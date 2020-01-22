@@ -9,24 +9,43 @@ import Snow from '../../img/Snow.png';
 import Stars from '../../img/Stars.png';
 import Trees from '../../img/Trees.png';
 import rennes from "../../img/rennes.png";
+import decoListeApi from "../services/decoListeApi";
 
 const ListePage = ({history, match}) => {
 
     const {id} = match.params;
 
-    const [borderColor, setBorderColor] = useState("");
+    const [borderColor, setBorderColor] = useState("#F5624D");
     const [wallpaper, setWallpaper] = useState(Bow);
     const [items, setItems] = useState([]);
     const [search, setSearch] = useState("");
+
+    // Recuperation des cadeaux pour affichage dans la liste
+    const [itemsListe, setItemsListe] = useState([]);
+
+
+
+    // Objet DecoListe pour la base de donnée
+    const [decoListe, setDecoListe] = useState({
+        wallpaper: wallpaper,
+        border: borderColor,
+        motif: ""
+    });
+
+    // Objet Liste pour la base de donnée
     const [liste, setListe] = useState({
         title: "",
-        description: ""
+        description: "",
+        decoListe: ""
     });
+
+    // Recuperation pour affichage des erreurs formulaires
     const [errors, setErrors] = useState({
         title: "",
         description: ""
     });
 
+    // Va nous permettre de verifier si modification ou création
     const [editing, setEditing] = useState(false);
 
 
@@ -45,17 +64,28 @@ const ListePage = ({history, match}) => {
                 await listeApi.update(id, liste);
 
             }else{
-                await listeApi.create(liste);
+                // Recuperation des valeurs pour la decoListe
+
+                // Envoie de la decoListe en base de donnée
+                const maDecoListe = await decoListeApi.create(decoListe);
+
+                // Creation de la liste
+                const maListe = {...liste, title:"leleelel",decoListe:maDecoListe.data.id};
+
+                // Envoie de la liste en base de donnée
+                await listeApi.create(maListe);
+
 
                 // TODO : Flash notification success
+                // Reinitialisation des valeurs du formulaire
                 setListe({
                     title: "",
                     description: ""
                 });
+
                 setErrors({});
                 history.replace("/listes");
-            }
-
+            };
 
         }catch ({response}) {
 
@@ -117,12 +147,18 @@ const ListePage = ({history, match}) => {
 
 
     const handleChangeWallpaper = (value) => {
+        setDecoListe({...decoListe, wallpaper:value});
         setWallpaper(value);
     };
 
     const handleChangeBorder = (value) => {
-        console.log(value)
         setBorderColor(value);
+    };
+
+    const handleAddGift = ({id, title, description,price, picture}) => {
+        const gift = {id, title, description ,price, picture};
+        setItemsListe([...itemsListe,gift]);
+        setSearch("");
     };
 
 
@@ -138,11 +174,11 @@ const ListePage = ({history, match}) => {
             <img src={Trees} width={"40px"} onClick={() => handleChangeWallpaper(Trees)}/>
         </section>
         <section>
-            <span className={"btn"} onClick={() => handleChangeBorder("#ffea00")}> yellow</span>
-            <span className={"btn"} onClick={() => handleChangeBorder("#cc3300")}> d</span>
-            <span className={"btn"} onClick={() => handleChangeBorder("#0033cc")}> e</span>
-            <span className={"btn"} onClick={() => handleChangeBorder("#ff6600")}> r</span>
-            <span className={"btn"} onClick={() => handleChangeBorder("#009900")}> t</span>
+            <span className={"btn"} onClick={() => handleChangeBorder("#F5624D")}> y</span>
+            <span className={"btn"} onClick={() => handleChangeBorder("#CC231E")}> d</span>
+            <span className={"btn"} onClick={() => handleChangeBorder("#34A65F")}> e</span>
+            <span className={"btn"} onClick={() => handleChangeBorder("#0F8A5F")}> r</span>
+            <span className={"btn"} onClick={() => handleChangeBorder("#235E6F")}> t</span>
 
         </section>
     </div>
@@ -171,16 +207,26 @@ const ListePage = ({history, match}) => {
                                    error={errors.description}
                             />
                             <div className={"form-group"}>
+                                <label>Mes cadeaux</label>
                                 <input type={"text"} onChange={handleSearch} value={search} className={"form-control"} placeholder={"Rechercher vos cadeaux"}/>
                             </div>
 
+                            {/* Boucle pour afficher la selection de cadeaux disponible */}
                             {search.length !== 0 &&  <div>
                                 {items.map(item => <p>
-                                    <img src={item.picture}/>{item.title} {item.description} {item.price}
-                                </p>)}
-                            </div>}
+                                    <img src={item.picture}/> {item.title} {item.description} {item.price}
+                                    <span className={"btn"} onClick={() => handleAddGift(item)}>Add</span>
+                                </p>
+                                )}
+                            </div>
+                            }
 
-                            <div className={"form-group"}>
+                            {/* Boucle pour afficher les cadeaux dans la liste */}
+                            {itemsListe.map(itemListe => <p>
+                                <img src={itemListe.picture}/> {itemListe.title} {itemListe.description} {itemListe.price}
+                            </p>)}
+
+                            <div className={"form-group text-center mt-5"}>
                                 <button className={"btn btn-success"} type={"submit"}>Enregistrer</button>
                                 <Link to={"/"} className={"btn btn-link"}>Retour à la liste</Link>
                             </div>
@@ -191,9 +237,6 @@ const ListePage = ({history, match}) => {
 
             </div>
         </div>
-
-
-
       </div>
   )
 };

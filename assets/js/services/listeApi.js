@@ -23,7 +23,7 @@ function update(id, liste){
 }
 
 function create(liste){
-    return axios.post("https://localhost:8000/api/listes", liste);
+    return axios.post("https://localhost:8000/api/listes", {...liste, decoListe: `/api/deco_listes/${liste.decoListe}`});
 }
 
 export default {
