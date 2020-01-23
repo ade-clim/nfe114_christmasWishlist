@@ -1,6 +1,8 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowAltCircleLeft, faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons'
 
-//<Pagination currentPage={currentPage} itemsPerPage={itemsPerPage} length={customers.length} onPageChanged={handlePageChange()}/>
+
 const Pagination = ({currentPage, itemsPerPage, length, onPageChanged}) => {
 
     const pagesCount = Math.ceil(length / itemsPerPage);
@@ -9,19 +11,16 @@ const Pagination = ({currentPage, itemsPerPage, length, onPageChanged}) => {
     for (let i =1; i<=pagesCount; i++){
         pages.push(i);
     }
+
     return(
         <div className={"pagination"}>
             <ul className="pagination pagination-sm">
-                <li className={"page-item" + ( currentPage === 1 && " disabled")}>
-                    <button className="page-link" onClick={() => onPageChanged(currentPage - 1)}>&laquo;</button>
+                <li className={"arrow_left page-item" + ( currentPage === 1 && " disabled")}>
+                    <button style={{backgroundColor: "transparent"}} className="page-link" onClick={() => onPageChanged(currentPage - 1)}><FontAwesomeIcon icon={faArrowAltCircleLeft} size={"6x"}/></button>
                 </li>
-                {pages.map(page => (
-                    <li key={page} className={"page-item" + (currentPage === page && " active")}>
-                        <button className="page-link" onClick={() => onPageChanged(page)}>{page}</button>
-                    </li>
-                ))}
-                <li className={"page-item" + ( currentPage === pagesCount && " disabled")}>
-                    <button className="page-link" onClick={() => onPageChanged(currentPage + 1)}>&raquo;</button>
+
+                <li className={"arrow_right page-item" + ( currentPage === pagesCount && " disabled")}>
+                    <button style={{backgroundColor: "transparent"}} className="page-link" onClick={() => onPageChanged(currentPage + 1)}><FontAwesomeIcon icon={faArrowAltCircleRight} size={"6x"}/></button>
                 </li>
             </ul>
         </div>
@@ -31,5 +30,6 @@ const Pagination = ({currentPage, itemsPerPage, length, onPageChanged}) => {
 Pagination.getData = (items, currentPage, itemsPerPage) => {
     const start = currentPage * itemsPerPage - itemsPerPage;
     return (items.slice(start, start + itemsPerPage));
-}
+};
+
 export default Pagination;

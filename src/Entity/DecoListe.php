@@ -3,10 +3,11 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource()
+ * @ApiResource(normalizationContext={"groups"={"decoListe_read"}})
  * @ORM\Entity(repositoryClass="App\Repository\DecoListeRepository")
  */
 class DecoListe
@@ -15,21 +16,25 @@ class DecoListe
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"decoListe_read","liste_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"decoListe_read","liste_read"})
      */
     private $wallpaper;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"decoListe_read","liste_read"})
      */
     private $border;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"decoListe_read","liste_read"})
      */
     private $motif;
 

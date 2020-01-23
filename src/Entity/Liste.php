@@ -47,6 +47,11 @@ class Liste
      */
     private $decoListe;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="liste")
+     */
+    private $user;
+
     public function __construct()
     {
         $this->listeItems = new ArrayCollection();
@@ -120,6 +125,18 @@ class Liste
     public function setDecoListe(?DecoListe $decoListe): self
     {
         $this->decoListe = $decoListe;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

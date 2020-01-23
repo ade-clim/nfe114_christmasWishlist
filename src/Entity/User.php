@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -75,6 +77,16 @@ class User implements UserInterface
      * @Groups({"user_read"})
      */
     private $address;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Liste", mappedBy="user")
+     */
+    private $liste;
+
+    public function __construct()
+    {
+        $this->liste = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -198,6 +210,37 @@ class User implements UserInterface
     public function setAddress(?Address $address): self
     {
         $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Liste[]
+     */
+    public function getListe(): Collection
+    {
+        return $this->liste;
+    }
+
+    public function addListe(Liste $liste): self
+    {
+        if (!$this->liste->contains($liste)) {
+            $this->liste[] = $liste;
+            $liste->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeListe(Liste $liste): self
+    {
+        if ($this->liste->contains($liste)) {
+            $this->liste->removeElement($liste);
+            // set the owning side to null (unless already changed)
+            if ($liste->getUser() === $this) {
+                $liste->setUser(null);
+            }
+        }
 
         return $this;
     }

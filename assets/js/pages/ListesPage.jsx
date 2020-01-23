@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import Pagination from "../components/Pagination";
 import listeApi from "../services/listeApi";
-
+import rennes from '../../img/rennes.png'
 const ListesPage = (props) => {
 
     const [listes, setListes] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [search, setSearch] = useState("");
-    const itemsPerPage = 10;
+    const itemsPerPage = 1;
 
 
-    // Permet de recuperer les wishlist lié à l'user en session
+    // Permet de recuperer les wishlist lié à l'user en session (voir dossier doctrine)
     const fetchListes = async () => {
         try {
             const data = await listeApi.findAll();
@@ -27,7 +27,7 @@ const ListesPage = (props) => {
     },[]);
 
 
-    // Supprimer une categorie en fonction de l'id
+    // Supprimer une liste en fonction de l'id
     const handleDelete = async (id)=>{
         const originalListes = [...listes];
         setListes(listes.filter(liste => liste.id !== id));
@@ -58,46 +58,36 @@ const ListesPage = (props) => {
     // Pagination des données
     const paginatedListes = Pagination.getData(filteredListes, currentPage, itemsPerPage);
 
-
-
     return(
         <>
+            <div className={"container-fluid"}>
+                <Pagination currentPage={currentPage} itemsPerPage={itemsPerPage} length={filteredListes.length} onPageChanged={handlePageChange}/>
+            </div>
             <div className={"container homecontainer"}>
             <div className={"form-group"}>
                 <input type={"text"} onChange={handleSearch} value={search} className={"form-control"} placeholder={"Rechercher ..."}/>
             </div>
 
-                <div className={"container contour-list d-flex"} >
-                    <div className={"container col-12 wallpaper-list"}>
-                        <div className={"container col-lg-6 col-md-10"}>
-                            <img className={"motif"}/>
-                        </div>
-                        <div className={"container col-11 list"}>
-                            <div className={"container info-list"}>
+                {paginatedListes.map(liste => <>
+                    <div key={liste.id} className={"container contour-list d-flex"} style={{backgroundImage: `url(${liste.decoListe.border})`}}>
+                        <div className={"container col-12 wallpaper-list"} style={{backgroundImage: `url(${liste.decoListe.wallpaper})`}}>
+                            <div className={"container col-lg-6 col-md-10"}>
+                                <img src={rennes} className={"motif"}/>
+                            </div>
+                            <div className={"container col-11 list"}>
+                                <div className={"container info-list"}>
+                                    <p>{liste.title}</p>
+                                    <p>{liste.description}</p>
+                                </div>
 
                             </div>
 
                         </div>
-
                     </div>
-                </div>
 
 
+                    </>)}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <Pagination currentPage={currentPage} itemsPerPage={itemsPerPage} length={filteredListes.length} onPageChanged={handlePageChange}/>
             </div>
         </>
     )

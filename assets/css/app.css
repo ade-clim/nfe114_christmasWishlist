@@ -37,5 +37,19 @@ body {
     min-width: 10%;
     position: absolute;
     margin-top: -131px;
+}
+
+.pagination{
+    z-index: 1;
+    position:absolute;
+    margin-top: 30vh;
+}
+
+.arrow_right{
+    padding-left: 68vw;
+
+ }
+.arrow_left{
+    padding-left: 10vw;
 
 }
