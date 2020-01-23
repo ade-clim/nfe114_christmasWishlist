@@ -40,8 +40,8 @@ body {
 }
 
 .pagination{
+    position: absolute;
     z-index: 1;
-    position:absolute;
     margin-top: 30vh;
 }
 
@@ -51,8 +51,8 @@ body {
  }
 .arrow_left{
     padding-left: 10vw;
-
 }
+
 .fa-arrow-alt-circle-left:hover{
     color:#a72925
 }
