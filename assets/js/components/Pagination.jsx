@@ -16,11 +16,11 @@ const Pagination = ({currentPage, itemsPerPage, length, onPageChanged}) => {
         <div className={"pagination"}>
             <ul className="pagination pagination-sm">
                 <li className={"arrow_left page-item" + ( currentPage === 1 && " disabled")}>
-                    <button style={{backgroundColor: "transparent"}} className="page-link" onClick={() => onPageChanged(currentPage - 1)}><FontAwesomeIcon icon={faArrowAltCircleLeft} size={"6x"}/></button>
+                    <button style={{backgroundColor: "transparent"}} className="page-link" onClick={() => onPageChanged(currentPage - 1)}><FontAwesomeIcon color={"#d4423e"} icon={faArrowAltCircleLeft} size={"6x"} /></button>
                 </li>
 
                 <li className={"arrow_right page-item" + ( currentPage === pagesCount && " disabled")}>
-                    <button style={{backgroundColor: "transparent"}} className="page-link" onClick={() => onPageChanged(currentPage + 1)}><FontAwesomeIcon icon={faArrowAltCircleRight} size={"6x"}/></button>
+                    <button style={{backgroundColor: "transparent"}} className="page-link" onClick={() => onPageChanged(currentPage + 1)}><FontAwesomeIcon color={"#d4423e"} icon={faArrowAltCircleRight} size={"6x"}/></button>
                 </li>
             </ul>
         </div>
