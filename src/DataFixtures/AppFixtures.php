@@ -52,7 +52,7 @@ class AppFixtures extends Fixture
             $items->setTitle($faker->text($maxNbChars = 10))
                 ->setDescription($faker->text($maxNbChars = 20))
                 ->setPrice(mt_rand(5, 150))
-                ->setPicture("https://via.placeholder.com/150");
+                ->setPicture("https://via.placeholder.com/250");
 
             $manager->persist($items);
         }

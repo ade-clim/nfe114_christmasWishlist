@@ -65,15 +65,20 @@ const ListePage = ({history, match}) => {
                 await listeApi.update(id, liste);
 
             }else{
-
                 // Envoie de la decoListe en base de donnée
                 const maDecoListe = await decoListeApi.create(decoListe);
 
                 // Creation de la liste
-                const maListe = {...liste, title:"leleelel",decoListe:maDecoListe.data.id};
+                const maListe = {...liste,decoListe:maDecoListe.data.id};
+
 
                 // Envoie de la liste en base de donnée
                  const data = await listeApi.create(maListe);
+
+                // on va rediriger directement l'utilisateur pour eviter une attente trop longue (cause : plusieurs requete api)
+                history.replace("/listes");
+
+
                  const idMaListe = data.data.id;
 
                  // tab de stockage du useState des items selectionner dans la liste
@@ -86,7 +91,7 @@ const ListePage = ({history, match}) => {
                 // TODO : Flash notification success
 
                 setErrors({});
-                history.replace("/listes");
+
             };
 
         }catch ({response}) {
@@ -108,12 +113,21 @@ const ListePage = ({history, match}) => {
         setSearch(value);
     };
 
+    // Filtrage des items en fonction de la recherche
+    const filteredItems = items.filter(
+        c =>
+            c.title.toLowerCase().includes(search.toLowerCase()) ||
+            c.description.toLowerCase().includes(search.toLowerCase()) ||
+            c.price.toLowerCase().includes(search.toLowerCase())
+    );
+
     // Recuperation de la liste des items
     const handleItems = async () => {
         const data = await itemApi.findAll();
         setItems(data);
         console.log(data)
     };
+
 
     // Recuperation de la liste en cours de modification
     const fetchList = async (id) => {
@@ -195,7 +209,6 @@ const ListePage = ({history, match}) => {
 
         </section>
     </div>
-
         <div className={"container contour-list d-flex"} style={borderStyle}>
             <div className={"container col-12 wallpaper-list"} style={contourStyle}>
                 <div className={"container col-lg-6 col-md-10"}>
@@ -224,31 +237,27 @@ const ListePage = ({history, match}) => {
 
                             {/* Boucle pour afficher la selection de cadeaux disponible */}
                             {search.length !== 0 &&  <div>
-                                {items.map(item => <p key={item.id}>
+                                {filteredItems.map(item => <p key={item.id}>
                                     <img src={item.picture}/> {item.title} {item.description} {item.price}
-                                    <span className={"btn btn-success btn-sm"} onClick={() => handleAddGift(item)}>Add</span>
+                                    <div className={"btn btn-success btn-sm"} onClick={() => handleAddGift(item)}>Add</div>
                                 </p>
                                 )}
-                            </div>
-                            }
+                            </div>}
 
                             {/* Boucle pour afficher les cadeaux dans la liste */}
                             {itemsListe.map(itemListe =>{
                                 i++;
-                                return(
-                                    <p key={i}>
+                                return(<>
+                                    {i !== 1 && <hr/>}
+                                    <p key={i} className={"mt-5 mb-5"}>
                                         <span hidden >{itemListe.idProvisoire = i}</span>
                                         <img src={itemListe.picture}/>
                                         {itemListe.title}
                                         {itemListe.description}
                                         {itemListe.price}
                                         <span className={"btn btn-danger btn-sm"} onClick={() => handleDelete(itemListe.idProvisoire)}>Delete</span>
-                                    </p>)}
-                                )
-                            }
-
-
-
+                                    </p>
+                                </>)})}
                             <div className={"form-group text-center mt-5"}>
                                 <button className={"btn btn-success"} type={"submit"}>Enregistrer</button>
                             </div>

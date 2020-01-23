@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {Link} from "react-router-dom";
 import Pagination from "../components/Pagination";
 import listeApi from "../services/listeApi";
 
@@ -11,7 +10,7 @@ const ListesPage = (props) => {
     const itemsPerPage = 10;
 
 
-    // Permet de recuperer les categories
+    // Permet de recuperer les wishlist lié à l'user en session
     const fetchListes = async () => {
         try {
             const data = await listeApi.findAll();
@@ -67,28 +66,37 @@ const ListesPage = (props) => {
             <div className={"form-group"}>
                 <input type={"text"} onChange={handleSearch} value={search} className={"form-control"} placeholder={"Rechercher ..."}/>
             </div>
-            <table className={"table table-hover"}>
-                <thead>
-                <tr>
-                    <th>Id.</th>
-                    <th>Title</th>
-                    <th className={"text-center"}>Cadeaux</th>
-                </tr>
-                </thead>
-                <tbody>
-                {paginatedListes.map(liste => <tr key={liste.id}>
-                    <td>{liste.id}</td>
-                    <td>{liste.title}</td>
-                    <td className={"text-center"}><span className={"badge badge-pill badge-info"}>{liste.listeItems.length}</span></td>
 
-                    <td>
-                        <Link  to={"/listes/" + liste.id} className={"btn btn-sm btn-primary mr-1"}>Editer</Link>
-                        <button  className={"btn btn-sm btn-danger"} onClick={() => handleDelete(liste.id)}>supprimer</button>
-                    </td>
-                    <td><input type={"text"} onChange={handleSearch} value={search} placeholder={"Rechercher ..."}/></td>
-                </tr>)}
-                </tbody>
-            </table>
+                <div className={"container contour-list d-flex"} >
+                    <div className={"container col-12 wallpaper-list"}>
+                        <div className={"container col-lg-6 col-md-10"}>
+                            <img className={"motif"}/>
+                        </div>
+                        <div className={"container col-11 list"}>
+                            <div className={"container info-list"}>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <Pagination currentPage={currentPage} itemsPerPage={itemsPerPage} length={filteredListes.length} onPageChanged={handlePageChange}/>
             </div>
         </>
