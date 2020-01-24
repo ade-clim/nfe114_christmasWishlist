@@ -7,8 +7,8 @@ const HomePage = () => {
 
 
 
-    return(
-            <>
+    return(<>
+            <div>
                 <div className={"perso_slide_container"}>
 
                     <img className={"perso_slide"} src={perso}/>
@@ -34,16 +34,18 @@ const HomePage = () => {
                         </div>
                     </div>
                 </div>
+            </div>
+                <section >
+                    <div className={"container-fluid test"}>
 
-
-
-
-
-
-                <section>
-                    <img className="d-block w-100 img-responsive" src={red}/>
+                    </div>
                 </section>
-            </>
+            <section >
+                <div className={"container-fluid testtest"}>
+
+                </div>
+            </section>
+        </>
     )
 };
 

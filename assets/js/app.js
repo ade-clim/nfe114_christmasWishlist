@@ -21,12 +21,12 @@ const App = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(authApi.isAuthenticated());
     const NavbarWithRouter = withRouter(Navbar);
 
-
+//<NavbarWithRouter/>
     return(
         <AuthContext.Provider value={{isAuthenticated, setIsAuthenticated}}>
             <HashRouter>
                 <main>
-                    <NavbarWithRouter/>
+
                     <Switch>
                         <Route path={"/login"} component={LoginPage}/>
                         <Route path={"/register"} component={RegisterPage}/>
