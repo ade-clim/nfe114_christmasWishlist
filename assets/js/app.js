@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import ReactDom from 'react-dom'
 import '../css/app.css';
+import '../css/neige.css';
 import {HashRouter, Switch, Route, withRouter} from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import authApi from "./services/authApi";

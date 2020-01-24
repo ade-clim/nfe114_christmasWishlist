@@ -59,16 +59,19 @@ body {
 .fa-arrow-alt-circle-right:hover{
     color:#a72925
 }
-@media (min-width: 200px){
-   .perso_slide_container{
-       bottom: -40px;
-   }
-}
+
 
 .perso_slide_container{
-    right: 8vw;
     position: absolute;
-
+    right: 0;
+    bottom: 0;
+    align-items: center;
 }
+
 .perso_slide{
+    width: 85%;
+}
+
+.navbar{
+    border:0;
 }
