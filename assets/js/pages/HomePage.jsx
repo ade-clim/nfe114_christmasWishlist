@@ -7,24 +7,16 @@ const HomePage = () => {
 
 
 
-    const handleCreateNewList = () => {
-
-    };
-
-
-
-
-
     return(
-        <div>
-            <div>
-                <div>
-                    <div className={"perso_slide_container"}>
-                        <img className={"img-fluid perso_slide"} src={perso}/>
-                    </div>
+            <>
+                <div className={"perso_slide_container"}>
+
+                    <img className={"perso_slide"} src={perso}/>
+
                 </div>
+
                 <div>
-                    <img height={"700px"} className="d-block w-100 img-responsive" src={slide}/>
+                    <img height={"700px"} className="d-block w-100 img-responsive slide_background" src={slide}/>
                     <div className="snow">
                         <div className="snow__layer">
                             <div className="snow__fall"></div>
@@ -51,8 +43,7 @@ const HomePage = () => {
                 <section>
                     <img className="d-block w-100 img-responsive" src={red}/>
                 </section>
-            </div>
-        </div>
+            </>
     )
 };
 

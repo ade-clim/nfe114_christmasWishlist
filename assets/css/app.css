@@ -60,16 +60,20 @@ body {
     color:#a72925
 }
 
+.slide_background{
+    min-width: 1500px;
+}
 
 .perso_slide_container{
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    align-items: center;
+    position: relative;
+    max-width: 1900px;
 }
 
 .perso_slide{
-    width: 85%;
+    width: 50%;
+    right: 0;
+    bottom: -700px;
+    position: absolute;
 }
 
 .navbar{
