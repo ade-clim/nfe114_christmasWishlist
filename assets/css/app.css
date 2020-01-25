@@ -1,6 +1,8 @@
 body {
 
 }
+
+
 .homecontainer{
     padding-top: 100px;
     margin-bottom: 300px;
@@ -60,6 +62,12 @@ body {
     color:#a72925
 }
 
+
+.navbar{
+    position:fixed;
+    width: 100vw;
+    font-size: 15px;
+}
 
 
 
@@ -133,13 +141,16 @@ body {
     position: absolute;
 }
 
-.navbar{
-    border:0;
+.text_slide{
+    position: absolute;
+    font-size: 50px;
+    color: #d4423e;
+    margin-left: 350px;
+    margin-top: 350px;
 }
 
 .test{
     height: 500px;
-    background-color: rebeccapurple;
 }
 .testtest{
     height: 500px;

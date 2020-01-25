@@ -35,6 +35,7 @@ const LoginPage = ({history}) => {
     return(
         <>
             <div className={"container homecontainer"}>
+
         <h1>Connexion a l'application</h1>
             <form onSubmit={handleSubmit}>
                 <Field type={"email"}

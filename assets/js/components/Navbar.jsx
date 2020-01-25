@@ -40,15 +40,25 @@ const Navbar = ({history}) => {
 
     return(
         <header>
-        <nav className="navbar navbar-expand-md navbar-light bg-transparent">
-            <div className={"container col-10"}>
+        <nav className="navbar navbar-expand-lg navbar-light bg-transparent">
+            <div className={"container col-12 "}>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
                         aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
 
-                <div className="collapse navbar-collapse" id="navbarColor01">
-                    <ul className="navbar-nav mr-auto">
+                <div className="collapse navbar-collapse " id="navbarColor01">
+
+                    <ul className={"navbar-nav"}>
+                        <li>
+                            <NavLink to={"/"} className="navbar-brand logo">My Christmas Wishlist</NavLink>
+                        </li>
+                    </ul>
+
+
+
+
+                    <ul className="navbar-nav ml-auto">
                         <li className="nav-item">
                             <NavLink to={"/listes/new"} className="nav-link text-dark">Creer ma liste</NavLink>
                         </li>
@@ -59,17 +69,9 @@ const Navbar = ({history}) => {
                         <li className="nav-item">
                             <NavLink to={"/listes"} className="nav-link text-dark"><img src={gift} width={"60px"}/></NavLink>
                         </li>
-                    </ul>
 
-                    <ul className={"navbar-nav ml-auto pt-5"}>
-                        <li>
-                            <NavLink to={"/"} className="navbar-brand logo"></NavLink>
-                        </li>
-                    </ul>
-                    <ul className="navbar-nav ml-auto">
-                        <li>
 
-                        </li>
+
                         {(!isAuthenticated &&
                             (<>
                                     <li className="nav-item">
