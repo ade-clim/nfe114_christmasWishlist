@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import PaginationListes from "../components/PaginationListes";
 import listeApi from "../services/listeApi";
-import rennes from '../../img/rennes.png'
+import rennes from '../../img/listes/motifs/rennes.png'
 const ListesPage = (props) => {
 
     const [listes, setListes] = useState([]);
@@ -70,10 +70,10 @@ const ListesPage = (props) => {
             </div>
 
                 {paginatedListes.map(liste => <>
-                    <div key={liste.id} className={"container contour-list d-flex"} style={{backgroundImage: `url(${liste.decoListe.border})`}}>
-                        <div className={"container col-12 wallpaper-list"} style={{backgroundImage: `url(${liste.decoListe.wallpaper})`}}>
+                    <div key={liste.id} className={"container contour-list d-flex"} style={{backgroundColor: liste.decoListe.border}}>
+                        <div className={"container col-12 wallpapers-list"} style={{backgroundImage: `url(${liste.decoListe.wallpaper})`}}>
                             <div className={"container col-lg-6 col-md-10"}>
-                                <img src={rennes} className={"motif"}/>
+                                <img src={liste.decoListe.motif} className={"motif"}/>
                             </div>
                             <div className={"container col-11 list"}>
                                 <div className={"container info-list"}>

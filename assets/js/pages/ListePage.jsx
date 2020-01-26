@@ -2,13 +2,12 @@ import React, {useEffect, useState} from 'react';
 import Field from "../components/forms/Fields";
 import itemApi from "../services/itemApi";
 import listeApi from "../services/listeApi";
-import {Link} from "react-router-dom";
-import Bow from '../../img/Bow.png';
-import Ice from '../../img/Ice.png';
-import Snow from '../../img/Snow.png';
-import Stars from '../../img/Stars.png';
-import Trees from '../../img/Trees.png';
-import rennes from "../../img/rennes.png";
+import Bow from '../../img/listes/wallpapers/Bow.png';
+import Ice from '../../img/listes/wallpapers/Ice.png';
+import Snow from '../../img/listes/wallpapers/Snow.png';
+import Stars from '../../img/listes/wallpapers/Stars.png';
+import Trees from '../../img/listes/wallpapers/Trees.png';
+import rennes from "../../img/listes/motifs/rennes.png";
 import decoListeApi from "../services/decoListeApi";
 import listeItemsApi from "../services/listeItemsApi";
 
@@ -18,6 +17,7 @@ const ListePage = ({history, match}) => {
     let i = 0;
     const [borderColor, setBorderColor] = useState("#F5624D");
     const [wallpaper, setWallpaper] = useState(Bow);
+    const [motif, setMotif] = useState(rennes);
     const [items, setItems] = useState([]);
     const [search, setSearch] = useState("");
 
@@ -30,7 +30,7 @@ const ListePage = ({history, match}) => {
     const [decoListe, setDecoListe] = useState({
         wallpaper: wallpaper,
         border: borderColor,
-        motif: ""
+        motif: motif
     });
 
     // Objet Liste pour la base de donnée
@@ -151,7 +151,7 @@ const ListePage = ({history, match}) => {
     }, [id]);
 
 
-    const contourStyle = {
+    const wallpaperStyle = {
         backgroundImage: `url(${wallpaper})`
     };
 
@@ -169,6 +169,12 @@ const ListePage = ({history, match}) => {
         setDecoListe({...decoListe, border:value});
         setBorderColor(value);
     };
+
+    const handleChangeMotif = (value) => {
+        setDecoListe({...decoListe, motif:value});
+        setMotif(value);
+    };
+
 
     const handleAddGift = ({id, title, description,price, picture}) => {
         const gift = {idProvisoire:0, id, title, description ,price, picture};
@@ -200,6 +206,7 @@ const ListePage = ({history, match}) => {
             <img src={Snow} width={"40px"} onClick={() => handleChangeWallpaper(Snow)}/>
             <img src={Stars} width={"40px"} onClick={() => handleChangeWallpaper(Stars)}/>
             <img src={Trees} width={"40px"} onClick={() => handleChangeWallpaper(Trees)}/>
+            <img src={Trees} width={"40px"} onClick={() => handleChangeWallpaper()}/>
         </section>
         <section>
             <span className={"btn"} onClick={() => handleChangeBorder("#F5624D")}> y</span>
@@ -207,13 +214,20 @@ const ListePage = ({history, match}) => {
             <span className={"btn"} onClick={() => handleChangeBorder("#34A65F")}> e</span>
             <span className={"btn"} onClick={() => handleChangeBorder("#0F8A5F")}> r</span>
             <span className={"btn"} onClick={() => handleChangeBorder("#235E6F")}> t</span>
-
         </section>
+        <section>
+            <span className={"btn"} onClick={() => handleChangeMotif(rennes)}> r</span>
+            <span className={"btn"} onClick={() => handleChangeMotif()}> p</span>
+            <span className={"btn"} onClick={() => handleChangeMotif()}> d</span>
+            <span className={"btn"} onClick={() => handleChangeMotif()}> p</span>
+            <span className={"btn"} onClick={() => handleChangeMotif()}> y</span>
+        </section>
+
     </div>
         <div className={"container contour-list d-flex"} style={borderStyle}>
-            <div className={"container col-12 wallpaper-list"} style={contourStyle}>
+            <div className={"container col-12 wallpapers-list"} style={wallpaperStyle}>
                 <div className={"container col-lg-6 col-md-10"}>
-                    <img src={rennes} className={"motif"}/>
+                    <img src={motif} className={"motif"}/>
                 </div>
                 <div className={"container col-11 list"}>
                     <div className={"container info-list"}>

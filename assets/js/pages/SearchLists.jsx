@@ -1,7 +1,7 @@
 import React,{useState, useEffect} from 'react';
 import userApi from "../services/userApi";
 import Pagination from "../components/Pagination";
-import rennes from "../../img/rennes.png";
+import rennes from "../../img/listes/motifs/rennes.png";
 
 
 const SearchLists = () => {
