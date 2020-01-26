@@ -1,8 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import PaginationListes from "../components/PaginationListes";
 import listeApi from "../services/listeApi";
-import rennes from '../../img/listes/motifs/rennes.png'
-const ListesPage = (props) => {
+
+const ListesPage = ({match, history}) => {
+
+    const {id} = match.params;
+    const idUrl = parseInt(id, 10);
 
     const [listes, setListes] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -14,7 +17,10 @@ const ListesPage = (props) => {
     const fetchListes = async () => {
         try {
             const data = await listeApi.findAll();
-            setListes(data);
+
+            // On recupere les listes appartenant à l'utilisateur id
+            setListes(data.filter(l => l.user.id === idUrl));
+
         }catch (error) {
             console.log(error.response);
         }
@@ -61,6 +67,7 @@ const ListesPage = (props) => {
 
     return(
         <>
+
             <div className={"container-fluid"}>
                 <PaginationListes currentPage={currentPage} itemsPerPage={itemsPerPage} length={filteredListes.length} onPageChanged={handlePageChange}/>
             </div>

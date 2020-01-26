@@ -30,7 +30,7 @@ class CurrentUserExtension implements QueryCollectionExtensionInterface, QueryIt
 
     private function addWhere(QueryBuilder $queryBuilder, string $resourceClass){
 
-
+/*
         //obtenir l'utilisateur
         $user = $this->security->getUser();
 
@@ -52,7 +52,10 @@ class CurrentUserExtension implements QueryCollectionExtensionInterface, QueryIt
 
             $queryBuilder->setParameter("user", $user);
         }
+
+*/
     }
+
     public function applyToCollection(QueryBuilder $queryBuilder, QueryNameGeneratorInterface $queryNameGenerator, string $resourceClass, string $operationName = null)
     {
         $this->addWhere($queryBuilder, $resourceClass);

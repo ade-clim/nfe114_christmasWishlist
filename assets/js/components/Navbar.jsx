@@ -4,11 +4,9 @@ import authApi from "../services/authApi";
 import AuthContext from "../contexts/AuthContext";
 import jwtDecode from "jwt-decode";
 import iconeUserNoel from '../../img/icones/Xmas_C-01.png';
-import gift from '../../img/icones/Xmas_C-05.png';
-const Navbar = ({history}) => {
 
-    // Recup données du Cartcontext
-    //const contextValue = useContext(CartContext);
+
+const Navbar = ({history}) => {
 
     const [user, setUser] = useState({
         firstName: "",
@@ -16,12 +14,13 @@ const Navbar = ({history}) => {
         id:""
     });
 
+
     const {isAuthenticated, setIsAuthenticated} = useContext(AuthContext);
 
 
+    // On récupére l'utilisateur en session
     const handleFetchUser = () => {
         const token = window.localStorage.getItem("authToken");
-        console.log(token)
         if(token){
             const {firstName, lastName, id} = jwtDecode(token);
             setUser({firstName: firstName, lastName: lastName, id: id})
@@ -61,13 +60,14 @@ const Navbar = ({history}) => {
                     <ul className="navbar-nav ml-auto">
                         <li className="nav-item">
                             <NavLink to={"/listes/new"} className="nav-link text-dark">Creer ma liste</NavLink>
+
                         </li>
                         <li className="nav-item ">
                             <NavLink to={"/listes/searchlistes"} className="nav-link text-dark ">Rechercher une liste</NavLink>
                         </li>
 
                         <li className="nav-item">
-                            <NavLink to={"/listes"} className="nav-link text-dark">mes listes</NavLink>
+                            <NavLink to={"/listes/"+ user.id} className="nav-link text-dark">mes listes</NavLink>
                         </li>
 
 

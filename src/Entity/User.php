@@ -16,7 +16,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ApiResource(attributes={
- *     "order"= {"id":"desc"}},
+ *     "order"= {"id":"asc"}},
  *     normalizationContext={"groups"={"user_read"}}
 
  * )
@@ -30,7 +30,7 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"user_read"})
+     * @Groups({"user_read", "liste_read"})
      */
     private $id;
 

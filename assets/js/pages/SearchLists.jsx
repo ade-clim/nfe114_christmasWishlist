@@ -1,4 +1,5 @@
 import React,{useState, useEffect} from 'react';
+import {Link, NavLink} from "react-router-dom";
 import userApi from "../services/userApi";
 import Pagination from "../components/Pagination";
 import rennes from "../../img/listes/motifs/rennes.png";
@@ -54,20 +55,16 @@ const SearchLists = () => {
                 <table className={"table table-hover"}>
                     <thead>
                     <tr>
-                        <th>Id.</th>
-                        <th>Client</th>
+                        <th>Nom</th>
                         <th>Email</th>
-                        <th>Tel.</th>
                         <th className={"text-center"}>Listes</th>
                     </tr>
                     </thead>
                     <tbody>
                     {paginatedUsers.map(user => <tr key={user.id}>
-                        <td>{user.id}</td>
                         <td>{user.firstName} {user.lastName}</td>
                         <td>{user.email}</td>
-                        <td>{user.phone}</td>
-                        <td className={"text-center"}><span className={"badge badge-pill badge-info"}>{user.liste.length}</span></td>
+                        <td className={"text-center btn"}><Link to={"/listes/" + 2} className={"badge badge-pill badge-info"}>{user.liste.length}</Link></td>
                     </tr>)}
                     </tbody>
                 </table>
