@@ -1,8 +1,7 @@
 import React,{useState, useEffect} from 'react';
-import {Link, NavLink} from "react-router-dom";
+import {Link} from "react-router-dom";
 import userApi from "../services/userApi";
 import Pagination from "../components/Pagination";
-import rennes from "../../img/listes/motifs/rennes.png";
 
 
 const SearchLists = () => {
@@ -64,7 +63,14 @@ const SearchLists = () => {
                     {paginatedUsers.map(user => <tr key={user.id}>
                         <td>{user.firstName} {user.lastName}</td>
                         <td>{user.email}</td>
-                        <td className={"text-center btn"}><Link to={"/listes/" + 2} className={"badge badge-pill badge-info"}>{user.liste.length}</Link></td>
+                        <td>
+                            <button disabled={user.liste.length === 0} className={"btn text-center badge badge-pill badge-danger"}>
+                                {user.liste.length !== 0 &&
+                                <Link to={"/listes/"+ user.id} className={"text-white"}>{user.liste.length}</Link> ||
+                                user.liste.length}
+                            </button>
+                        </td>
+
                     </tr>)}
                     </tbody>
                 </table>
