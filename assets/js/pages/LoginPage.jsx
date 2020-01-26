@@ -42,14 +42,14 @@ const LoginPage = ({history}) => {
                        error={error}
                        name={"username"}
                        label={"Adresse email"}
-                       placeholder={"Adresse email de connexion"}
+                       placeholder={"aaa@aol.com"}
                        value={credentials.username}
                        onChange={handleChange}
                 />
                 <Field type={"password"}
                        name={"password"}
                        label={"Mot de passe"}
-                       placeholder={"Mot de passe"}
+                       placeholder={"password"}
                        value={credentials.password}
                        onChange={handleChange}
                 />

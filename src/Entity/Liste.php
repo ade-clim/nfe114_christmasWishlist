@@ -19,25 +19,25 @@ class Liste
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"liste_read"})
+     * @Groups({"liste_read", "user_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"liste_read"})
+     * @Groups({"liste_read", "user_read"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"liste_read"})
+     * @Groups({"liste_read", "user_read"})
      */
     private $description;
 
     /**
      * @ORM\OneToMany(targetEntity="ListeItems", mappedBy="liste")
-     * @Groups({"liste_read"})
+     * @Groups({"liste_read", "user_read"})
      */
     private $listeItems;
 
@@ -49,6 +49,7 @@ class Liste
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="liste")
+     * @Groups({"liste_read"})
      */
     private $user;
 

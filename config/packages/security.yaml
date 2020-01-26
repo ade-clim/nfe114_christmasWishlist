@@ -47,6 +47,6 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/api/addresses, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY , methods:[GET, PUT, DELETE] }
+        - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY , methods:[PUT, DELETE] }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }

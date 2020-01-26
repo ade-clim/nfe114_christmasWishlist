@@ -5,16 +5,15 @@ import perso from '../../img/HomePage/slide/charaNoel.png';
 const HomePage = () => {
 
 
-
-
     return(<>
             <div>
                 <div className={"perso_slide_container"}>
-
                     <img className={"perso_slide"} src={perso}/>
-
                 </div>
 
+                <div className={"text_slide"}>
+
+                </div>
                 <div>
                     <img height={"700px"} className="d-block w-100 img-responsive slide_background" src={slide}/>
 

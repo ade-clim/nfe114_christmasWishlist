@@ -56,6 +56,8 @@ const ListePage = ({history, match}) => {
         setListe({...liste, [name]: value});
     };
 
+
+
     // Gestion de la soumission du formulaire
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -70,7 +72,6 @@ const ListePage = ({history, match}) => {
 
                 // Creation de la liste
                 const maListe = {...liste,decoListe:maDecoListe.data.id};
-
 
                 // Envoie de la liste en base de donnée
                  const data = await listeApi.create(maListe);
@@ -125,7 +126,6 @@ const ListePage = ({history, match}) => {
     const handleItems = async () => {
         const data = await itemApi.findAll();
         setItems(data);
-        console.log(data)
     };
 
 
@@ -166,6 +166,7 @@ const ListePage = ({history, match}) => {
     };
 
     const handleChangeBorder = (value) => {
+        setDecoListe({...decoListe, border:value});
         setBorderColor(value);
     };
 

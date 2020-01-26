@@ -4,7 +4,7 @@ body {
 
 
 .homecontainer{
-    padding-top: 100px;
+    padding-top: 200px;
     margin-bottom: 300px;
 }
 
@@ -41,7 +41,7 @@ body {
     margin-top: -131px;
 }
 
-.pagination{
+.pagination-listes{
     position: absolute;
     z-index: 1;
     margin-top: 30vh;
@@ -65,9 +65,13 @@ body {
 
 .navbar{
     position:fixed;
+    z-index: 2;
     width: 100vw;
-    font-size: 15px;
+    font-size: 14px;
+    margin-bottom: -150px;
+    height: 80px;
 }
+
 
 
 
@@ -135,7 +139,7 @@ body {
 }
 
 .perso_slide{
-    max-width: 1000px;
+    max-width: 1100px;
     right: 0;
     bottom: -930px;
     position: absolute;

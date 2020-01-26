@@ -3,12 +3,13 @@
 namespace App\Events;
 
 use ApiPlatform\Core\EventListener\EventPriorities;
+use App\Entity\Liste;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Security;
 
-class OrderUserSubscriber implements EventSubscriberInterface{
+class ListeUserWishlist implements EventSubscriberInterface{
 
     /**
      * @var Security
@@ -25,22 +26,22 @@ class OrderUserSubscriber implements EventSubscriberInterface{
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::VIEW => ['setUserForOrder', EventPriorities::PRE_VALIDATE]
+            KernelEvents::VIEW => ['setUserForList', EventPriorities::PRE_VALIDATE]
         ];
     }
 
-    public function setUserForOrder(ViewEvent $event){
-        $order = $event->getControllerResult();
+    public function setUserForList(ViewEvent $event){
+        $liste = $event->getControllerResult();
         $method = $event->getRequest()->getMethod();
 
 
-        if ($order instanceof Orders && $method === "POST"){
+        if ($liste instanceof Liste && $method === "POST"){
 
             // recup l'utilisateur actuellement connecté
             $user = $this->security->getUser();
 
-            // assigner l'utilisateur au customer qu'on est en train de créer
-            $order->setUser($user);
+            // assigner l'utilisateur à la liste qu'on est en train de créer
+            $liste->setUser($user);
         }
 
 

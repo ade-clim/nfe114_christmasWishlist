@@ -10,6 +10,8 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -18,6 +20,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *     normalizationContext={"groups"={"user_read"}}
 
  * )
+ * @ApiFilter(SearchFilter::class, properties={"email": "exact"})
  * @UniqueEntity("email", message="un utilisateur ayant cette email existe déja")
  */
 
@@ -80,6 +83,7 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Liste", mappedBy="user")
+     * @Groups({"user_read"})
      */
     private $liste;
 

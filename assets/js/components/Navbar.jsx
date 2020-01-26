@@ -41,16 +41,16 @@ const Navbar = ({history}) => {
     return(
         <header>
         <nav className="navbar navbar-expand-lg navbar-light bg-transparent">
-            <div className={"container col-12 "}>
+            <div className={"container col-11"}>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
                         aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
 
-                <div className="collapse navbar-collapse " id="navbarColor01">
+                <div className="collapse navbar-collapse" id="navbarColor01">
 
                     <ul className={"navbar-nav"}>
-                        <li>
+                        <li className={"nav-item"}>
                             <NavLink to={"/"} className="navbar-brand logo">My Christmas Wishlist</NavLink>
                         </li>
                     </ul>
@@ -62,12 +62,12 @@ const Navbar = ({history}) => {
                         <li className="nav-item">
                             <NavLink to={"/listes/new"} className="nav-link text-dark">Creer ma liste</NavLink>
                         </li>
-                        <li className="nav-item">
-                            <NavLink to={"/listes/new"} className="nav-link text-dark">Rechercher une liste</NavLink>
+                        <li className="nav-item ">
+                            <NavLink to={"/listes/searchlistes"} className="nav-link text-dark ">Rechercher une liste</NavLink>
                         </li>
 
                         <li className="nav-item">
-                            <NavLink to={"/listes"} className="nav-link text-dark"><img src={gift} width={"60px"}/></NavLink>
+                            <NavLink to={"/listes"} className="nav-link text-dark">mes listes</NavLink>
                         </li>
 
 

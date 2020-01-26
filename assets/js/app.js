@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect, useRef} from 'react'
 import ReactDom from 'react-dom'
 import '../css/app.css';
 import '../css/neige.css';
@@ -13,9 +13,12 @@ import PrivateRoute from "./components/PrivateRoute";
 import ListePage from "./pages/ListePage";
 import UserPage from "./pages/UserPage";
 import ListesPage from "./pages/ListesPage";
+import SearchLists from "./pages/SearchLists";
 
 authApi.setup();
+
 const App = () => {
+
 
     // TODO: Il faudrait par défaut qu'on demande à notre authApi si on est connecté ou non
     const [isAuthenticated, setIsAuthenticated] = useState(authApi.isAuthenticated());
@@ -23,13 +26,19 @@ const App = () => {
 
 //<NavbarWithRouter/>
     return(
+
         <AuthContext.Provider value={{isAuthenticated, setIsAuthenticated}}>
             <HashRouter>
                 <main>
-                    <NavbarWithRouter/>
+                    <NavbarWithRouter />
                     <Switch>
                         <Route path={"/login"} component={LoginPage}/>
                         <Route path={"/register"} component={RegisterPage}/>
+
+
+                        <Route path={"/listes/searchlistes/:id"} component={SearchLists}/>
+                        <Route path={"/listes/searchlistes"} component={SearchLists}/>
+
 
                         <PrivateRoute path={"/listes/:id"} component={ListePage}/>
                         <PrivateRoute path={"/listes"} component={ListesPage}/>

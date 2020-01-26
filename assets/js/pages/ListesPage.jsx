@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import Pagination from "../components/Pagination";
+import PaginationListes from "../components/PaginationListes";
 import listeApi from "../services/listeApi";
 import rennes from '../../img/rennes.png'
 const ListesPage = (props) => {
@@ -52,19 +52,20 @@ const ListesPage = (props) => {
     // Filtrage des categories en fonction de la recherche
     const filteredListes = listes.filter(
         c =>
-            c.title.toLowerCase().includes(search.toLowerCase())
+            c.title.toLowerCase().includes(search.toLowerCase()) ||
+            c.description.toLowerCase().includes(search.toLowerCase())
             );
 
-    // Pagination des données
-    const paginatedListes = Pagination.getData(filteredListes, currentPage, itemsPerPage);
+    // PaginationListes des données
+    const paginatedListes = PaginationListes.getData(filteredListes, currentPage, itemsPerPage);
 
     return(
         <>
             <div className={"container-fluid"}>
-                <Pagination currentPage={currentPage} itemsPerPage={itemsPerPage} length={filteredListes.length} onPageChanged={handlePageChange}/>
+                <PaginationListes currentPage={currentPage} itemsPerPage={itemsPerPage} length={filteredListes.length} onPageChanged={handlePageChange}/>
             </div>
             <div className={"container homecontainer"}>
-            <div className={"form-group"}>
+            <div className={"form-group col-8"}>
                 <input type={"text"} onChange={handleSearch} value={search} className={"form-control"} placeholder={"Rechercher ..."}/>
             </div>
 
