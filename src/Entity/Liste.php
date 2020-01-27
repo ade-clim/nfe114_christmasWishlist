@@ -10,7 +10,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource(normalizationContext={"groups"={"liste_read"}})
+ * @ApiResource(
+ *     normalizationContext={"groups"={"liste_read"}
+ *     },
+ *     collectionOperations={"get"},
+ *
+ * )
  * @ORM\Entity(repositoryClass="App\Repository\ListeRepository")
  */
 class Liste
@@ -19,25 +24,25 @@ class Liste
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"liste_read", "user_read"})
+     * @Groups({"liste_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"liste_read", "user_read"})
+     * @Groups({"liste_read"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"liste_read", "user_read"})
+     * @Groups({"liste_read"})
      */
     private $description;
 
     /**
      * @ORM\OneToMany(targetEntity="ListeItems", mappedBy="liste")
-     * @Groups({"liste_read", "user_read"})
+     * @Groups({"liste_read"})
      */
     private $listeItems;
 

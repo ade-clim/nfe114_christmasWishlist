@@ -8,8 +8,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource(normalizationContext={"groups"={"listeItems_read"}})
- * @ORM\Entity(repositoryClass="App\Repository\ListItemsRepository")
+ * @ApiResource(normalizationContext={"groups"={"listesItems_read"}})
+ * @ORM\Entity(repositoryClass="App\Repository\ListeItemsRepository")
  */
 class ListeItems
 {
@@ -17,19 +17,18 @@ class ListeItems
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"listeItems_read"})
+     * @Groups({"listesItems_read", "liste_read"})
      */
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Liste", inversedBy="listItems")
-     * @Groups({"listeItems_read"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Liste", inversedBy="listeItems")
      */
     private $liste;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Items", inversedBy="listItems")
-     * @Groups({"listeItems_read"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Items", inversedBy="listeItems")
+     * @Groups({"listesItems_read", "liste_read"})
      */
     private $item;
 

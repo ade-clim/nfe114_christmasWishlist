@@ -24,7 +24,8 @@ const App = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(authApi.isAuthenticated());
     const NavbarWithRouter = withRouter(Navbar);
 
-//<NavbarWithRouter/>
+    //<NavbarWithRouter/>
+    //<PrivateRoute path={"/listes/"} component={ListesPage}/>
     return(
 
         <AuthContext.Provider value={{isAuthenticated, setIsAuthenticated}}>
@@ -41,8 +42,9 @@ const App = () => {
 
 
                         <PrivateRoute path={"/liste/:id"} component={ListePage}/>
-                        <PrivateRoute path={"/listes/:id"} component={ListesPage}/>
-                        <PrivateRoute path={"/listes/"} component={ListesPage}/>
+                        <Route path={"/listes/:id"} component={ListesPage}/>
+
+
                         <PrivateRoute path={"/users/:id"} component={UserPage}/>
                         <Route path={"/"} component={HomePage}/>
                     </Switch>

@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import PaginationListes from "../components/PaginationListes";
 import listeApi from "../services/listeApi";
-
+import userApi from '../services/userApi'
 const ListesPage = ({match, history}) => {
 
     const {id} = match.params;
     const idUrl = parseInt(id, 10);
-
+    let i = 0;
     const [listes, setListes] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [search, setSearch] = useState("");
@@ -16,10 +16,9 @@ const ListesPage = ({match, history}) => {
     // Permet de recuperer les wishlist lié à l'user en session (voir dossier doctrine)
     const fetchListes = async () => {
         try {
-            const data = await listeApi.findAll();
-
-            // On recupere les listes appartenant à l'utilisateur id
-            setListes(data.filter(l => l.user.id === idUrl));
+            // on recuperer les listes par l'id utilisateur
+            const data = await userApi.findAllByUserId(idUrl);
+            setListes(data);
 
         }catch (error) {
             console.log(error.response);
@@ -72,9 +71,12 @@ const ListesPage = ({match, history}) => {
                 <PaginationListes currentPage={currentPage} itemsPerPage={itemsPerPage} length={filteredListes.length} onPageChanged={handlePageChange}/>
             </div>
             <div className={"container homecontainer"}>
-            <div className={"form-group col-8"}>
-                <input type={"text"} onChange={handleSearch} value={search} className={"form-control"} placeholder={"Rechercher ..."}/>
-            </div>
+                <div className={"form-group col-8"}>
+                    <input type={"text"} onChange={handleSearch} value={search} className={"form-control"} placeholder={"Rechercher ..."}/>
+                </div>
+                <div>
+                    <button className={"btn"}>dd</button>
+                </div>
 
                 {paginatedListes.map(liste => <>
                     <div key={liste.id} className={"container contour-list d-flex"} style={{backgroundColor: liste.decoListe.border}}>
@@ -84,8 +86,29 @@ const ListesPage = ({match, history}) => {
                             </div>
                             <div className={"container col-11 list"}>
                                 <div className={"container info-list"}>
-                                    <p>{liste.title}</p>
-                                    <p>{liste.description}</p>
+                                    <p className={"text-center"}>{liste.title}</p>
+                                    <p className={"mt-5"}>{liste.description}</p>
+
+                                    {liste.listeItems.map(e =>{
+                                        i++;
+                                    return(<>
+                                        {i !== 1 && <hr/>}
+                                        <p className={"mt-5 mb-5"} key={i}>
+                                            {i}
+                                        <img src={e.item.picture}/>
+                                        {e.item.title}
+                                        {e.item.description}
+                                        {e.item.price}
+
+
+                                        </p>
+                                        </>)})}
+
+
+
+
+
+
                                 </div>
 
                             </div>

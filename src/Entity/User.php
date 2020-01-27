@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -17,8 +18,9 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ApiResource(attributes={
  *     "order"= {"id":"asc"}},
- *     normalizationContext={"groups"={"user_read"}}
-
+ *     normalizationContext={"groups"={"user_read"}},
+ *     subresourceOperations={
+ *     "liste_get_subresource"={"path"= "/user/{id}/listes"}}
  * )
  * @ApiFilter(SearchFilter::class, properties={"email": "exact"})
  * @UniqueEntity("email", message="un utilisateur ayant cette email existe déja")
@@ -84,6 +86,7 @@ class User implements UserInterface
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Liste", mappedBy="user")
      * @Groups({"user_read"})
+     * @ApiSubresource()
      */
     private $liste;
 

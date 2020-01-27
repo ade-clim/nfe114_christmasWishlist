@@ -251,13 +251,14 @@ const ListePage = ({history, match}) => {
                             </div>
 
                             {/* Boucle pour afficher la selection de cadeaux disponible */}
-                            {search.length !== 0 &&  <div>
-                                {filteredItems.map(item => <p key={item.id}>
+                            {search.length !== 0 &&  <>
+                                {filteredItems.map(item => <div key={item.id}>
+
                                     <img src={item.picture}/> {item.title} {item.description} {item.price}
                                     <div className={"btn btn-success btn-sm"} onClick={() => handleAddGift(item)}>Add</div>
-                                </p>
+                                    </div>
                                 )}
-                            </div>}
+                            </>}
 
                             {/* Boucle pour afficher les cadeaux dans la liste */}
                             {itemsListe.map(itemListe =>{
@@ -265,6 +266,7 @@ const ListePage = ({history, match}) => {
                                 return(<>
                                     {i !== 1 && <hr/>}
                                     <p key={i} className={"mt-5 mb-5"}>
+                                        {i}
                                         <span hidden >{itemListe.idProvisoire = i}</span>
                                         <img src={itemListe.picture}/>
                                         {itemListe.title}

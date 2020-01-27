@@ -19,31 +19,31 @@ class Items
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"items_read"})
+     * @Groups({"items_read","listesItems_read", "liste_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"items_read"})
+     * @Groups({"items_read","listesItems_read", "liste_read"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"items_read"})
+     * @Groups({"items_read","listesItems_read", "liste_read"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"items_read"})
+     * @Groups({"items_read","listesItems_read", "liste_read"})
      */
     private $price;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"items_read"})
+     * @Groups({"items_read","listesItems_read", "liste_read"})
      */
     private $picture;
 

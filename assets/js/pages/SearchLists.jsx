@@ -63,8 +63,8 @@ const SearchLists = () => {
                     {paginatedUsers.map(user => <tr key={user.id}>
                         <td>{user.firstName} {user.lastName}</td>
                         <td>{user.email}</td>
-                        <td>
-                            <button disabled={user.liste.length === 0} className={"btn text-center badge badge-pill badge-danger"}>
+                        <td className={"text-center"}>
+                            <button disabled={user.liste.length === 0} className={"btn badge badge-pill badge-danger"}>
                                 {user.liste.length !== 0 &&
                                 <Link to={"/listes/"+ user.id} className={"text-white"}>{user.liste.length}</Link> ||
                                 user.liste.length}
