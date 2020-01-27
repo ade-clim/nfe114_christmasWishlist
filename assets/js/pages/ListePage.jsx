@@ -2,19 +2,26 @@ import React, {useEffect, useState} from 'react';
 import Field from "../components/forms/Fields";
 import itemApi from "../services/itemApi";
 import listeApi from "../services/listeApi";
+import decoListeApi from "../services/decoListeApi";
+import listeItemsApi from "../services/listeItemsApi";
+
+//Wallpapers
 import Bow from '../../img/listes/wallpapers/Bow.png';
 import Ice from '../../img/listes/wallpapers/Ice.png';
 import Snow from '../../img/listes/wallpapers/Snow.png';
 import Stars from '../../img/listes/wallpapers/Stars.png';
 import Trees from '../../img/listes/wallpapers/Trees.png';
+//Motifs
 import rennes from "../../img/listes/motifs/rennes.png";
-import decoListeApi from "../services/decoListeApi";
-import listeItemsApi from "../services/listeItemsApi";
+import rennesfull from '../../img/listes/motifs/rennesfull.png';
+import santaclaus from '../../img/listes/motifs/santaclaus.png';
+import rennes02 from '../../img/listes/motifs/rennes02.png';
 
 const ListePage = ({history, match}) => {
 
     const {id} = match.params;
     let i = 0;
+    const [positionMotifCss, setPositionMotifCss] = useState();
     const [borderColor, setBorderColor] = useState("#F5624D");
     const [wallpaper, setWallpaper] = useState(Bow);
     const [motif, setMotif] = useState(rennes);
@@ -217,8 +224,8 @@ const ListePage = ({history, match}) => {
         </section>
         <section>
             <span className={"btn"} onClick={() => handleChangeMotif(rennes)}> r</span>
-            <span className={"btn"} onClick={() => handleChangeMotif()}> p</span>
-            <span className={"btn"} onClick={() => handleChangeMotif()}> d</span>
+            <span className={"btn"} onClick={() => handleChangeMotif(santaclaus)}> p</span>
+            <span className={"btn"} onClick={() => handleChangeMotif(rennes02)}> d</span>
             <span className={"btn"} onClick={() => handleChangeMotif()}> p</span>
             <span className={"btn"} onClick={() => handleChangeMotif()}> y</span>
         </section>
@@ -276,7 +283,7 @@ const ListePage = ({history, match}) => {
                                     </p>
                                 </>)})}
                             <div className={"form-group text-center mt-5"}>
-                                <button className={"btn btn-success"} type={"submit"}>Enregistrer</button>
+                                <button className={"btn button_liste text-white"} type={"submit"}>Enregistrer</button>
                             </div>
                         </form>
                     </div>

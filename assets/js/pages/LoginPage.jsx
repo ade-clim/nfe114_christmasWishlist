@@ -2,6 +2,7 @@ import React,{useState, useContext} from 'react';
 import authApi from "../services/authApi";
 import AuthContext from "../contexts/AuthContext";
 import Field from "../components/forms/Fields";
+import {Link} from "react-router-dom";
 
 const LoginPage = ({history}) => {
 
@@ -54,7 +55,8 @@ const LoginPage = ({history}) => {
                        onChange={handleChange}
                 />
                 <div className={"form-group"}>
-                    <button className={"btn btn-success"}>Je me connecte</button>
+                    <button className={"btn button_liste text-white"}>Je me connecte</button>
+                    <Link to={"/register"} className={"btn btn-link"}>Je n'ai pas de compte</Link>
                 </div>
             </form>
             </div>

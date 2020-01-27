@@ -64,12 +64,15 @@ const SearchLists = () => {
                         <td>{user.firstName} {user.lastName}</td>
                         <td>{user.email}</td>
                         <td className={"text-center"}>
-                            <button disabled={user.liste.length === 0} className={"btn badge badge-pill badge-danger"}>
-                                {user.liste.length !== 0 &&
-                                <Link to={"/listes/"+ user.id} className={"text-white"}>{user.liste.length}</Link> ||
-                                user.liste.length}
+                            <button disabled={user.liste.length === 0} className={"btn badge badge-pill badge-white border"}>
+                                {user.liste.length}
                             </button>
                         </td>
+                        <td><button disabled={user.liste.length === 0} className={"btn button_liste btn-sm"}>
+                            {user.liste.length !== 0 &&
+                            <Link to={"/listes/"+ user.id} className={"text-white"}>voir</Link> ||
+                            <span>voir</span>}
+                        </button></td>
 
                     </tr>)}
                     </tbody>

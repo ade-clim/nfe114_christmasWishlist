@@ -113,7 +113,7 @@ const RegisterPage = ({history}) => {
                        onChange={handleChange}
                 />
                 <div className={"form-group"}>
-                    <button type={"submit"} className={"btn btn-success"}>Confirmation</button>
+                    <button type={"submit"} className={"btn button_liste text-white"}>Confirmation</button>
                     <Link to={"/login"} className={"btn btn-link"}>J'ai déjà un compte</Link>
                 </div>
             </form>

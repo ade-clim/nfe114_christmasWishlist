@@ -2,7 +2,15 @@ body {
 
 }
 
-
+.button_liste{
+    background-color: #d4423e;
+}
+.button_liste:hover{
+    background-color: #a72925;
+}
+.btn{
+    border-radius: 25px;
+}
 .homecontainer{
     padding-top: 200px;
     margin-bottom: 300px;
@@ -11,12 +19,14 @@ body {
 .contour-list{
 
 }
+.logo{
+ width: 80px;
+;}
 
 .wallpapers-list{
     margin-top: 15px;
     margin-bottom: 15px;
     background-size: 100%;
-
 }
 
 .list{
@@ -56,10 +66,10 @@ body {
 }
 
 .fa-arrow-alt-circle-left:hover{
-    color:#a72925
+    color:#a72925;
 }
 .fa-arrow-alt-circle-right:hover{
-    color:#a72925
+    color:#a72925;
 }
 
 

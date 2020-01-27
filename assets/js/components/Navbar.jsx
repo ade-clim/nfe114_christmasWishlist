@@ -4,7 +4,7 @@ import authApi from "../services/authApi";
 import AuthContext from "../contexts/AuthContext";
 import jwtDecode from "jwt-decode";
 import iconeUserNoel from '../../img/icones/Xmas_C-01.png';
-
+import logo from "../../img/logo/logo.png"
 
 const Navbar = ({history}) => {
 
@@ -30,7 +30,7 @@ const Navbar = ({history}) => {
     const handleLogout = () => {
         authApi.logout();
         setIsAuthenticated(false);
-        history.push("/login")
+        history.push("/")
     };
 
     useEffect(() => {
@@ -50,7 +50,7 @@ const Navbar = ({history}) => {
 
                     <ul className={"navbar-nav"}>
                         <li className={"nav-item"}>
-                            <NavLink to={"/"} className="navbar-brand logo">My Christmas Wishlist</NavLink>
+                            <NavLink to={"/"} className="navbar-brand logo"></NavLink>
                         </li>
                     </ul>
 
@@ -75,7 +75,7 @@ const Navbar = ({history}) => {
                         {(!isAuthenticated &&
                             (<>
                                     <li className="nav-item">
-                                        <NavLink to={"/register"} className="nav-link">
+                                        <NavLink to={"/register"} className="nav-link text-danger">
                                             Inscription
                                         </NavLink>
                                     </li>
@@ -93,7 +93,7 @@ const Navbar = ({history}) => {
 
                             </li>
                             <li className="nav-item">
-                                <button onClick={handleLogout} className="btn btn-danger">
+                                <button onClick={handleLogout} className="btn btn-danger btn-sm mt-2">
                                     Deconnexion
                                 </button>
                             </li>
