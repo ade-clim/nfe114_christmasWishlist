@@ -5,8 +5,8 @@ import listeApi from "../services/listeApi";
 import listeItemsApi from "../services/listeItemsApi";
 import userApi from '../services/userApi'
 import jwtDecode from "jwt-decode";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faGift } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faGift } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -158,14 +158,26 @@ const ListesPage = ({match, history}) => {
                 <PaginationListes currentPage={currentPage} itemsPerPage={itemsPerPage} length={filteredListes.length} onPageChanged={handlePageChange}/>
             </div>
             <div className={"container homecontainer"}>
-                <div className={"form-group col-8"}>
+                <div className={"col-8"}>
                     <input type={"text"} onChange={handleSearch} value={search} className={"form-control"} placeholder={"Rechercher ..."}/>
                 </div>
 
 
+
+
+
+
                 {paginatedListes.map(liste => <>
+
                     <div key={liste.id} className={"container contour-list d-flex"} style={{backgroundColor: liste.decoListe.border}}>
                         <div className={"container col-12 wallpapers-list"} style={{backgroundImage: `url(${liste.decoListe.wallpaper})`}}>
+                            {liste.user.id === userSession.id && <div className={"text-right"}>
+                                <Link to={"/liste/"+ liste.id}>
+                                    <span className={"btn"}><FontAwesomeIcon icon={faEdit} color={"gray"} size={"2x"}/></span>
+                                </Link>
+                            </div>}
+
+
                             <div className={"container col-lg-6 col-md-10"}>
                                 <img src={liste.decoListe.motif} className={"motif"}/>
                             </div>
@@ -205,8 +217,6 @@ const ListesPage = ({match, history}) => {
                                                     }
                                                 </>
                                             }
-
-
 
                                         </p>
                                         </>)})}

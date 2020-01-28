@@ -12,8 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ApiResource(
  *     normalizationContext={"groups"={"liste_read"}
- *     },
- *     collectionOperations={"get"},
+ *     }
  *
  * )
  * @ORM\Entity(repositoryClass="App\Repository\ListeRepository")

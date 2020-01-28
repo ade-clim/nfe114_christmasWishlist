@@ -28,7 +28,6 @@ const ListePage = ({history, match}) => {
 
     const {id} = match.params;
     let i = 0;
-    const [positionMotifCss, setPositionMotifCss] = useState();
     const [borderColor, setBorderColor] = useState("#F5624D");
     const [wallpaper, setWallpaper] = useState(Bow);
     const [motif, setMotif] = useState(rennes);
@@ -147,8 +146,12 @@ const ListePage = ({history, match}) => {
     // Recuperation de la liste en cours de modification
     const fetchList = async (id) => {
         try {
-            const {title, description} = await listeApi.find(id);
-            setListe({title, description});
+            const {title, description, decoListe} = await listeApi.find(id);
+            const myDecoListe = {wallpaper:decoListe.wallpaper , border:decoListe.border, motif:decoListe.motif};
+            console.log(myDecoListe);
+            setListe({title, description, decoListe});
+            setDecoListe(myDecoListe);
+
         }catch (error) {
            console.log(error.response);
 
@@ -163,15 +166,15 @@ const ListePage = ({history, match}) => {
             fetchList(id);
         }
         handleItems();
-    }, [id]);
+    }, []);
 
 
     const wallpaperStyle = {
-        backgroundImage: `url(${wallpaper})`
+        backgroundImage: `url(${decoListe.wallpaper})`
     };
 
     const borderStyle = {
-        backgroundColor: `${borderColor}`
+        backgroundColor: `${decoListe.border}`
     };
 
 
@@ -255,7 +258,7 @@ const ListePage = ({history, match}) => {
         <div className={"container contour-list d-flex"} style={borderStyle}>
             <div className={"container col-12 wallpapers-list"} style={wallpaperStyle}>
                 <div className={"container col-lg-6 col-md-10"}>
-                    <img src={motif} className={"motif"}/>
+                    <img src={decoListe.motif} className={"motif"}/>
 
                 </div>
                 <div className={"container col-8 text-right"}>

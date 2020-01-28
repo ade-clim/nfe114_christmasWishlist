@@ -72,7 +72,7 @@ const SearchLists = () => {
                         </td>
                         <td><button disabled={user.liste.length === 0} className={"btn button_liste btn-sm"}>
                             {user.liste.length !== 0 &&
-                            <Link to={"/listes/"+ user.id} className={"text-white"}>voir</Link> ||
+                            <Link to={"/user/"+ user.id+"/listes"} className={"text-white"}>voir</Link> ||
                             <span>voir</span>}
                         </button></td>
 

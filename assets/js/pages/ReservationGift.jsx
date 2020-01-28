@@ -49,8 +49,8 @@ const ReservationGift = ({match, history}) => {
                 </table> ||
                         <div className={"reservation_fond"} >
                             <div className={"text-center"}>
-                                <p style={{fontSize: "1.2em"}}>Vous n'avez pas encore réservé de cadeaux</p>
-                                <Link to={"/listes/searchlistes"}><button className={"btn button_liste text-white mt-2"}>Rechercher une liste</button></Link>
+                                <p style={{fontSize: "1.1em"}}>Vous n'avez pas encore réservé de cadeaux</p>
+                                <Link to={"/listes/searchlistes"}><button className={"btn button_liste text-white"}>Rechercher une liste</button></Link>
                             </div>
                             <div className={"reservation_santa_up"}>
                                 <img src={santaUp}/>

@@ -14,9 +14,7 @@ const Navbar = ({history}) => {
         id:""
     });
 
-
     const {isAuthenticated, setIsAuthenticated} = useContext(AuthContext);
-
 
     // On récupére l'utilisateur en session
     const handleFetchUser = () => {
@@ -84,7 +82,7 @@ const Navbar = ({history}) => {
                                 </>
                             )) || (<>
                             <li className="nav-item">
-                                <NavLink to={"/listes/"+ user.id} className="nav-link text-dark">mes listes</NavLink>
+                                <NavLink to={"/user/"+ user.id+"/listes"} className="nav-link text-dark">mes listes</NavLink>
                             </li>
 
                             <li className="nav-item">

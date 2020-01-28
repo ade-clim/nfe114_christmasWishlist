@@ -43,7 +43,7 @@ const App = () => {
 
 
                         <PrivateRoute path={"/liste/:id"} component={ListePage}/>
-                        <Route path={"/listes/:id"} component={ListesPage}/>
+                        <Route path={"/user/:id/listes"} component={ListesPage}/>
 
 
                         <PrivateRoute path={"/users/:id"} component={UserPage}/>
