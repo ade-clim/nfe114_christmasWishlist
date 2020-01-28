@@ -19,7 +19,7 @@ function find(id){
 
 
 function update(id, listeItem){
-    return axios.put("https://localhost:8000/api/liste_items/" + id, listeItem);
+    return axios.put("https://localhost:8000/api/liste_items/" + id, {...listeItem, item: `/api/items/${listeItem.item.id}`, userItem: `/api/users/${listeItem.userItem.id}`});
 }
 
 function create(listeItem){

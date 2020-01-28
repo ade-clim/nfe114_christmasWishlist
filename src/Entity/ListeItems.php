@@ -32,6 +32,12 @@ class ListeItems
      */
     private $item;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="listeItems")
+     * @Groups({"listesItems_read", "liste_read"})
+     */
+    private $userItem;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -57,6 +63,18 @@ class ListeItems
     public function setItem(?Items $item): self
     {
         $this->item = $item;
+
+        return $this;
+    }
+
+    public function getUserItem(): ?User
+    {
+        return $this->userItem;
+    }
+
+    public function setUserItem(?User $userItem): self
+    {
+        $this->userItem = $userItem;
 
         return $this;
     }

@@ -32,7 +32,7 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"user_read", "liste_read"})
+     * @Groups({"user_read", "liste_read", "listesItems_read"})
      */
     private $id;
 
@@ -60,13 +60,13 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Le prenom doit etre renseigné")
-     * @Groups({"user_read"})
+     * @Groups({"user_read","listesItems_read", "liste_read"})
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"user_read"})
+     * @Groups({"user_read", "listesItems_read", "liste_read"})
      * @Assert\NotBlank(message="Le nom doit etre renseigné")
      */
     private $lastName;
@@ -90,9 +90,15 @@ class User implements UserInterface
      */
     private $liste;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ListeItems", mappedBy="userItem")
+     */
+    private $listeItems;
+
     public function __construct()
     {
         $this->liste = new ArrayCollection();
+        $this->listeItems = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -246,6 +252,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($liste->getUser() === $this) {
                 $liste->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ListeItems[]
+     */
+    public function getListeItems(): Collection
+    {
+        return $this->listeItems;
+    }
+
+    public function addListeItem(ListeItems $listeItem): self
+    {
+        if (!$this->listeItems->contains($listeItem)) {
+            $this->listeItems[] = $listeItem;
+            $listeItem->setUserItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeListeItem(ListeItems $listeItem): self
+    {
+        if ($this->listeItems->contains($listeItem)) {
+            $this->listeItems->removeElement($listeItem);
+            // set the owning side to null (unless already changed)
+            if ($listeItem->getUserItem() === $this) {
+                $listeItem->setUserItem(null);
             }
         }
 

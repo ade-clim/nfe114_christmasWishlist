@@ -1,16 +1,36 @@
 import React, {useEffect, useState} from 'react';
 import PaginationListes from "../components/PaginationListes";
 import listeApi from "../services/listeApi";
+import listeItemsApi from "../services/listeItemsApi";
 import userApi from '../services/userApi'
+import jwtDecode from "jwt-decode";
 const ListesPage = ({match, history}) => {
 
     const {id} = match.params;
     const idUrl = parseInt(id, 10);
     let i = 0;
+
+    const [userSession, setUserSession] = useState({
+        firstName: "",
+        lastName: "",
+        id:""
+    });
+
     const [listes, setListes] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [search, setSearch] = useState("");
     const itemsPerPage = 1;
+
+
+
+    // On récupére l'utilisateur en session
+    const handleFetchUser = () => {
+        const token = window.localStorage.getItem("authToken");
+        if(token){
+            const {firstName, lastName, id} = jwtDecode(token);
+            setUserSession({firstName: firstName, lastName: lastName, id: id})
+        }
+    };
 
 
     // Permet de recuperer les wishlist lié à l'user en session (voir dossier doctrine)
@@ -18,6 +38,7 @@ const ListesPage = ({match, history}) => {
         try {
             // on recuperer les listes par l'id utilisateur
             const data = await userApi.findAllByUserId(idUrl);
+            console.log(data);
             setListes(data);
 
         }catch (error) {
@@ -29,6 +50,7 @@ const ListesPage = ({match, history}) => {
     // useEffect indique à React que notre composant doit être exécuter apres chaque affichage
     useEffect(() => {
         fetchListes();
+        handleFetchUser();
     },[]);
 
 
@@ -64,6 +86,22 @@ const ListesPage = ({match, history}) => {
     // PaginationListes des données
     const paginatedListes = PaginationListes.getData(filteredListes, currentPage, itemsPerPage);
 
+
+    // reserve l'item en fonction de l'id de l'utilisateur en session
+    const handleReservedItem = async (listeItem, item) => {
+        console.log(listeItem);
+        // on recuperer l'id de l'utilisateur en session dans le state
+        const idUserSession = userSession;
+
+
+        const addReservedUser = {...listeItem, userItem: idUserSession};
+        console.log(addReservedUser);
+        await listeItemsApi.update(listeItem.id, addReservedUser);
+
+
+    };
+
+
     return(
         <>
 
@@ -97,7 +135,10 @@ const ListesPage = ({match, history}) => {
                                             {e.item.title}
                                             {e.item.description}
                                             {e.item.price}
-                                            <button className={"btn btn-sm button_liste text-white"}>reserver</button>
+
+                                            {e.userItem && <span>{e.userItem.firstName}{e.userItem.lastName}</span> ||
+                                            <button className={"btn btn-sm button_liste text-white"}onClick={() => {handleReservedItem(e, e.item)}}>reserver</button>}
+
                                         </p>
                                         </>)})}
 
