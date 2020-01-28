@@ -71,6 +71,9 @@ const Navbar = ({history}) => {
                         <li className="nav-item">
                             <NavLink to={"/listes/"+ user.id} className="nav-link text-dark">mes listes</NavLink>
                         </li>
+                        <li className="nav-item">
+                            <NavLink to={"/listes/reservations/"+ user.id} className="nav-link text-dark">mes reservations</NavLink>
+                        </li>
 
 
 

@@ -43,7 +43,6 @@ const ListesPage = ({match, history}) => {
         try {
             // on recuperer les listes par l'id utilisateur
             const data = await userApi.findAllByUserId(idUrl);
-            console.log(data);
             setListes(data);
 
         }catch (error) {

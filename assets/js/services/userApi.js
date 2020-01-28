@@ -16,9 +16,15 @@ function find(id){
         .then(response => response.data);
 }
 
-function findAllByUserId(id){
+function findAllListeByUserId(id){
     return axios
         .get("https://localhost:8000/api/users/" + id + "/listes")
+        .then(response => response.data['hydra:member'])
+}
+
+function findAllListeItemByUser(id){
+    return axios
+        .get("https://localhost:8000/api/users/" + id + "/liste_items")
         .then(response => response.data['hydra:member'])
 }
 
@@ -34,6 +40,7 @@ export default {
     findAll,
     delete : deleteUser,
     find,
-    findAllByUserId,
+    findAllByUserId: findAllListeByUserId,
+    findAllListeItemByUser,
     update
 }

@@ -14,7 +14,7 @@ import ListePage from "./pages/ListePage";
 import UserPage from "./pages/UserPage";
 import ListesPage from "./pages/ListesPage";
 import SearchLists from "./pages/SearchLists";
-
+import ReservationGift from "./pages/ReservationGift"
 authApi.setup();
 
 const App = () => {
@@ -37,6 +37,7 @@ const App = () => {
                         <Route path={"/register"} component={RegisterPage}/>
 
 
+                        <PrivateRoute path={"/listes/reservations/:id"} component={ReservationGift}/>
                         <Route path={"/listes/searchlistes/:id"} component={SearchLists}/>
                         <Route path={"/listes/searchlistes"} component={SearchLists}/>
 

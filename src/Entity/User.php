@@ -20,7 +20,9 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *     "order"= {"id":"asc"}},
  *     normalizationContext={"groups"={"user_read"}},
  *     subresourceOperations={
- *     "liste_get_subresource"={"path"= "/user/{id}/listes"}}
+ *     "liste_get_subresource"={"path"= "/user/{id}/listes"},
+ *     "listeItems_get_subresource"={"path"= "/user/{id}/listesItems"}
+ *     }
  * )
  * @ApiFilter(SearchFilter::class, properties={"email": "exact"})
  * @UniqueEntity("email", message="un utilisateur ayant cette email existe déja")
@@ -92,6 +94,8 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ListeItems", mappedBy="userItem")
+     * @Groups({"user_read"})
+     * @ApiSubresource()
      */
     private $listeItems;
 
