@@ -99,7 +99,6 @@ const ListesPage = ({match, history}) => {
         const originalListes = [...listes];
         const copyModifListes = [...listes];
 
-
         for(let i = 0; i < copyModifListes.length; i++) {
             if (copyModifListes[i].id === listeId) {
 
@@ -111,14 +110,11 @@ const ListesPage = ({match, history}) => {
                 }
             }
         };
-
         try{
             const cancelReservedUser = {...listeItem, userItem: userSession};
-            console.log(cancelReservedUser);
             await listeItemsApi.deleteUserItem(listeItem.id, cancelReservedUser);
 
         }catch(error){
-            console.log("tt");
             console.log(error.response);
             setListes(originalListes);
         }

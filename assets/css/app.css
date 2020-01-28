@@ -80,6 +80,19 @@ body {
     color:#a72925;
 }
 
+.reservation_santa_up{
+    margin-left: 175px;
+}
+.reservation_fond{
+    height:400px;
+    width : 40%;
+    border-radius: 20px;
+    margin-left: auto;
+    margin-right:auto;
+    padding-top: 50px;
+    margin-top: 150px;
+
+}
 
 .navbar{
     position:fixed;
