@@ -74,9 +74,7 @@ const ListesPage = ({match, history}) => {
                 <div className={"form-group col-8"}>
                     <input type={"text"} onChange={handleSearch} value={search} className={"form-control"} placeholder={"Rechercher ..."}/>
                 </div>
-                <div>
-                    <button className={"btn"}>dd</button>
-                </div>
+
 
                 {paginatedListes.map(liste => <>
                     <div key={liste.id} className={"container contour-list d-flex"} style={{backgroundColor: liste.decoListe.border}}>
@@ -95,19 +93,13 @@ const ListesPage = ({match, history}) => {
                                         {i !== 1 && <hr/>}
                                         <p className={"mt-5 mb-5"} key={i}>
                                             {i}
-                                        <img src={e.item.picture}/>
-                                        {e.item.title}
-                                        {e.item.description}
-                                        {e.item.price}
-
-
+                                            <img src={e.item.picture}/>
+                                            {e.item.title}
+                                            {e.item.description}
+                                            {e.item.price}
+                                            <button className={"btn btn-sm button_liste text-white"}>reserver</button>
                                         </p>
                                         </>)})}
-
-
-
-
-
 
                                 </div>
 

@@ -16,6 +16,13 @@ import rennes from "../../img/listes/motifs/rennes.png";
 import rennesfull from '../../img/listes/motifs/rennesfull.png';
 import santaclaus from '../../img/listes/motifs/santaclaus.png';
 import rennes02 from '../../img/listes/motifs/rennes02.png';
+//Timbres
+import timbre01 from '../../img/listes/timbres/timbre01.png';
+import timbre02 from '../../img/listes/timbres/timbre02.png';
+import timbre03 from '../../img/listes/timbres/timbre03.png';
+import timbre04 from '../../img/listes/timbres/timbre04.png';
+import timbre05 from '../../img/listes/timbres/timbre05.png';
+import timbre06 from '../../img/listes/timbres/timbre06.png';
 
 const ListePage = ({history, match}) => {
 
@@ -25,6 +32,7 @@ const ListePage = ({history, match}) => {
     const [borderColor, setBorderColor] = useState("#F5624D");
     const [wallpaper, setWallpaper] = useState(Bow);
     const [motif, setMotif] = useState(rennes);
+    const [timbre, setTimbre] = useState(timbre01);
     const [items, setItems] = useState([]);
     const [search, setSearch] = useState("");
 
@@ -181,6 +189,10 @@ const ListePage = ({history, match}) => {
         setDecoListe({...decoListe, motif:value});
         setMotif(value);
     };
+    const handleChangeTimbre = (value) => {
+        //setDecoListe({...decoListe, motif:value});
+        setTimbre(value);
+    };
 
 
     const handleAddGift = ({id, title, description,price, picture}) => {
@@ -229,12 +241,25 @@ const ListePage = ({history, match}) => {
             <span className={"btn"} onClick={() => handleChangeMotif()}> p</span>
             <span className={"btn"} onClick={() => handleChangeMotif()}> y</span>
         </section>
+        <section>
+            <span className={"btn"} onClick={() => handleChangeTimbre(timbre01)}> 1</span>
+            <span className={"btn"} onClick={() => handleChangeTimbre(timbre02)}> 2</span>
+            <span className={"btn"} onClick={() => handleChangeTimbre(timbre03)}> 3</span>
+            <span className={"btn"} onClick={() => handleChangeTimbre(timbre04)}> 4</span>
+            <span className={"btn"} onClick={() => handleChangeTimbre(timbre05)}> t</span>
+            <span className={"btn"} onClick={() => handleChangeTimbre(timbre06)}> t</span>
+            <span className={"btn"} onClick={() => handleChangeTimbre()}> t</span>
+        </section>
 
     </div>
         <div className={"container contour-list d-flex"} style={borderStyle}>
             <div className={"container col-12 wallpapers-list"} style={wallpaperStyle}>
                 <div className={"container col-lg-6 col-md-10"}>
                     <img src={motif} className={"motif"}/>
+
+                </div>
+                <div className={"container col-8 text-right"}>
+                    <img src={timbre} className={"timbre"}/>
                 </div>
                 <div className={"container col-11 list"}>
                     <div className={"container info-list"}>
