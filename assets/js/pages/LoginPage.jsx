@@ -27,7 +27,7 @@ const LoginPage = ({history}) => {
             await authApi.authenticate(credentials);
             setError("");
             setIsAuthenticated(true);
-            history.replace("/");
+            history.replace(history.go(-1));
         }catch (error) {
             setError("Aucun compte ne possède cette adresse ou alors les informations ne correspondent pas !")
         }

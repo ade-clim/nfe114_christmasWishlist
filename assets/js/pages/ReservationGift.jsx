@@ -1,6 +1,6 @@
 import React,{useEffect, useState} from 'react';
 import userApi from "../services/userApi";
-
+import {Link} from "react-router-dom";
 
 
 const ReservationGift = ({match, history}) => {
@@ -41,6 +41,7 @@ const ReservationGift = ({match, history}) => {
                         <td>{item.liste.description}</td>
                         <td>{item.liste.user.firstName} {item.liste.user.lastName}</td>
                         <td>{item.item.title}</td>
+                        <td><Link to={"/listes/"+item.liste.user.id}><button className={"btn btn-sm text-white button_liste"}>voir</button></Link></td>
                     </tr>)}
 
                     </tbody>

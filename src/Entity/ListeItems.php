@@ -23,7 +23,7 @@ class ListeItems
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Liste", inversedBy="listeItems")
-     * @Groups({"listesItems_read", "liste_read"})
+     * @Groups({"listesItems_read"})
      */
     private $liste;
 

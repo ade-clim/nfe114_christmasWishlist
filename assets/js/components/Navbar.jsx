@@ -68,14 +68,6 @@ const Navbar = ({history}) => {
                             <NavLink to={"/listes/searchlistes"} className="nav-link text-dark ">Rechercher</NavLink>
                         </li>
 
-                        <li className="nav-item">
-                            <NavLink to={"/listes/"+ user.id} className="nav-link text-dark">mes listes</NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink to={"/listes/reservations/"+ user.id} className="nav-link text-dark">mes reservations</NavLink>
-                        </li>
-
-
 
                         {(!isAuthenticated &&
                             (<>
@@ -91,6 +83,15 @@ const Navbar = ({history}) => {
                                     </li>
                                 </>
                             )) || (<>
+                            <li className="nav-item">
+                                <NavLink to={"/listes/"+ user.id} className="nav-link text-dark">mes listes</NavLink>
+                            </li>
+
+                            <li className="nav-item">
+                                <NavLink to={"/listes/reservations/"+ user.id} className="nav-link text-dark">mes reservations</NavLink>
+                            </li>
+
+
                             <li className="nav-item">
                                 <Link to={"/users/"+ user.id} className="btn btn-link text-secondary">
                                     Bonjour <small>{user.firstName} {user.lastName}</small>

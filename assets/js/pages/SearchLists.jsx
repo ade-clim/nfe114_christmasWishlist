@@ -33,7 +33,9 @@ const SearchLists = () => {
     // Filtrage des users en fonction de la recherche
     const filteredUsers = users.filter(
         u =>
-            u.email.toLowerCase().includes(search.toLowerCase())
+            u.email.toLowerCase().includes(search.toLowerCase()) ||
+            u.firstName.toLowerCase().includes(search.toLowerCase()) ||
+            u.lastName.toLowerCase().includes(search.toLowerCase())
     );
 
     // PaginationListes des données

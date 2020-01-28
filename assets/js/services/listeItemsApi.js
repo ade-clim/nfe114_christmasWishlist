@@ -22,6 +22,10 @@ function update(id, listeItem){
     return axios.put("https://localhost:8000/api/liste_items/" + id, {...listeItem, item: `/api/items/${listeItem.item.id}`, userItem: `/api/users/${listeItem.userItem.id}`});
 }
 
+function deleteUserItem(id, listeItem){
+    return axios.put("https://localhost:8000/api/liste_items/" + id, {...listeItem, item: `/api/items/${listeItem.item.id}`, userItem: null});
+}
+
 function create(listeItem){
     return axios.post("https://localhost:8000/api/liste_items", {...listeItem, liste: `/api/listes/${listeItem.liste}`, item: `/api/items/${listeItem.item}`});
 }
@@ -29,6 +33,7 @@ function create(listeItem){
 export default {
     findAll,
     delete : deleteListeItem,
+    deleteUserItem,
     find,
     update,
     create

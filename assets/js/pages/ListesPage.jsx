@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {Link} from "react-router-dom";
 import PaginationListes from "../components/PaginationListes";
 import listeApi from "../services/listeApi";
 import listeItemsApi from "../services/listeItemsApi";
@@ -10,7 +11,6 @@ import { faGift } from '@fortawesome/free-solid-svg-icons'
 
 
 const ListesPage = ({match, history}) => {
-
     const {id} = match.params;
     const idUrl = parseInt(id, 10);
     let i = 0;
@@ -20,6 +20,7 @@ const ListesPage = ({match, history}) => {
         lastName: "",
         id:""
     });
+    const [auth, setAuth] = useState(false);
 
     const [listes, setListes] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -33,7 +34,8 @@ const ListesPage = ({match, history}) => {
         const token = window.localStorage.getItem("authToken");
         if(token){
             const {firstName, lastName, id} = jwtDecode(token);
-            setUserSession({firstName: firstName, lastName: lastName, id: id})
+            setUserSession({firstName: firstName, lastName: lastName, id: id});
+            setAuth(true);
         }
     };
 
@@ -71,17 +73,6 @@ const ListesPage = ({match, history}) => {
         }
     };
 
-    // Supprimer une reservation de cadeaux en fonction de l'id
-    const handleDeleteReservedGift = (listeItem) => {
-
-        try{
-
-        }catch(error){
-            console.log(error.response);
-        }
-    };
-
-
     // Gestion du changement de page
     const handlePageChange = (page) => setCurrentPage(page);
 
@@ -103,17 +94,48 @@ const ListesPage = ({match, history}) => {
     const paginatedListes = PaginationListes.getData(filteredListes, currentPage, itemsPerPage);
 
 
+    // Supprimer une reservation de cadeaux en fonction de l'id
+    const handleDeleteReservedGift = async(listeItem, listeId) => {
+        const originalListes = [...listes];
+        const copyModifListes = [...listes];
+
+
+        for(let i = 0; i < copyModifListes.length; i++) {
+            if (copyModifListes[i].id === listeId) {
+
+                for (let p = 0; p < copyModifListes[i].listeItems.length; p++) {
+                    if (copyModifListes[i].listeItems[p].id === listeItem.id) {
+                        originalListes[i].listeItems[p].userItem = null;
+                        setListes(copyModifListes);
+                    }
+                }
+            }
+        };
+
+        try{
+            const cancelReservedUser = {...listeItem, userItem: userSession};
+            console.log(cancelReservedUser);
+            await listeItemsApi.deleteUserItem(listeItem.id, cancelReservedUser);
+
+        }catch(error){
+            console.log("tt");
+            console.log(error.response);
+            setListes(originalListes);
+        }
+    };
+
+
+
     // Reserve l'item en fonction de l'id de l'utilisateur en session
     const handleReservedItem = async (listeItem, listeId) => {
         const originalListes = [...listes];
         const copyModifListes = [...listes];
 
-        // on recupére l'id de l'utilisateur en session dans le state
+        // on recupére l'utilisateur en session dans le state
         const idUserSession = userSession;
 
         for(let i = 0; i < copyModifListes.length; i++) {
             if (copyModifListes[i].id === listeId) {
-
                 for (let p = 0; p < copyModifListes[i].listeItems.length; p++) {
                     if (copyModifListes[i].listeItems[p].id === listeItem.id) {
                         originalListes[i].listeItems[p].userItem = idUserSession;
@@ -121,17 +143,15 @@ const ListesPage = ({match, history}) => {
                     }
                 }
             }
-        }
+        };
         try{
-            // supprimer l'userItem de listes/listeItems/userItem pour mettre à jour le state, affichage dynamique
-
             const addReservedUser = {...listeItem, userItem: idUserSession};
+            console.log(addReservedUser)
             await listeItemsApi.update(listeItem.id, addReservedUser);
         }catch(error){
             console.log(error.response);
             setListes(originalListes);
         }
-
     }
 
 
@@ -174,12 +194,20 @@ const ListesPage = ({match, history}) => {
                                                 <span className={"ml-5"}>
                                                     <FontAwesomeIcon color={"green"} icon={faGift} size={"lg"}/>
                                                     {e.userItem.firstName}{e.userItem.lastName}
-                                                    {userSession.id === e.userItem.id && <button onClick={() => {handleDeleteReservedGift(e)}}>X</button>}
+                                                    {userSession.id === e.userItem.id && <button onClick={() => {handleDeleteReservedGift(e, liste.id)}}>X</button>}
                                                 </span>
                                              ||
-                                                <button className={"btn btn-sm button_liste text-white"}onClick={() => {handleReservedItem(e, liste.id)}}>
-                                                    reserver
-                                                </button>
+                                                <>
+                                                    {auth &&
+                                                        <button className={"btn btn-sm button_liste text-white"} onClick={() => {handleReservedItem(e, liste.id)}}>
+                                                            reserver
+                                                        </button>
+                                                    ||
+                                                    <button className={"btn btn-sm button_liste text-white"}>
+                                                        <Link to={"/login"} className={"text-white"}><span>reserver</span></Link>
+                                                    </button>
+                                                    }
+                                                </>
                                             }
 
 
