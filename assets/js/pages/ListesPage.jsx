@@ -164,15 +164,12 @@ const ListesPage = ({match, history}) => {
 
 
 
-
-
-
                 {paginatedListes.map(liste => <>
 
                     <div key={liste.id} className={"container contour-list d-flex"} style={{backgroundColor: liste.decoListe.border}}>
                         <div className={"container col-12 wallpapers-list"} style={{backgroundImage: `url(${liste.decoListe.wallpaper})`}}>
                             {liste.user.id === userSession.id && <div className={"text-right"}>
-                                <Link to={"/liste/"+ liste.id}>
+                                <Link to={"/liste/edit/"+ liste.id}>
                                     <span className={"btn"}><FontAwesomeIcon icon={faEdit} color={"gray"} size={"2x"}/></span>
                                 </Link>
                             </div>}

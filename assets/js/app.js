@@ -10,7 +10,8 @@ import HomePage from "./pages/HomePage";
 import Navbar from "./components/Navbar";
 import RegisterPage from "./pages/RegisterPage";
 import PrivateRoute from "./components/PrivateRoute";
-import ListePage from "./pages/ListePage";
+import NewListePage from "./pages/NewListePage";
+import ListeEditPage from "./pages/ListeEditPage";
 import UserPage from "./pages/UserPage";
 import ListesPage from "./pages/ListesPage";
 import SearchLists from "./pages/SearchLists";
@@ -42,7 +43,8 @@ const App = () => {
                         <Route path={"/listes/searchlistes"} component={SearchLists}/>
 
 
-                        <PrivateRoute path={"/liste/:id"} component={ListePage}/>
+                        <PrivateRoute path={"/liste/edit/:id"} component={ListeEditPage}/>
+                        <PrivateRoute path={"/liste/new"} component={NewListePage}/>
                         <Route path={"/user/:id/listes"} component={ListesPage}/>
 
 

@@ -23,21 +23,24 @@ import timbre03 from '../../img/listes/timbres/timbre03.png';
 import timbre04 from '../../img/listes/timbres/timbre04.png';
 import timbre05 from '../../img/listes/timbres/timbre05.png';
 import timbre06 from '../../img/listes/timbres/timbre06.png';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faGift} from "@fortawesome/free-solid-svg-icons";
+import {Link} from "react-router-dom";
 
-const ListePage = ({history, match}) => {
+const ListeEditPage = ({match}) => {
 
     const {id} = match.params;
     let i = 0;
-    const [borderColor, setBorderColor] = useState("#F5624D");
-    const [wallpaper, setWallpaper] = useState(Bow);
-    const [motif, setMotif] = useState(rennes);
-    const [timbre, setTimbre] = useState(timbre01);
+    const [borderColor, setBorderColor] = useState("");
+    const [wallpaper, setWallpaper] = useState();
+    const [motif, setMotif] = useState();
+    const [timbre, setTimbre] = useState();
     const [items, setItems] = useState([]);
     const [search, setSearch] = useState("");
 
     // Recuperation des cadeaux pour affichage dans la liste
     const [itemsListe, setItemsListe] = useState([]);
-
+    const [listeItems, setListeItems] = useState([]);
 
 
     // Objet DecoListe pour la base de donnée
@@ -51,7 +54,8 @@ const ListePage = ({history, match}) => {
     const [liste, setListe] = useState({
         title: "",
         description: "",
-        decoListe: ""
+        decoListe: "",
+        listeItems: []
     });
 
     // Recuperation pour affichage des erreurs formulaires
@@ -142,15 +146,22 @@ const ListePage = ({history, match}) => {
         setItems(data);
     };
 
+    const handleAddGift = (item) => {
+        const gift = {item, idProvisoire: 0};
+        console.log(gift);
+        setItemsListe([...itemsListe,gift]);
+        setSearch("");
+    };
+
 
     // Recuperation de la liste en cours de modification
     const fetchList = async (id) => {
         try {
-            const {title, description, decoListe} = await listeApi.find(id);
+            const {title, description, decoListe, listeItems} = await listeApi.find(id);
             const myDecoListe = {wallpaper:decoListe.wallpaper , border:decoListe.border, motif:decoListe.motif};
-            console.log(myDecoListe);
-            setListe({title, description, decoListe});
+            setListe({title, description, decoListe, listeItems});
             setDecoListe(myDecoListe);
+            setItemsListe(listeItems);
 
         }catch (error) {
            console.log(error.response);
@@ -160,11 +171,7 @@ const ListePage = ({history, match}) => {
 
 
     useEffect(() => {
-        if(id !== "new")
-        {
-            setEditing(true);
-            fetchList(id);
-        }
+        fetchList(id);
         handleItems();
     }, []);
 
@@ -198,18 +205,14 @@ const ListePage = ({history, match}) => {
     };
 
 
-    const handleAddGift = ({id, title, description,price, picture}) => {
-        const gift = {idProvisoire:0, id, title, description ,price, picture};
-        setItemsListe([...itemsListe,gift]);
-        setSearch("");
-    };
+
 
 
     // On supprime le cadeaux dans la liste, on utilise une id provisoire (cpt) pour eviter de supprimer les produits avec la meme id (produit identique)
     const handleDelete = async (id) => {
-        const originalItemsListe = [...itemsListe];
-        setItemsListe(itemsListe.filter(item => item.idProvisoire !== id));
-
+        //const originalItemsListe = [...itemsListe];
+        //setItemsListe(itemsListe.filter(item => item.idProvisoire !== id));
+        console.log(id);
         try{
 
         }catch (error) {
@@ -302,14 +305,17 @@ const ListePage = ({history, match}) => {
                                     {i !== 1 && <hr/>}
                                     <p key={i} className={"mt-5 mb-5"}>
                                         {i}
-                                        <span hidden >{itemListe.idProvisoire = i}</span>
-                                        <img src={itemListe.picture}/>
-                                        {itemListe.title}
-                                        {itemListe.description}
-                                        {itemListe.price}
-                                        <span className={"btn btn-danger btn-sm"} onClick={() => handleDelete(itemListe.idProvisoire)}>Delete</span>
+                                        <span hidden >{itemListe.item.idProvisoire = i}</span>
+                                        <img src={itemListe.item.picture}/>
+                                        {itemListe.item.title}
+                                        {itemListe.item.description}
+                                        {itemListe.item.price}
+                                        <span className={"btn btn-danger btn-sm"} onClick={() => handleDelete(itemListe.item.idProvisoire)}>Delete</span>
                                     </p>
                                 </>)})}
+
+
+
                             <div className={"form-group text-center mt-5"}>
                                 <button className={"btn button_liste text-white"} type={"submit"}>Enregistrer</button>
                             </div>
@@ -324,4 +330,4 @@ const ListePage = ({history, match}) => {
   )
 };
 
-export default ListePage;
+export default ListeEditPage;
