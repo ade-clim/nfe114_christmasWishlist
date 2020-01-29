@@ -7,6 +7,7 @@ import userApi from '../services/userApi'
 import jwtDecode from "jwt-decode";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faGift } from '@fortawesome/free-solid-svg-icons';
+import santaGift from "../../img/santa/santa_gift.png";
 
 
 
@@ -22,6 +23,7 @@ const ListesPage = ({match, history}) => {
     });
     const [auth, setAuth] = useState(false);
 
+    const [up, setUp] = useState(false);
     const [listes, setListes] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [search, setSearch] = useState("");
@@ -41,13 +43,15 @@ const ListesPage = ({match, history}) => {
 
 
     // Permet de recuperer les wishlist lié à l'user en session (voir dossier doctrine)
-    const fetchListes = async () => {
+    const fetchListes = async() => {
         try {
             // on recuperer les listes par l'id utilisateur
             const data = await userApi.findAllByUserId(idUrl);
             setListes(data);
-
-        }catch (error) {
+            if(data.length === 0){
+                setUp(true);
+            }
+        } catch (error) {
             console.log(error.response);
         }
     };
@@ -142,37 +146,31 @@ const ListesPage = ({match, history}) => {
         };
         try{
             const addReservedUser = {...listeItem, userItem: idUserSession};
-            console.log(addReservedUser)
             await listeItemsApi.update(listeItem.id, addReservedUser);
         }catch(error){
             console.log(error.response);
             setListes(originalListes);
         }
-    }
+    };
 
 
-    return(
-        <>
-
+    return(<>
+        {!up && <div>
             <div className={"container-fluid"}>
                 <PaginationListes currentPage={currentPage} itemsPerPage={itemsPerPage} length={filteredListes.length} onPageChanged={handlePageChange}/>
             </div>
             <div className={"container homecontainer"}>
-                <div className={"col-9"}>
+                {listes.length > 1  && <div className={"col-9"}>
                     <p><input type={"text"} onChange={handleSearch} value={search} className={"form-control"} placeholder={"Rechercher ..."}/></p>
-                </div>
-
+                </div>}
                 {paginatedListes.map(liste => <>
-
                     <div key={liste.id} className={"container contour-list d-flex"} style={{backgroundColor: liste.decoListe.border}}>
                         <div className={"container col-12 wallpapers-list"} style={{backgroundImage: `url(${liste.decoListe.wallpaper})`}}>
                             {liste.user.id === userSession.id && <div className={"text-right liste_edit"}>
                                 <Link to={"/liste/edit/"+ liste.id}>
-                                    <span className={"btn"}><FontAwesomeIcon icon={faEdit} color={"gray"} size={"2x"}/></span>
+                                    <span className={"btn"}><FontAwesomeIcon icon={faEdit} color={"white"} size={"2x"}/></span>
                                 </Link>
                             </div>}
-
-
                             <div className={"container col-lg-6 col-md-10"}>
                                 <img src={liste.decoListe.motif} className={"motif"}/>
                             </div>
@@ -181,55 +179,64 @@ const ListesPage = ({match, history}) => {
                             </div>
                             <div className={"container col-11 list"}>
                                 <div className={"container info-list"}>
-                                    <p className={"text-center"}>{liste.title}</p>
+                                    <p className={"text-center text-uppercase"}>{liste.title}</p>
                                     <p className={"mt-5"}>{liste.description}</p>
-
                                     {liste.listeItems.map(e =>{
                                         i++;
-                                    return(<>
-                                        {i !== 1 && <hr/>}
-                                        <p className={"mt-5 mb-5"} key={i}>
-                                            {i}
-                                            <img src={e.item.picture}/>
-                                            {e.item.title}
-                                            {e.item.description}
-                                            {e.item.price}
-
-                                            {/* si le cadeau est reserver alors afficher l'utilisateur et cacher le button de reservation */}
-                                            {e.userItem &&
-                                                <span className={"ml-5"}>
-                                                    <FontAwesomeIcon color={"green"} icon={faGift} size={"lg"}/>
-                                                    {e.userItem.firstName}{e.userItem.lastName}
-                                                    {userSession.id === e.userItem.id && <button onClick={() => {handleDeleteReservedGift(e, liste.id)}}>X</button>}
-                                                </span>
-                                             ||
-                                                <>
-                                                    {auth &&
+                                        return(<>
+                                                {i !== 1 && <hr/>}
+                                                <p className={"mt-5 mb-5"} key={i}>
+                                                    {i}
+                                                    <img src={e.item.picture}/>
+                                                    <p>{e.item.title}</p>
+                                                    {e.item.description}
+                                                    {e.item.price}
+                                                    {/* si le cadeau est reserver alors afficher l'utilisateur et cacher le button de reservation */}
+                                                    {e.userItem &&
+                                                    <span className={"ml-5"}>
+                                                        <FontAwesomeIcon color={"green"} icon={faGift} size={"lg"}/>
+                                                        {e.userItem.firstName}{e.userItem.lastName}
+                                                        {userSession.id === e.userItem.id && <button onClick={() => {handleDeleteReservedGift(e, liste.id)}}>X</button>}
+                                                    </span>
+                                                    ||
+                                                    <>
+                                                        {auth &&
                                                         <button className={"btn btn-sm button_liste text-white"} onClick={() => {handleReservedItem(e, liste.id)}}>
                                                             reserver
                                                         </button>
-                                                    ||
-                                                    <button className={"btn btn-sm button_liste text-white"}>
-                                                        <Link to={"/login"} className={"text-white"}><span>reserver</span></Link>
-                                                    </button>
+                                                        ||
+                                                        <button className={"btn btn-sm button_liste text-white"}>
+                                                            <Link to={"/liste/new"} className={"text-white"}><span>reserver</span></Link>
+                                                        </button>
+                                                        }
+                                                        </>
                                                     }
-                                                </>
-                                            }
-
-                                        </p>
-                                        </>)})}
-
+                                                </p>
+                                            </>
+                                        )
+                                    })}
                                 </div>
-
                             </div>
-
                         </div>
                     </div>
-
-
-                    </>)}
-
+                </>)}
             </div>
+        </div>
+        ||
+        <div className={"container homecontainer"}>
+            <div className={"reservation_fond"} >
+                <div className={"text-center"}>
+                    <p style={{fontSize: "1.1em"}}>Vous n'avez pas encore crée de liste</p>
+                    <Link to={"/listes/searchlistes"}><button className={"btn button_liste text-white"}>Crée une liste</button></Link>
+                </div>
+                <div className={"liste_santa_gift"}>
+                    <img src={santaGift}/>
+                </div>
+            </div>
+
+
+        </div>
+        }
         </>
     )
 }

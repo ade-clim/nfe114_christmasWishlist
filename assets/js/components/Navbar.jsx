@@ -1,6 +1,7 @@
 import React,{useContext, useState, useEffect} from 'react';
 import {Link, NavLink} from "react-router-dom";
 import authApi from "../services/authApi";
+import userApi from '../services/userApi';
 import AuthContext from "../contexts/AuthContext";
 import jwtDecode from "jwt-decode";
 import iconeUserNoel from '../../img/icones/Xmas_C-01.png';
@@ -86,7 +87,7 @@ const Navbar = ({history}) => {
                             </li>
 
                             <li className="nav-item">
-                                <NavLink to={"/listes/reservations/"+ user.id} className="nav-link text-dark">mes reservations</NavLink>
+                                <NavLink to={"/reservations/"+ user.id} className="nav-link text-dark">mes reservations</NavLink>
                             </li>
 
 

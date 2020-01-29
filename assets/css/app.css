@@ -83,6 +83,11 @@ body {
 .reservation_santa_up{
     margin-left: 175px;
 }
+.liste_santa_gift{
+    margin-left : 120px;
+}
+
+
 .reservation_fond{
     height:200px;
     width : 40%;

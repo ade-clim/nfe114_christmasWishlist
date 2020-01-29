@@ -16,6 +16,9 @@ import UserPage from "./pages/UserPage";
 import ListesPage from "./pages/ListesPage";
 import SearchLists from "./pages/SearchLists";
 import ReservationGift from "./pages/ReservationGift"
+import ReservationListePage from "./pages/ReservationListePage";
+import jwtDecode from "jwt-decode";
+import userApi from "./services/userApi";
 authApi.setup();
 
 const App = () => {
@@ -24,6 +27,7 @@ const App = () => {
     // TODO: Il faudrait par défaut qu'on demande à notre authApi si on est connecté ou non
     const [isAuthenticated, setIsAuthenticated] = useState(authApi.isAuthenticated());
     const NavbarWithRouter = withRouter(Navbar);
+
 
     //<NavbarWithRouter/>
     //<PrivateRoute path={"/listes/"} component={ListesPage}/>
@@ -38,7 +42,8 @@ const App = () => {
                         <Route path={"/register"} component={RegisterPage}/>
 
 
-                        <PrivateRoute path={"/listes/reservations/:id"} component={ReservationGift}/>
+                        <PrivateRoute path={"/reservations/listes/:id"} component={ReservationListePage}/>
+                        <PrivateRoute path={"/reservations/:id"} component={ReservationGift}/>
                         <Route path={"/listes/searchlistes/:id"} component={SearchLists}/>
                         <Route path={"/listes/searchlistes"} component={SearchLists}/>
 

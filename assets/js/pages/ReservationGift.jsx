@@ -7,8 +7,9 @@ const ReservationGift = ({match, history}) => {
     const {id} = match.params;
     const idUrl = parseInt(id, 10);
 
-
     const [listeItems, setListeItems] = useState([]);
+
+    //On récupére les listes des items que l'utilisateur en session à reserver
     const handleFetchListeItemsByUSer = async() => {
         try{
             const data = await userApi.findAllListeItemByUser(idUrl);
@@ -42,10 +43,10 @@ const ReservationGift = ({match, history}) => {
                         <td>{item.liste.description}</td>
                         <td>{item.liste.user.firstName} {item.liste.user.lastName}</td>
                         <td>{item.item.title}</td>
-                        <td><Link to={"/listes/"+item.liste.user.id}><button className={"btn btn-sm text-white button_liste"}>voir</button></Link></td>
+                        <td><Link to={"/reservations/listes/"+ item.liste.id}><button className={"btn btn-sm text-white button_liste"}>voir</button></Link></td>
                     </tr>)}
 
-                    </tbody>c
+                    </tbody>
                 </table> ||
                         <div className={"reservation_fond"} >
                             <div className={"text-center"}>
@@ -57,7 +58,6 @@ const ReservationGift = ({match, history}) => {
                             </div>
                         </div>
                 }
-
 
             </div>
         </>
