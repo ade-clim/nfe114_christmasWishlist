@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEdit, faGift} from "@fortawesome/free-solid-svg-icons";
 import jwtDecode from "jwt-decode";
+import listeItemsApi from "../services/listeItemsApi";
 
 const ReservationListePage = ({match ,history}) => {
     const {id} = match.params;
@@ -22,6 +23,8 @@ const ReservationListePage = ({match ,history}) => {
         motif: "",
         timbre: ""
     });
+
+    const [updateFetch, setUpdateFetch] = useState(false);
 
 
     const [liste, setListe] = useState({
@@ -57,7 +60,7 @@ const ReservationListePage = ({match ,history}) => {
             // on recuperer les listes par l'id utilisateur
             const {id, title, description, decoListe, listeItems, user} = await listeApi.find(idUrl);
             const myDecoListe = {id: decoListe.id,wallpaper:decoListe.wallpaper , border:decoListe.border, motif:decoListe.motif, timbre: decoListe.timbre};
-            setListe({id, title, description, decoListe, user});
+            setListe({id, title, description, decoListe, user, listeItems});
             setDecoListe(myDecoListe);
             setItemsListe(listeItems);
         } catch (error) {
@@ -66,11 +69,61 @@ const ReservationListePage = ({match ,history}) => {
     };
 
 
+    // Supprimer une reservation de cadeaux en fonction de l'id
+    const handleDeleteReservedGift = async(listeItem, listeId) => {
+        const originalListes = liste;
+        const copyModifListes = liste;
+
+        for (let p = 0; p < copyModifListes.listeItems.length; p++) {
+            if (copyModifListes.listeItems[p].id === listeItem.id) {
+                copyModifListes.listeItems[p].userItem = null;
+                setListe(copyModifListes);
+                setUpdateFetch(true);
+            }
+        };
+        try{
+            const cancelReservedUser = {...listeItem, userItem: userSession};
+            await listeItemsApi.deleteUserItem(listeItem.id, cancelReservedUser);
+
+        }catch(error){
+            console.log(error.response);
+            setListe(originalListes);
+        }
+    };
+
+
+    // Reserve l'item en fonction de l'id de l'utilisateur en session
+    const handleReservedItem = async (listeItem, listeId) => {
+        const originalListes = liste;
+        const copyModifListes = liste;
+
+        // on recupére l'utilisateur en session dans le state
+        const idUserSession = userSession;
+
+        for (let p = 0; p < copyModifListes.listeItems.length; p++) {
+            if (copyModifListes.listeItems[p].id === listeItem.id) {
+                copyModifListes.listeItems[p].userItem = idUserSession;
+                setListe(copyModifListes);
+                setUpdateFetch(true);
+            }
+        }
+        try{
+            const addReservedUser = {...listeItem, userItem: idUserSession};
+            await listeItemsApi.update(listeItem.id, addReservedUser);
+
+        }catch(error){
+            console.log(error.response);
+            setListe(originalListes);
+        }
+    };
+
+
     // useEffect indique à React que notre composant doit être exécuter apres chaque affichage
     useEffect(() => {
         handleFetchUser();
         fetchListe();
-    },[]);
+        setUpdateFetch(false);
+    },[updateFetch]);
 
     return (
         <>
@@ -106,11 +159,11 @@ const ReservationListePage = ({match ,history}) => {
                                                 <FontAwesomeIcon color={"green"} icon={faGift} size={"lg"}/>
                                             {e.userItem.firstName}{e.userItem.lastName}
                                             {userSession.id === e.userItem.id &&
-                                            <button>X</button>}
+                                            <button onClick={() => {handleDeleteReservedGift(e, liste.id)}}>X</button>}
                                         </span>
                                         ||
                                         <>
-                                            {auth && <button className={"btn btn-sm button_liste text-white"}>
+                                            {auth && <button className={"btn btn-sm button_liste text-white"} onClick={() => {handleReservedItem(e, liste.id)}}>
                                                 reserver
                                             </button>
                                             ||

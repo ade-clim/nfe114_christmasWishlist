@@ -188,7 +188,7 @@ const ListesPage = ({match, history}) => {
                                                 <p className={"mt-5 mb-5"} key={i}>
                                                     {i}
                                                     <img src={e.item.picture}/>
-                                                    <p>{e.item.title}</p>
+                                                    {e.item.title}
                                                     {e.item.description}
                                                     {e.item.price}
                                                     {/* si le cadeau est reserver alors afficher l'utilisateur et cacher le button de reservation */}
