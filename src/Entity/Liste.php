@@ -30,12 +30,14 @@ class Liste
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"liste_read", "listesItems_read"})
+     * @Assert\NotBlank(message="Le titre doit etre renseigné")
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"liste_read", "listesItems_read"})
+     * @Assert\NotBlank(message="La description doit etre renseigné")
      */
     private $description;
 

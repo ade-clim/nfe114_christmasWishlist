@@ -28,6 +28,10 @@ function deleteUserItem(id, listeItem){
 
 
 function create(listeItem){
+    return axios.post("https://localhost:8000/api/liste_items", {...listeItem, liste: `/api/listes/${listeItem.liste}`, item: `/api/items/${listeItem.item}`});
+}
+
+function createListeEditPage(listeItem){
     return axios.post("https://localhost:8000/api/liste_items", {...listeItem, liste: `/api/listes/${listeItem.liste.id}`, item: `/api/items/${listeItem.item.id}`});
 }
 
@@ -36,6 +40,7 @@ export default {
     deleteListeItem,
     deleteUserItem,
     find,
+    createListeEditPage,
     update,
     create
 }

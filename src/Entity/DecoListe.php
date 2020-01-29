@@ -38,6 +38,12 @@ class DecoListe
      */
     private $motif;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"decoListe_read","liste_read"})
+     */
+    private $timbre;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +81,18 @@ class DecoListe
     public function setMotif(?string $motif): self
     {
         $this->motif = $motif;
+
+        return $this;
+    }
+
+    public function getTimbre(): ?string
+    {
+        return $this->timbre;
+    }
+
+    public function setTimbre(?string $timbre): self
+    {
+        $this->timbre = $timbre;
 
         return $this;
     }

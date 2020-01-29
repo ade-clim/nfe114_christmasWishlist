@@ -17,7 +17,7 @@ function find(id){
 }
 
 function update(id, decoListe){
-    return axios.put("https://localhost:8000/api/deco_listes/" + id, decoListe);
+    return axios.put("https://localhost:8000/api/deco_listes/" + id, {...decoListe, wallpaper: decoListe.wallpaper, border: decoListe.border, motif: decoListe.motif, timbre: decoListe.timbre});
 }
 
 function create(decoListe){

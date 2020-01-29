@@ -25,7 +25,7 @@ import timbre05 from '../../img/listes/timbres/timbre05.png';
 import timbre06 from '../../img/listes/timbres/timbre06.png';
 
 
-const NewListePage= () => {
+const NewListePage= ({match, history}) => {
 
     let i = 0;
     const [borderColor, setBorderColor] = useState("#F5624D");
@@ -43,7 +43,8 @@ const NewListePage= () => {
     const [decoListe, setDecoListe] = useState({
         wallpaper: wallpaper,
         border: borderColor,
-        motif: motif
+        motif: motif,
+        timbre: timbre
     });
 
     // Objet Liste pour la base de donnée
@@ -95,7 +96,6 @@ const NewListePage= () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-
                 // Envoie de la decoListe en base de donnée
                 const maDecoListe = await decoListeApi.create(decoListe);
 
@@ -112,10 +112,12 @@ const NewListePage= () => {
                 const idMaListe = data.data.id;
 
                 // tab de stockage du useState des items selectionner dans la liste
+
                 const maListeItems = [...itemsListe];
 
                 for(let i = 0; i < maListeItems.length; i++){
-                    await listeItemsApi.create({liste:idMaListe, item:maListeItems[i].id});
+                    const itemListeCreate = {liste: idMaListe, item: maListeItems[i].id};
+                    await listeItemsApi.create(itemListeCreate);
                 };
 
                 // TODO : Flash notification success
@@ -160,7 +162,7 @@ const NewListePage= () => {
         setMotif(value);
     };
     const handleChangeTimbre = (value) => {
-        //setDecoListe({...decoListe, motif:value});
+        setDecoListe({...decoListe, timbre:value});
         setTimbre(value);
     };
 
@@ -226,10 +228,9 @@ const NewListePage= () => {
                 <div className={"container col-12 wallpapers-list"} style={wallpaperStyle}>
                     <div className={"container col-lg-6 col-md-10"}>
                         <img src={decoListe.motif} className={"motif"}/>
-
                     </div>
                     <div className={"container col-8 text-right"}>
-                        <img src={timbre} className={"timbre"}/>
+                        <img src={decoListe.timbre} className={"timbre"}/>
                     </div>
                     <div className={"container col-11 list"}>
                         <div className={"container info-list"}>

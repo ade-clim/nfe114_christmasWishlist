@@ -158,17 +158,15 @@ const ListesPage = ({match, history}) => {
                 <PaginationListes currentPage={currentPage} itemsPerPage={itemsPerPage} length={filteredListes.length} onPageChanged={handlePageChange}/>
             </div>
             <div className={"container homecontainer"}>
-                <div className={"col-8"}>
-                    <input type={"text"} onChange={handleSearch} value={search} className={"form-control"} placeholder={"Rechercher ..."}/>
+                <div className={"col-9"}>
+                    <p><input type={"text"} onChange={handleSearch} value={search} className={"form-control"} placeholder={"Rechercher ..."}/></p>
                 </div>
-
-
 
                 {paginatedListes.map(liste => <>
 
                     <div key={liste.id} className={"container contour-list d-flex"} style={{backgroundColor: liste.decoListe.border}}>
                         <div className={"container col-12 wallpapers-list"} style={{backgroundImage: `url(${liste.decoListe.wallpaper})`}}>
-                            {liste.user.id === userSession.id && <div className={"text-right"}>
+                            {liste.user.id === userSession.id && <div className={"text-right liste_edit"}>
                                 <Link to={"/liste/edit/"+ liste.id}>
                                     <span className={"btn"}><FontAwesomeIcon icon={faEdit} color={"gray"} size={"2x"}/></span>
                                 </Link>
@@ -177,6 +175,9 @@ const ListesPage = ({match, history}) => {
 
                             <div className={"container col-lg-6 col-md-10"}>
                                 <img src={liste.decoListe.motif} className={"motif"}/>
+                            </div>
+                            <div className={"container col-8 text-right"}>
+                                <img src={liste.decoListe.timbre} className={"timbre"}/>
                             </div>
                             <div className={"container col-11 list"}>
                                 <div className={"container info-list"}>

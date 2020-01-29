@@ -23,6 +23,7 @@ import timbre03 from '../../img/listes/timbres/timbre03.png';
 import timbre04 from '../../img/listes/timbres/timbre04.png';
 import timbre05 from '../../img/listes/timbres/timbre05.png';
 import timbre06 from '../../img/listes/timbres/timbre06.png';
+
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faGift} from "@fortawesome/free-solid-svg-icons";
 import {Link} from "react-router-dom";
@@ -45,9 +46,11 @@ const ListeEditPage = ({match}) => {
 
     // Objet DecoListe pour la base de donnée
     const [decoListe, setDecoListe] = useState({
+        id: "",
         wallpaper: wallpaper,
         border: borderColor,
-        motif: motif
+        motif: motif,
+        timbre: timbre
     });
 
     // Objet Liste pour la base de donnée
@@ -79,13 +82,9 @@ const ListeEditPage = ({match}) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            console.log(liste);
             await listeApi.update(liste.id, liste);
-
             // TODO : Flash notification success
             setErrors({});
-
-
 
         }catch ({response}) {
             const {violations} = response.data;
@@ -129,7 +128,7 @@ const ListeEditPage = ({match}) => {
 
         setSearch("");
         try{
-            await listeItemsApi.create(listeItemAdd);
+            await listeItemsApi.createListeEditPage(listeItemAdd);
         }catch(error){
             console.log(error.response);
         }
@@ -141,7 +140,7 @@ const ListeEditPage = ({match}) => {
     const fetchList = async (idEditListe) => {
         try {
             const {id, title, description, decoListe, listeItems} = await listeApi.find(idEditListe);
-            const myDecoListe = {wallpaper:decoListe.wallpaper , border:decoListe.border, motif:decoListe.motif};
+            const myDecoListe = {id: decoListe.id,wallpaper:decoListe.wallpaper , border:decoListe.border, motif:decoListe.motif, timbre: decoListe.timbre};
             setListe({id, title, description, decoListe});
             setDecoListe(myDecoListe);
             setItemsListe(listeItems);
@@ -169,23 +168,50 @@ const ListeEditPage = ({match}) => {
     };
 
 
-    const handleChangeWallpaper = (value) => {
-        setDecoListe({...decoListe, wallpaper:value});
+    const handleChangeWallpaper = async(value) => {
+        setDecoListe({...decoListe, wallpaper:value})
         setWallpaper(value);
+        const wallpaperUpdate = {...decoListe, wallpaper:value};
+        try{
+            await decoListeApi.update(decoListe.id, wallpaperUpdate);
+        }catch(error){
+            console.log(error)
+        }
+
+
     };
 
-    const handleChangeBorder = (value) => {
+    const handleChangeBorder = async(value) => {
         setDecoListe({...decoListe, border:value});
         setBorderColor(value);
+        const borderUpdate = {...decoListe, border:value};
+        try{
+            await decoListeApi.update(decoListe.id, borderUpdate);
+        }catch(error){
+            console.log(error)
+        }
     };
 
-    const handleChangeMotif = (value) => {
+    const handleChangeMotif = async(value) => {
         setDecoListe({...decoListe, motif:value});
         setMotif(value);
+        const motifUpdate = {...decoListe, motif:value};
+        try{
+            await decoListeApi.update(decoListe.id, motifUpdate);
+        }catch(error){
+            console.log(error)
+        }
+
     };
-    const handleChangeTimbre = (value) => {
-        //setDecoListe({...decoListe, motif:value});
+    const handleChangeTimbre = async(value) => {
+        setDecoListe({...decoListe, timbre:value});
         setTimbre(value);
+        const timbreUpdate = {...decoListe, timbre:value};
+        try{
+            await decoListeApi.update(decoListe.id, timbreUpdate);
+        }catch(error){
+            console.log(error)
+        }
     };
 
 
@@ -249,7 +275,7 @@ const ListeEditPage = ({match}) => {
 
                 </div>
                 <div className={"container col-8 text-right"}>
-                    <img src={timbre} className={"timbre"}/>
+                    <img src={decoListe.timbre} className={"timbre"}/>
                 </div>
                 <div className={"container col-11 list"}>
                     <div className={"container info-list"}>
