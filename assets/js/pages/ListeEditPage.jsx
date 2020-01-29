@@ -38,9 +38,9 @@ const ListeEditPage = ({match}) => {
     const [items, setItems] = useState([]);
     const [search, setSearch] = useState("");
 
+    const [updateFetch, setUpdateFetch] = useState(false);
     // Recuperation des cadeaux pour affichage dans la liste
     const [itemsListe, setItemsListe] = useState([]);
-    const [listeItems, setListeItems] = useState([]);
 
 
     // Objet DecoListe pour la base de donnée
@@ -54,8 +54,7 @@ const ListeEditPage = ({match}) => {
     const [liste, setListe] = useState({
         title: "",
         description: "",
-        decoListe: "",
-        listeItems: []
+        decoListe: ""
     });
 
     // Recuperation pour affichage des erreurs formulaires
@@ -80,38 +79,13 @@ const ListeEditPage = ({match}) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
+            console.log(liste);
+            await listeApi.update(liste.id, liste);
 
-            if(editing){
-                await listeApi.update(id, liste);
-
-            }else{
-                // Envoie de la decoListe en base de donnée
-                const maDecoListe = await decoListeApi.create(decoListe);
-
-                // Creation de la liste
-                const maListe = {...liste,decoListe:maDecoListe.data.id};
-
-                // Envoie de la liste en base de donnée
-                 const data = await listeApi.create(maListe);
-
-                // on va rediriger directement l'utilisateur pour eviter une attente trop longue (cause : plusieurs requete api)
-                history.replace("/listes");
+            // TODO : Flash notification success
+            setErrors({});
 
 
-                 const idMaListe = data.data.id;
-
-                 // tab de stockage du useState des items selectionner dans la liste
-                 const maListeItems = [...itemsListe];
-
-                 for(let i = 0; i < maListeItems.length; i++){
-                     await listeItemsApi.create({liste:idMaListe, item:maListeItems[i].id});
-                 };
-
-                // TODO : Flash notification success
-
-                setErrors({});
-
-            };
 
         }catch ({response}) {
             const {violations} = response.data;
@@ -146,20 +120,29 @@ const ListeEditPage = ({match}) => {
         setItems(data);
     };
 
-    const handleAddGift = (item) => {
+    // on ajoute l'item en local puis en base de donnée
+    const handleAddGift = async(item) => {
         const gift = {item, idProvisoire: 0};
-        console.log(gift);
-        setItemsListe([...itemsListe,gift]);
+        setItemsListe([...itemsListe, gift]);
+
+        const listeItemAdd = {liste, item};
+
         setSearch("");
+        try{
+            await listeItemsApi.create(listeItemAdd);
+        }catch(error){
+            console.log(error.response);
+        }
+        setUpdateFetch(true);
     };
 
 
     // Recuperation de la liste en cours de modification
-    const fetchList = async (id) => {
+    const fetchList = async (idEditListe) => {
         try {
-            const {title, description, decoListe, listeItems} = await listeApi.find(id);
+            const {id, title, description, decoListe, listeItems} = await listeApi.find(idEditListe);
             const myDecoListe = {wallpaper:decoListe.wallpaper , border:decoListe.border, motif:decoListe.motif};
-            setListe({title, description, decoListe, listeItems});
+            setListe({id, title, description, decoListe});
             setDecoListe(myDecoListe);
             setItemsListe(listeItems);
 
@@ -173,7 +156,8 @@ const ListeEditPage = ({match}) => {
     useEffect(() => {
         fetchList(id);
         handleItems();
-    }, []);
+        setUpdateFetch(false);
+    }, [updateFetch]);
 
 
     const wallpaperStyle = {
@@ -209,14 +193,14 @@ const ListeEditPage = ({match}) => {
 
 
     // On supprime le cadeaux dans la liste, on utilise une id provisoire (cpt) pour eviter de supprimer les produits avec la meme id (produit identique)
-    const handleDelete = async (id) => {
-        //const originalItemsListe = [...itemsListe];
-        //setItemsListe(itemsListe.filter(item => item.idProvisoire !== id));
-        console.log(id);
-        try{
+    const handleDelete = async (ListeItem) => {
+        const originalItemsListe = [...itemsListe];
+        setItemsListe(itemsListe.filter(item => item.item.idProvisoire !== ListeItem.item.idProvisoire));
 
+        try{
+            await listeItemsApi.deleteListeItem(ListeItem.id);
         }catch (error) {
-            console.log(error.response)
+            console.log(error.response);
             setItemsListe(originalItemsListe);
         }
     };
@@ -299,18 +283,18 @@ const ListeEditPage = ({match}) => {
                             </>}
 
                             {/* Boucle pour afficher les cadeaux dans la liste */}
-                            {itemsListe.map(itemListe =>{
+                            {itemsListe.map(liste =>{
                                 i++;
                                 return(<>
                                     {i !== 1 && <hr/>}
                                     <p key={i} className={"mt-5 mb-5"}>
                                         {i}
-                                        <span hidden >{itemListe.item.idProvisoire = i}</span>
-                                        <img src={itemListe.item.picture}/>
-                                        {itemListe.item.title}
-                                        {itemListe.item.description}
-                                        {itemListe.item.price}
-                                        <span className={"btn btn-danger btn-sm"} onClick={() => handleDelete(itemListe.item.idProvisoire)}>Delete</span>
+                                        <span hidden >{liste.item.idProvisoire = i}</span>
+                                        <img src={liste.item.picture}/>
+                                        {liste.item.title}
+                                        {liste.item.description}
+                                        {liste.item.price}
+                                        <span className={"btn btn-danger btn-sm"} onClick={() => handleDelete(liste)}>Delete</span>
                                     </p>
                                 </>)})}
 

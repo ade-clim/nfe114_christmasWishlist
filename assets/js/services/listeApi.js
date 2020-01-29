@@ -21,7 +21,7 @@ function find(id){
 
 
 function update(id, liste){
-    return axios.put("https://localhost:8000/api/listes/" + id, liste);
+    return axios.put("https://localhost:8000/api/listes/" + id, {...liste, decoListe: `/api/deco_listes/${liste.decoListe.id}`});
 }
 
 function create(liste){

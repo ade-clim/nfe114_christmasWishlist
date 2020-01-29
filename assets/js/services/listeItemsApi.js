@@ -26,13 +26,14 @@ function deleteUserItem(id, listeItem){
     return axios.put("https://localhost:8000/api/liste_items/" + id, {...listeItem, item: `/api/items/${listeItem.item.id}`, userItem: null});
 }
 
+
 function create(listeItem){
-    return axios.post("https://localhost:8000/api/liste_items", {...listeItem, liste: `/api/listes/${listeItem.liste}`, item: `/api/items/${listeItem.item}`});
+    return axios.post("https://localhost:8000/api/liste_items", {...listeItem, liste: `/api/listes/${listeItem.liste.id}`, item: `/api/items/${listeItem.item.id}`});
 }
 
 export default {
     findAll,
-    delete : deleteListeItem,
+    deleteListeItem,
     deleteUserItem,
     find,
     update,
