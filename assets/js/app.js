@@ -28,7 +28,6 @@ const App = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(authApi.isAuthenticated());
     const NavbarWithRouter = withRouter(Navbar);
 
-
     //<NavbarWithRouter/>
     //<PrivateRoute path={"/listes/"} component={ListesPage}/>
     return(
@@ -44,16 +43,19 @@ const App = () => {
 
                         <PrivateRoute path={"/reservations/listes/:id"} component={ReservationListePage}/>
                         <PrivateRoute path={"/reservations/:id"} component={ReservationGift}/>
+
                         <Route path={"/listes/searchlistes/:id"} component={SearchLists}/>
                         <Route path={"/listes/searchlistes"} component={SearchLists}/>
 
 
                         <PrivateRoute path={"/liste/edit/:id"} component={ListeEditPage}/>
                         <PrivateRoute path={"/liste/new"} component={NewListePage}/>
+
+
                         <Route path={"/user/:id/listes"} component={ListesPage}/>
 
-
                         <PrivateRoute path={"/users/:id"} component={UserPage}/>
+
                         <Route path={"/"} component={HomePage}/>
                     </Switch>
                 </main>

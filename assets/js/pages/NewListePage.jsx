@@ -118,7 +118,6 @@ const NewListePage= ({match, history}) => {
 
                 for(let i = 0; i < maListeItems.length; i++){
                     const itemListeCreate = {liste: idMaListe, item: maListeItems[i].item.id};
-                    console.log(itemListeCreate)
                     await listeItemsApi.create(itemListeCreate);
                 };
 

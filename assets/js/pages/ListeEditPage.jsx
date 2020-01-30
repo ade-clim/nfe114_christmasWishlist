@@ -4,6 +4,7 @@ import itemApi from "../services/itemApi";
 import listeApi from "../services/listeApi";
 import decoListeApi from "../services/decoListeApi";
 import listeItemsApi from "../services/listeItemsApi";
+import SweetAlert from 'react-bootstrap-sweetalert';
 
 //Wallpapers
 import Bow from '../../img/listes/wallpapers/Bow.png';
@@ -28,10 +29,13 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEdit, faGift, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {Link} from "react-router-dom";
 import TableListe from "../components/TableListe";
+import jwtDecode from "jwt-decode";
 
 const ListeEditPage = ({match, history}) => {
 
     const {id} = match.params;
+    const idUrl = parseInt(id, 10);
+
     let i = 0;
     const [borderColor, setBorderColor] = useState("");
     const [wallpaper, setWallpaper] = useState();
@@ -44,7 +48,14 @@ const ListeEditPage = ({match, history}) => {
     // Recuperation des cadeaux pour affichage dans la liste
     const [itemsListe, setItemsListe] = useState([]);
 
+    const [confirmDeleteListe, setConfirmDeleteListe] = useState(false);
 
+
+    const [userSession, setUserSession] = useState({
+        firstName: "",
+        lastName: "",
+        id:""
+    });
     // Objet DecoListe pour la base de donnée
     const [decoListe, setDecoListe] = useState({
         id: "",
@@ -71,6 +82,46 @@ const ListeEditPage = ({match, history}) => {
 
     // Va nous permettre de verifier si modification ou création
     const [editing, setEditing] = useState(false);
+
+
+    // On récupére l'utilisateur en session et on vérifie si il correspond à l'utilisateur proprietaire de la liste
+    const handleFetchUser = (user) => {
+        const token = window.localStorage.getItem("authToken");
+        if(token){
+            const {firstName, lastName, id} = jwtDecode(token);
+            setUserSession({firstName: firstName, lastName: lastName, id: id});
+            if(user.id !== id){
+                history.replace("/");
+            }
+        }
+    };
+
+    // Recuperation de la liste en cours de modification
+    const fetchList = async (idEditListe) => {
+        try {
+            const {id, title, description, decoListe, listeItems, user} = await listeApi.find(idEditListe);
+            const myDecoListe = {id: decoListe.id,wallpaper:decoListe.wallpaper , border:decoListe.border, motif:decoListe.motif, timbre: decoListe.timbre};
+            setListe({id, title, description, decoListe, listeItems, user});
+            setDecoListe(myDecoListe);
+            setItemsListe(listeItems);
+
+            // verif securité
+            handleFetchUser(user);
+
+        }catch (error) {
+            console.log(error.response);
+
+        }
+    };
+
+    useEffect(() => {
+        fetchList(id);
+        handleItems();
+        setUpdateFetch(false);
+    }, [updateFetch]);
+
+
+
 
 
     // Gestion des changements des inputs dans le formulaire
@@ -140,27 +191,10 @@ const ListeEditPage = ({match, history}) => {
     };
 
 
-    // Recuperation de la liste en cours de modification
-    const fetchList = async (idEditListe) => {
-        try {
-            const {id, title, description, decoListe, listeItems, user} = await listeApi.find(idEditListe);
-            const myDecoListe = {id: decoListe.id,wallpaper:decoListe.wallpaper , border:decoListe.border, motif:decoListe.motif, timbre: decoListe.timbre};
-            setListe({id, title, description, decoListe, listeItems, user});
-            setDecoListe(myDecoListe);
-            setItemsListe(listeItems);
-
-        }catch (error) {
-           console.log(error.response);
-
-        }
-    };
 
 
-    useEffect(() => {
-        fetchList(id);
-        handleItems();
-        setUpdateFetch(false);
-    }, [updateFetch]);
+
+
 
 
     const wallpaperStyle = {
@@ -222,6 +256,7 @@ const ListeEditPage = ({match, history}) => {
 
     // On supprime le cadeaux dans la liste, on utilise une id provisoire (cpt) pour eviter de supprimer les produits avec la meme id (produit identique)
     const handleDelete = async (listeItem) => {
+        console.log(listeItem);
         const originalItemsListe = [...itemsListe];
         setItemsListe(itemsListe.filter(item => item.item.idProvisoire !== listeItem.item.idProvisoire));
 
@@ -235,6 +270,7 @@ const ListeEditPage = ({match, history}) => {
 
     // Supprimer une reservation de cadeaux en fonction de l'id
     const handleDeleteReservedGift = async(listeItem) => {
+        console.log(listeItem)
         const originalListes = liste;
         const copyModifListes = liste;
 
@@ -277,10 +313,11 @@ const ListeEditPage = ({match, history}) => {
         }
     };
 
+    // SUPPRIMER LA LISTE
     const handleDeleteListe = async (listeId) => {
         try {
             await listeApi.delete(listeId);
-            history.replace("/");
+            history.replace("/user/"+ liste.user.id+"/listes");
 
 
         } catch (error) {
@@ -288,7 +325,9 @@ const ListeEditPage = ({match, history}) => {
         }
     }
 
+    //<button className={"btn btn-sm bg-white"} onClick={() => {handleDeleteListe(liste.id)}}><FontAwesomeIcon icon={faTrash} color={"red"} size={"2x"}/></button>
   return(
+
       <div className={"container homecontainer"}>
           <div className={"container"}>
             <section>
@@ -323,10 +362,33 @@ const ListeEditPage = ({match, history}) => {
                 <span className={"btn"} onClick={() => handleChangeTimbre()}> t</span>
             </section>
           </div>
+
+
             <div className={"container contour-list d-flex"} style={borderStyle}>
                 <div className={"container col-12 wallpapers-list"} style={wallpaperStyle}>
                     <div className={"text-right liste_edit"}>
-                            <button className={"btn btn-sm bg-white"} onClick={() => {handleDeleteListe(liste.id)}}><FontAwesomeIcon icon={faTrash} color={"red"} size={"2x"}/></button>
+                            <button className={"btn btn-sm bg-white"} onClick={() => {setConfirmDeleteListe(true)}}>
+                                <FontAwesomeIcon icon={faTrash} color={"red"} size={"2x"}/>
+                            </button>
+                        {confirmDeleteListe &&
+                            <SweetAlert
+                                warning
+                                showCancel
+                                showCloseButton
+                                confirmBtnText="Oui ,supprimer la liste"
+                                confirmBtnBsStyle="danger"
+                                btnSize ="xs"
+                                cancelBtnText="Non"
+                                title="Supprimer la liste ?"
+                                focusCancelBtn
+                                onCancel={() => {setConfirmDeleteListe(false)}}
+                                onConfirm={() => {handleDeleteListe(liste.id)}}
+                            >
+                                Oh oh oh
+                            </SweetAlert>
+                        }
+
+
                     </div>
                     <div className={"container col-lg-6 col-md-10"}>
                         <img src={decoListe.motif} className={"motif"}/>

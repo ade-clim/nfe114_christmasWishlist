@@ -6,6 +6,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEdit, faGift} from "@fortawesome/free-solid-svg-icons";
 import jwtDecode from "jwt-decode";
 import listeItemsApi from "../services/listeItemsApi";
+import TableListeStatic from "../components/TableListeStatic";
 
 const ReservationListePage = ({match ,history}) => {
     const {id} = match.params;
@@ -31,7 +32,7 @@ const ReservationListePage = ({match ,history}) => {
         id:"",
         title: "",
         description: "",
-        itemsListe: "",
+        listeItems: itemsListe,
         decoListe: "",
         user: ""
     });
@@ -146,35 +147,9 @@ const ReservationListePage = ({match ,history}) => {
                             <div className={"container info-list"}>
                                 <p className={"text-center text-uppercase"}>{liste.title}</p>
                                 <p className={"mt-5"}>{liste.description}</p>
-                                {itemsListe.map(e =>
-                                    <div className={"mt-5 mb-5"}>
-                                        <img src={e.item.picture}/>
-                                        {e.item.title}
-                                        {e.item.description}
-                                        {e.item.price}
 
-                                        {/* si le cadeau est reserver alors afficher l'utilisateur et cacher le button de reservation */}
-                                        {e.userItem &&
-                                        <span className={"ml-5"}>
-                                                <FontAwesomeIcon color={"green"} icon={faGift} size={"lg"}/>
-                                            {e.userItem.firstName}{e.userItem.lastName}
-                                            {userSession.id === e.userItem.id &&
-                                            <button onClick={() => {handleDeleteReservedGift(e, liste.id)}}>X</button>}
-                                        </span>
-                                        ||
-                                        <>
-                                            {auth && <button className={"btn btn-sm button_liste text-white"} onClick={() => {handleReservedItem(e, liste.id)}}>
-                                                reserver
-                                            </button>
-                                            ||
-                                            <button className={"btn btn-sm button_liste text-white"}>
-                                                <Link to={"/liste/new"} className={"text-white"}><span>reserver</span></Link>
-                                            </button>
-                                            }
-                                            </>
-                                        }
-                                    </div>
-                                )}
+                                {/* Boucle pour afficher les cadeaux dans la liste */}
+                                <TableListeStatic  userSession={userSession} auth={auth} liste={liste} itemsListe={itemsListe} handleDeleteReservedGift={handleDeleteReservedGift} handleReservedItem={handleReservedItem} > </TableListeStatic>
                             </div>
                         </div>
                     </div>

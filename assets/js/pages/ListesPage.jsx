@@ -8,6 +8,8 @@ import jwtDecode from "jwt-decode";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faGift } from '@fortawesome/free-solid-svg-icons';
 import santaGift from "../../img/santa/santa_gift.png";
+import SweetAlert from "react-bootstrap-sweetalert";
+import TableListeStatic from "../components/TableListeStatic";
 
 
 
@@ -16,6 +18,7 @@ const ListesPage = ({match, history}) => {
     const idUrl = parseInt(id, 10);
     let i = 0;
 
+    const [confirmDeleteReservedGift, setConfirmDeleteReservedGift] = useState(false);
     const [userSession, setUserSession] = useState({
         firstName: "",
         lastName: "",
@@ -61,6 +64,7 @@ const ListesPage = ({match, history}) => {
     useEffect(() => {
         fetchListes();
         handleFetchUser();
+
     },[]);
 
 
@@ -159,6 +163,8 @@ const ListesPage = ({match, history}) => {
             <div className={"container-fluid"}>
                 <PaginationListes currentPage={currentPage} itemsPerPage={itemsPerPage} length={filteredListes.length} onPageChanged={handlePageChange}/>
             </div>
+
+
             <div className={"container homecontainer"}>
                 {listes.length > 1  && <div className={"col-9"}>
                     <p><input type={"text"} onChange={handleSearch} value={search} className={"form-control"} placeholder={"Rechercher ..."}/></p>
@@ -181,40 +187,17 @@ const ListesPage = ({match, history}) => {
                                 <div className={"container info-list"}>
                                     <p className={"text-center text-uppercase"}>{liste.title}</p>
                                     <p className={"mt-5"}>{liste.description}</p>
-                                    {liste.listeItems.map(e =>{
-                                        i++;
-                                        return(<>
-                                                {i !== 1 && <hr/>}
-                                                <p className={"mt-5 mb-5"} key={i}>
-                                                    {i}
-                                                    <img src={e.item.picture}/>
-                                                    {e.item.title}
-                                                    {e.item.description}
-                                                    {e.item.price}
-                                                    {/* si le cadeau est reserver alors afficher l'utilisateur et cacher le button de reservation */}
-                                                    {e.userItem &&
-                                                    <span className={"ml-5"}>
-                                                        <FontAwesomeIcon color={"green"} icon={faGift} size={"lg"}/>
-                                                        {e.userItem.firstName}{e.userItem.lastName}
-                                                        {userSession.id === e.userItem.id && <button onClick={() => {handleDeleteReservedGift(e, liste.id)}}>X</button>}
-                                                    </span>
-                                                    ||
-                                                    <>
-                                                        {auth &&
-                                                        <button className={"btn btn-sm button_liste text-white"} onClick={() => {handleReservedItem(e, liste.id)}}>
-                                                            reserver
-                                                        </button>
-                                                        ||
-                                                        <button className={"btn btn-sm button_liste text-white"}>
-                                                            <Link to={"/login"} className={"text-white"}><span>reserver</span></Link>
-                                                        </button>
-                                                        }
-                                                        </>
-                                                    }
-                                                </p>
-                                            </>
-                                        )
-                                    })}
+
+
+
+
+
+                                    {/* Boucle pour afficher les cadeaux dans la liste */}
+                                    <TableListeStatic  userSession={userSession} auth={auth} handleSearch={handleSearch}  liste={liste} itemsListe={liste.itemsListe} handleDelete={handleDelete} handleDeleteReservedGift={handleDeleteReservedGift} handleReservedItem={handleReservedItem} filteredItems={filteredListes} search={search}> </TableListeStatic>
+
+
+
+
                                 </div>
                             </div>
                         </div>
@@ -233,8 +216,6 @@ const ListesPage = ({match, history}) => {
                     <img src={santaGift}/>
                 </div>
             </div>
-
-
         </div>
         }
         </>
