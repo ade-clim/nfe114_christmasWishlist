@@ -189,11 +189,21 @@ const ListesPage = ({match, history}) => {
                                     <p className={"mt-5"}>{liste.description}</p>
 
 
+                                    {liste.listeItems.length === 0 &&
+                                        <div className={"text-center mt-5 no_gift"}>
+                                            <h6 className={"no_gift"}>Aucun cadeaux pour l'instant</h6>
+                                            <img src={santaGift}/>
+                                        </div>
+
+                                    ||
+                                    <>
+                                        {/* Boucle pour afficher les cadeaux dans la liste */}
+                                        <TableListeStatic  userSession={userSession} auth={auth} handleSearch={handleSearch}  liste={liste} itemsListe={liste.itemsListe} handleDelete={handleDelete} handleDeleteReservedGift={handleDeleteReservedGift} handleReservedItem={handleReservedItem} filteredItems={filteredListes} search={search}> </TableListeStatic>
+                                    </>
+                                    }
 
 
 
-                                    {/* Boucle pour afficher les cadeaux dans la liste */}
-                                    <TableListeStatic  userSession={userSession} auth={auth} handleSearch={handleSearch}  liste={liste} itemsListe={liste.itemsListe} handleDelete={handleDelete} handleDeleteReservedGift={handleDeleteReservedGift} handleReservedItem={handleReservedItem} filteredItems={filteredListes} search={search}> </TableListeStatic>
 
 
 

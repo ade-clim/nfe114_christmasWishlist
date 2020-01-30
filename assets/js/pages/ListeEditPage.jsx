@@ -174,6 +174,22 @@ const ListeEditPage = ({match, history}) => {
         setItems(data);
     };
 
+
+    // On supprime le cadeaux dans la liste, on utilise une id provisoire (cpt) pour eviter de supprimer les produits avec la meme id (produit identique)
+    const handleDelete = async (listeItem) => {
+        console.log(listeItem);
+        const originalItemsListe = [...itemsListe];
+        setItemsListe(itemsListe.filter(item => item.item.idProvisoire !== listeItem.item.idProvisoire));
+
+        try{
+            await listeItemsApi.deleteListeItem(listeItem.id);
+        }catch (error) {
+            console.log(error.response);
+            setItemsListe(originalItemsListe);
+        }
+    };
+
+
     // on ajoute l'item en local puis en base de donnée
     const handleAddGift = async(item) => {
         const gift = {item, idProvisoire: 0};
@@ -189,8 +205,6 @@ const ListeEditPage = ({match, history}) => {
         }
         setUpdateFetch(true);
     };
-
-
 
 
 
@@ -253,20 +267,6 @@ const ListeEditPage = ({match, history}) => {
     };
 
 
-
-    // On supprime le cadeaux dans la liste, on utilise une id provisoire (cpt) pour eviter de supprimer les produits avec la meme id (produit identique)
-    const handleDelete = async (listeItem) => {
-        console.log(listeItem);
-        const originalItemsListe = [...itemsListe];
-        setItemsListe(itemsListe.filter(item => item.item.idProvisoire !== listeItem.item.idProvisoire));
-
-        try{
-            await listeItemsApi.deleteListeItem(listeItem.id);
-        }catch (error) {
-            console.log(error.response);
-            setItemsListe(originalItemsListe);
-        }
-    };
 
     // Supprimer une reservation de cadeaux en fonction de l'id
     const handleDeleteReservedGift = async(listeItem) => {
