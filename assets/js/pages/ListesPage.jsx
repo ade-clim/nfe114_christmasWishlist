@@ -185,14 +185,17 @@ const ListesPage = ({match, history}) => {
                             </div>
                             <div className={"container col-11 list"}>
                                 <div className={"container info-list"}>
-                                    <p className={"text-center text-uppercase"}>{liste.title}</p>
+                                    <p className={"text-center text-uppercase mt-5"}>{liste.title}</p>
                                     <p className={"mt-5"}>{liste.description}</p>
 
 
                                     {liste.listeItems.length === 0 &&
-                                        <div className={"text-center mt-5 no_gift"}>
-                                            <h6 className={"no_gift"}>Aucun cadeaux pour l'instant</h6>
-                                            <img src={santaGift}/>
+                                        <div className={"text-center mt-5 "}>
+                                            <div className={"no_gift"}>
+                                                <h6>Aucun cadeaux pour l'instant</h6>
+                                                <img src={santaGift}/>
+                                            </div>
+
                                         </div>
 
                                     ||
