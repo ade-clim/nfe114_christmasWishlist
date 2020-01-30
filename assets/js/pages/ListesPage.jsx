@@ -168,7 +168,7 @@ const ListesPage = ({match, history}) => {
                         <div className={"container col-12 wallpapers-list"} style={{backgroundImage: `url(${liste.decoListe.wallpaper})`}}>
                             {liste.user.id === userSession.id && <div className={"text-right liste_edit"}>
                                 <Link to={"/liste/edit/"+ liste.id}>
-                                    <span className={"btn"}><FontAwesomeIcon icon={faEdit} color={"white"} size={"2x"}/></span>
+                                    <button className={"btn btn-sm bg-white"}><FontAwesomeIcon icon={faEdit} color={"gray"} size={"2x"}/></button>
                                 </Link>
                             </div>}
                             <div className={"container col-lg-6 col-md-10"}>

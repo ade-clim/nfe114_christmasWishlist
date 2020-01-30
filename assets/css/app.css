@@ -116,6 +116,7 @@ body {
 
 .liste_edit{
     position:absolute;
+    margin-top: 10px;
     margin-left: 90%;
 }
 

@@ -23,6 +23,7 @@ import timbre03 from '../../img/listes/timbres/timbre03.png';
 import timbre04 from '../../img/listes/timbres/timbre04.png';
 import timbre05 from '../../img/listes/timbres/timbre05.png';
 import timbre06 from '../../img/listes/timbres/timbre06.png';
+import TableListe from "../components/TableListe";
 
 
 const NewListePage= ({match, history}) => {
@@ -112,11 +113,12 @@ const NewListePage= ({match, history}) => {
                 const idMaListe = data.data.id;
 
                 // tab de stockage du useState des items selectionner dans la liste
-
                 const maListeItems = [...itemsListe];
+                console.log(maListeItems)
 
                 for(let i = 0; i < maListeItems.length; i++){
-                    const itemListeCreate = {liste: idMaListe, item: maListeItems[i].id};
+                    const itemListeCreate = {liste: idMaListe, item: maListeItems[i].item.id};
+                    console.log(itemListeCreate)
                     await listeItemsApi.create(itemListeCreate);
                 };
 
@@ -166,18 +168,18 @@ const NewListePage= ({match, history}) => {
         setTimbre(value);
     };
 
-
-    const handleAddGift = ({id, title, description,price, picture}) => {
-        const gift = {idProvisoire:0, id, title, description ,price, picture};
+    // on ajoute l'item en local
+    const handleAddGift = (item) => {
+        const gift = {item, idProvisoire: 0};
         setItemsListe([...itemsListe,gift]);
         setSearch("");
     };
 
 
     // On supprime le cadeaux dans la liste, on utilise une id provisoire (cpt) pour eviter de supprimer les produits avec la meme id (produit identique)
-    const handleDelete = async (id) => {
+    const handleDelete = async (listeItem) => {
         const originalItemsListe = [...itemsListe];
-        setItemsListe(itemsListe.filter(item => item.idProvisoire !== id));
+        setItemsListe(itemsListe.filter(item => item.item.idProvisoire !== listeItem.item.idProvisoire));
 
         try{
 
@@ -231,58 +233,10 @@ const NewListePage= ({match, history}) => {
                     <div className={"container col-8 text-right"}>
                         <img src={decoListe.timbre} className={"timbre"}/>
                     </div>
-                    <div className={"container col-11 list"}>
-                        <div className={"container info-list"}>
-                            <form onSubmit={handleSubmit}>
-                                <Field name={"title"}
-                                       placeholder={"Titre de ma liste"}
-                                       onChange={handleChange}
-                                       value={liste.title}
-                                       error={errors.title}
-                                       supp={"inputTransparent text-center text-uppercase"}
-                                />
-                                <Field name={"description"}
-                                       placeholder={"Description de ma liste"}
-                                       onChange={handleChange}
-                                       value={liste.description}
-                                       error={errors.description}
-                                       supp={"inputTransparent"}
-                                />
-                                <div className={"form-group text-center"}>
-                                    <input type={"text"} onChange={handleSearch} value={search} className={"form-control col-4"} placeholder={"Rechercher vos cadeaux"}/>
-                                </div>
 
-                                {/* Boucle pour afficher la selection de cadeaux disponible */}
-                                {search.length !== 0 &&  <>
-                                    {filteredItems.map(item => <div key={item.id}>
+                    {/* Boucle pour afficher les cadeaux dans la liste */}
+                    <TableListe hideReservedBtn={true} handleAddGift={handleAddGift} errors={errors} handleSearch={handleSearch} handleChange={handleChange} handleSubmit={handleSubmit} liste={liste} itemsListe={itemsListe} handleDelete={handleDelete}  filteredItems={filteredItems} search={search}> </TableListe>
 
-                                            <img src={item.picture}/> {item.title} {item.description} {item.price}
-                                            <div className={"btn btn-success btn-sm"} onClick={() => handleAddGift(item)}>Add</div>
-                                        </div>
-                                    )}
-                                </>}
-
-                                {/* Boucle pour afficher les cadeaux dans la liste */}
-                                {itemsListe.map(itemListe =>{
-                                    i++;
-                                    return(<>
-                                        {i !== 1 && <hr/>}
-                                        <p key={i} className={"mt-5 mb-5"}>
-                                            {i}
-                                            <span hidden >{itemListe.idProvisoire = i}</span>
-                                            <img src={itemListe.picture}/>
-                                            {itemListe.title}
-                                            {itemListe.description}
-                                            {itemListe.price}
-                                            <span className={"btn btn-danger btn-sm"} onClick={() => handleDelete(itemListe.idProvisoire)}>Delete</span>
-                                        </p>
-                                    </>)})}
-                                    <div className={"form-group text-center mt-5"}>
-                                        <button className={"btn button_liste text-white"} type={"submit"}>Enregistrer</button>
-                                    </div>
-                            </form>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

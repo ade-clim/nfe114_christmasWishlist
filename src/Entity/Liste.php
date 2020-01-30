@@ -42,7 +42,7 @@ class Liste
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="ListeItems", mappedBy="liste")
+     * @ORM\OneToMany(targetEntity="ListeItems", mappedBy="liste", cascade={"persist", "remove"})
      * @Groups({"liste_read"})
      */
     private $listeItems;

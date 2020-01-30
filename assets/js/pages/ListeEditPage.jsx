@@ -27,8 +27,9 @@ import timbre06 from '../../img/listes/timbres/timbre06.png';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEdit, faGift, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {Link} from "react-router-dom";
+import TableListe from "../components/TableListe";
 
-const ListeEditPage = ({match}) => {
+const ListeEditPage = ({match, history}) => {
 
     const {id} = match.params;
     let i = 0;
@@ -84,7 +85,8 @@ const ListeEditPage = ({match}) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            await listeApi.update(liste.id, liste);
+            const listeSend = {decoListe : decoListe, title: liste.title, description: liste.description};
+            await listeApi.update(liste.id, listeSend);
             // TODO : Flash notification success
             setErrors({});
 
@@ -218,15 +220,13 @@ const ListeEditPage = ({match}) => {
 
 
 
-
-
     // On supprime le cadeaux dans la liste, on utilise une id provisoire (cpt) pour eviter de supprimer les produits avec la meme id (produit identique)
-    const handleDelete = async (ListeItem) => {
+    const handleDelete = async (listeItem) => {
         const originalItemsListe = [...itemsListe];
-        setItemsListe(itemsListe.filter(item => item.item.idProvisoire !== ListeItem.item.idProvisoire));
+        setItemsListe(itemsListe.filter(item => item.item.idProvisoire !== listeItem.item.idProvisoire));
 
         try{
-            await listeItemsApi.deleteListeItem(ListeItem.id);
+            await listeItemsApi.deleteListeItem(listeItem.id);
         }catch (error) {
             console.log(error.response);
             setItemsListe(originalItemsListe);
@@ -277,13 +277,19 @@ const ListeEditPage = ({match}) => {
         }
     };
 
-    const handleDeleteListe = (liste) => {
-        console.log(liste);
+    const handleDeleteListe = async (listeId) => {
+        try {
+            await listeApi.delete(listeId);
+            history.replace("/");
+
+
+        } catch (error) {
+            console.log(error)
+        }
     }
 
   return(
       <div className={"container homecontainer"}>
-          {/* {(!editing && <h1>Création d'une liste</h1>) || (<h1>Modification de la liste</h1>) }*/}
           <div className={"container"}>
             <section>
                 <img src={Bow} width={"40px"} onClick={() => handleChangeWallpaper(Bow)}/>
@@ -329,84 +335,9 @@ const ListeEditPage = ({match}) => {
                     <div className={"container col-8 text-right"}>
                         <img src={decoListe.timbre} className={"timbre"}/>
                     </div>
-                    <div className={"container col-11 list"}>
-                        <div className={"container info-list"}>
-                            <form onSubmit={handleSubmit}>
-                                <Field name={"title"}
-                                       placeholder={"Titre de ma liste"}
-                                       onChange={handleChange}
-                                       value={liste.title}
-                                       error={errors.title}
-                                       supp={"inputTransparent text-center text-uppercase"}
-                                />
-                                <Field name={"description"}
-                                       placeholder={"Description de ma liste"}
-                                       onChange={handleChange}
-                                       value={liste.description}
-                                       error={errors.description}
-                                       supp={"inputTransparent"}
-                                />
-                                <div className={"form-group text-center"}>
-                                    <input type={"text"} onChange={handleSearch} value={search} className={"form-control col-4"} placeholder={"Rechercher vos cadeaux"}/>
-                                </div>
 
-                                {/* Boucle pour afficher la selection de cadeaux disponible */}
-                                {search.length !== 0 &&  <>
-                                    {filteredItems.map(item => <div key={item.id}>
-
-                                        <img src={item.picture}/> {item.title} {item.description} {item.price}
-                                        <div className={"btn btn-success btn-sm"} onClick={() => handleAddGift(item)}>Add</div>
-                                        </div>
-                                    )}
-                                </>}
-
-                                {/* Boucle pour afficher les cadeaux dans la liste */}
-                                <div className={"container"}>
-                                    <div className={"row"}>
-                                        <div className={"col-12"}>
-                                            <table className={"table_gift table-responsive table-sm"}>
-                                                <tbody>
-                                                    {itemsListe.map(liste =>{
-                                                        i++;
-                                                        return(<>
-                                                            {i !== 1 && <hr/>}
-                                                            <p className={"mt-5 mb-5"}>
-
-                                                            <tr>
-                                                                <td scope={"row"}>{i}<span hidden >{liste.item.idProvisoire = i}</span></td>
-                                                                <td ><img className={"picture_item"} width={"100%"} src={liste.item.picture}/></td>
-                                                                <td>{liste.item.title} <br/> {liste.item.description}</td>
-                                                                <td>{liste.item.price} euros</td>
-
-                                                                {/* si le cadeau est reserver alors afficher l'utilisateur et cacher le button de reservation */}
-                                                                {liste.userItem &&
-                                                                <td ><FontAwesomeIcon color={"green"} icon={faGift} size={"lg"}/>{liste.userItem.firstName}{liste.userItem.lastName}
-                                                                <button onClick={() => {handleDeleteReservedGift(liste, liste.id)}}>
-                                                                    X
-                                                                </button>
-                                                                </td>
-                                                                ||
-                                                                <td><button className={"btn btn-sm button_liste text-white"} onClick={() => {handleReservedItem(liste)}}>
-                                                                    reserver
-                                                                </button></td>
-                                                                }
-                                                                <td><span className={"btn btn-danger btn-sm"} onClick={() => handleDelete(liste)}>Delete</span></td>
-                                                            </tr>
-                                                            </p>
-                                                            </>
-                                                        )
-                                                    })}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className={"form-group text-center mt-5"}>
-                                    <button className={"btn button_liste text-white"} type={"submit"}>Enregistrer</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+                    {/* Boucle pour afficher les cadeaux dans la liste */}
+                    <TableListe handleAddGift={handleAddGift} errors={errors} handleSearch={handleSearch} handleChange={handleChange} handleSubmit={handleSubmit} liste={liste} itemsListe={itemsListe} handleDelete={handleDelete} handleDeleteReservedGift={handleDeleteReservedGift} handleReservedItem={handleReservedItem} filteredItems={filteredItems} search={search}> </TableListe>
                 </div>
             </div>
       </div>
