@@ -206,7 +206,7 @@ const ListesPage = ({match, history}) => {
                                                         </button>
                                                         ||
                                                         <button className={"btn btn-sm button_liste text-white"}>
-                                                            <Link to={"/liste/new"} className={"text-white"}><span>reserver</span></Link>
+                                                            <Link to={"/login"} className={"text-white"}><span>reserver</span></Link>
                                                         </button>
                                                         }
                                                         </>

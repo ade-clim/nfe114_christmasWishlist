@@ -222,7 +222,6 @@ const NewListePage= ({match, history}) => {
                     <span className={"btn"} onClick={() => handleChangeTimbre(timbre06)}> t</span>
                     <span className={"btn"} onClick={() => handleChangeTimbre()}> t</span>
                 </section>
-
             </div>
             <div className={"container contour-list d-flex"} style={borderStyle}>
                 <div className={"container col-12 wallpapers-list"} style={wallpaperStyle}>
@@ -278,18 +277,15 @@ const NewListePage= ({match, history}) => {
                                             <span className={"btn btn-danger btn-sm"} onClick={() => handleDelete(itemListe.idProvisoire)}>Delete</span>
                                         </p>
                                     </>)})}
-                                <div className={"form-group text-center mt-5"}>
-                                    <button className={"btn button_liste text-white"} type={"submit"}>Enregistrer</button>
-                                </div>
+                                    <div className={"form-group text-center mt-5"}>
+                                        <button className={"btn button_liste text-white"} type={"submit"}>Enregistrer</button>
+                                    </div>
                             </form>
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </div>
-
     )
 };
 

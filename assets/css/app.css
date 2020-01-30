@@ -97,6 +97,9 @@ body {
     margin-top: 150px;
 
 }
+.table_gift td {
+    vertical-align: middle;
+}
 
 .navbar{
     position:fixed;
@@ -106,6 +109,10 @@ body {
     margin-bottom: -150px;
     height: 80px;
 }
+.picture_item{
+    min-width: 15vh;
+}
+
 
 .liste_edit{
     position:absolute;
