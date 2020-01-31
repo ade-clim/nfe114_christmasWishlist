@@ -186,8 +186,8 @@ const NewListePage= ({match, history}) => {
                     <DecoListe handleChangeBorder={handleChangeBorder} handleChangeMotif={handleChangeMotif} handleChangeTimbre={handleChangeTimbre} handleChangeWallpaper={handleChangeWallpaper}/>
             </div>
 
-            <div className={"liste_size container col-8"} >
-                <div className={"container d-flex"} style={borderStyle}>
+            <div className={"liste_size container"} >
+                <div className={"container d-flex col-12"} style={borderStyle}>
                     <div className={"container col-12 wallpapers-list"} style={wallpaperStyle}>
                         <div className={"container col-lg-6 col-md-10"}>
                             <img src={decoListe.motif} className={"motif"}/>

@@ -145,61 +145,36 @@ body {
 }
 
 
-@media (max-width: 1200px) {
-    .slide_background{
-        height: 1000px;
-        min-width: 1900px;
-        max-width: 2000px;
-    }
-    .perso_slide{
-        max-width: 1000px;
-        right: 0;
-        bottom: -900px;
-        position: absolute;
-    }
-    .perso_slide_container{
-        position: relative;
-        min-width: 1900px;
-    }
+.section01{
+    min-height: 400px;
+    padding-top: 200px;
 }
-@media (max-width: 1000px) {
-    .slide_background{
-        height: 1000px;
-        min-width: 1900px;
-        max-width: 2000px;
-    }
-    .perso_slide{
-        max-width: 800px;
-        right: 0;
-        bottom: -900px;
-        position: absolute;
-    }
-    .perso_slide_container{
-        position: relative;
-        min-width: 1900px;
-    }
+
+.section02{
+    min-height: 400px;
+    padding-top: 150px;
+}
+.section03{
+    min-height: 400px;
+    padding-top: 150px;
+}
+.section04{
+    min-height: 400px;
+    padding-top: 150px;
+}
+
+.snow_man{
+    margin-top: -90px;
 
 }
-@media (max-width: 400px) {
-    .slide_background{
-        height: 400px;
-        width: 400px;
 
-    }
-    .perso_slide{
-        max-width: 600px;
-        right: 0;
-        bottom: -900px;
-        position: absolute;
-    }
-    .perso_slide_container{
-        position: relative;
-        min-width: 1500px;
-    }
+.snow_man > img {
+    max-width: 300px;
+    min-height: 100px;
 }
 
 .slide_background{
-    min-height: 1000px;
+    min-height: 950px;
     max-width: 2000px;
 }
 
@@ -225,8 +200,10 @@ body {
 
 .test{
     height: 500px;
+    width: 100vw;
 }
 .testtest{
     height: 500px;
     background-color: #0d5aa7;
+    min-width: 100vw;
 }

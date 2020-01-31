@@ -30,6 +30,7 @@ import {faEdit, faGift, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {Link} from "react-router-dom";
 import TableListe from "../components/TableListe";
 import jwtDecode from "jwt-decode";
+import DecoListe from "../components/DecoListe";
 
 const ListeEditPage = ({match, history}) => {
 
@@ -328,80 +329,56 @@ const ListeEditPage = ({match, history}) => {
     //<button className={"btn btn-sm bg-white"} onClick={() => {handleDeleteListe(liste.id)}}><FontAwesomeIcon icon={faTrash} color={"red"} size={"2x"}/></button>
   return(
 
-      <div className={"container homecontainer"}>
-          <div className={"container"}>
-            <section>
-                <img src={Bow} width={"40px"} onClick={() => handleChangeWallpaper(Bow)}/>
-                <img src={Ice} width={"40px"} onClick={() => handleChangeWallpaper(Ice)}/>
-                <img src={Snow} width={"40px"} onClick={() => handleChangeWallpaper(Snow)}/>
-                <img src={Stars} width={"40px"} onClick={() => handleChangeWallpaper(Stars)}/>
-                <img src={Trees} width={"40px"} onClick={() => handleChangeWallpaper(Trees)}/>
-                <img src={Trees} width={"40px"} onClick={() => handleChangeWallpaper()}/>
-            </section>
-            <section>
-                <span className={"btn"} onClick={() => handleChangeBorder("#F5624D")}> y</span>
-                <span className={"btn"} onClick={() => handleChangeBorder("#CC231E")}> d</span>
-                <span className={"btn"} onClick={() => handleChangeBorder("#34A65F")}> e</span>
-                <span className={"btn"} onClick={() => handleChangeBorder("#0F8A5F")}> r</span>
-                <span className={"btn"} onClick={() => handleChangeBorder("#235E6F")}> t</span>
-            </section>
-            <section>
-                <span className={"btn"} onClick={() => handleChangeMotif(rennes)}> r</span>
-                <span className={"btn"} onClick={() => handleChangeMotif(santaclaus)}> p</span>
-                <span className={"btn"} onClick={() => handleChangeMotif(rennes02)}> d</span>
-                <span className={"btn"} onClick={() => handleChangeMotif()}> p</span>
-                <span className={"btn"} onClick={() => handleChangeMotif()}> y</span>
-            </section>
-            <section>
-                <span className={"btn"} onClick={() => handleChangeTimbre(timbre01)}> 1</span>
-                <span className={"btn"} onClick={() => handleChangeTimbre(timbre02)}> 2</span>
-                <span className={"btn"} onClick={() => handleChangeTimbre(timbre03)}> 3</span>
-                <span className={"btn"} onClick={() => handleChangeTimbre(timbre04)}> 4</span>
-                <span className={"btn"} onClick={() => handleChangeTimbre(timbre05)}> t</span>
-                <span className={"btn"} onClick={() => handleChangeTimbre(timbre06)}> t</span>
-                <span className={"btn"} onClick={() => handleChangeTimbre()}> t</span>
-            </section>
+      <div className={"container-fluid homecontainer"}>
+
+          {/* Component visuel décoration liste */}
+          <div >
+              <DecoListe handleChangeBorder={handleChangeBorder} handleChangeMotif={handleChangeMotif} handleChangeTimbre={handleChangeTimbre} handleChangeWallpaper={handleChangeWallpaper}/>
+          </div>
+
+          <div className={"liste_size container"} >
+              <div className={"container d-flex col-12"} style={borderStyle}>
+                  <div className={"container col-12 wallpapers-list"} style={wallpaperStyle}>
+                      <div className={"text-right liste_edit"}>
+                          <button className={"btn btn-sm bg-white"} onClick={() => {setConfirmDeleteListe(true)}}>
+                              <FontAwesomeIcon icon={faTrash} color={"red"} size={"2x"}/>
+                          </button>
+                          {confirmDeleteListe &&
+                          <SweetAlert
+                              warning
+                              showCancel
+                              showCloseButton
+                              confirmBtnText="Oui ,supprimer la liste"
+                              confirmBtnBsStyle="danger"
+                              btnSize ="xs"
+                              cancelBtnText="Non"
+                              title="Supprimer la liste ?"
+                              focusCancelBtn
+                              onCancel={() => {setConfirmDeleteListe(false)}}
+                              onConfirm={() => {handleDeleteListe(liste.id)}}
+                          >
+                              Oh oh oh
+                          </SweetAlert>
+                          }
+
+
+                      </div>
+                      <div className={"container col-lg-6 col-md-10"}>
+                          <img src={decoListe.motif} className={"motif"}/>
+
+                      </div>
+                      <div className={"container col-8 text-right"}>
+                          <img src={decoListe.timbre} className={"timbre"}/>
+                      </div>
+
+                      {/* Boucle pour afficher les cadeaux dans la liste */}
+                      <TableListe handleAddGift={handleAddGift} errors={errors} handleSearch={handleSearch} handleChange={handleChange} handleSubmit={handleSubmit} liste={liste} itemsListe={itemsListe} handleDelete={handleDelete} handleDeleteReservedGift={handleDeleteReservedGift} handleReservedItem={handleReservedItem} filteredItems={filteredItems} search={search}> </TableListe>
+                  </div>
+              </div>
+
           </div>
 
 
-            <div className={"container contour-list d-flex"} style={borderStyle}>
-                <div className={"container col-12 wallpapers-list"} style={wallpaperStyle}>
-                    <div className={"text-right liste_edit"}>
-                            <button className={"btn btn-sm bg-white"} onClick={() => {setConfirmDeleteListe(true)}}>
-                                <FontAwesomeIcon icon={faTrash} color={"red"} size={"2x"}/>
-                            </button>
-                        {confirmDeleteListe &&
-                            <SweetAlert
-                                warning
-                                showCancel
-                                showCloseButton
-                                confirmBtnText="Oui ,supprimer la liste"
-                                confirmBtnBsStyle="danger"
-                                btnSize ="xs"
-                                cancelBtnText="Non"
-                                title="Supprimer la liste ?"
-                                focusCancelBtn
-                                onCancel={() => {setConfirmDeleteListe(false)}}
-                                onConfirm={() => {handleDeleteListe(liste.id)}}
-                            >
-                                Oh oh oh
-                            </SweetAlert>
-                        }
-
-
-                    </div>
-                    <div className={"container col-lg-6 col-md-10"}>
-                        <img src={decoListe.motif} className={"motif"}/>
-
-                    </div>
-                    <div className={"container col-8 text-right"}>
-                        <img src={decoListe.timbre} className={"timbre"}/>
-                    </div>
-
-                    {/* Boucle pour afficher les cadeaux dans la liste */}
-                    <TableListe handleAddGift={handleAddGift} errors={errors} handleSearch={handleSearch} handleChange={handleChange} handleSubmit={handleSubmit} liste={liste} itemsListe={itemsListe} handleDelete={handleDelete} handleDeleteReservedGift={handleDeleteReservedGift} handleReservedItem={handleReservedItem} filteredItems={filteredItems} search={search}> </TableListe>
-                </div>
-            </div>
       </div>
   )
 };
