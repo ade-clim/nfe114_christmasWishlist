@@ -2,6 +2,19 @@ body {
 
 }
 
+.vertical-nav {
+    position: absolute;
+    min-height: 100vh;
+    padding-top: 100px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+}
+.liste_size{
+    padding-left:100px;
+    min-width: 800px;
+
+}
+
+
 .button_liste{
     background-color: #d4423e;
 }
@@ -16,9 +29,7 @@ body {
     margin-bottom: 300px;
 }
 
-.contour-list{
 
-}
 .logo{
  width: 80px;
 ;}
@@ -104,13 +115,24 @@ body {
     vertical-align: middle;
 }
 
+.deco_liste_bg{
+    position:absolute;
+    left:0;
+    background-color: #7d8293;
+    width: 350px;
+    height: 500px;
+}
+.deco_liste_panel{
+    margin-top: 50px;
+}
+
 .navbar{
     position:fixed;
     z-index: 3;
-    width: 100vw;
     font-size: 14px;
     margin-bottom: -150px;
     height: 80px;
+    max-width: 1800px;
 }
 .picture_item{
     min-width: 15vh;

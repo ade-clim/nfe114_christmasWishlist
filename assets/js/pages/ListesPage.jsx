@@ -206,11 +206,6 @@ const ListesPage = ({match, history}) => {
                                     }
 
 
-
-
-
-
-
                                 </div>
                             </div>
                         </div>

@@ -38,8 +38,8 @@ const Navbar = ({history}) => {
 
     return(
         <header>
-        <nav className="navbar navbar-expand-lg navbar-light bg-transparent">
-            <div className={"container col-11"}>
+        <nav className="navbar navbar-expand-lg navbar-light bg-transparent col-12">
+            <div className={"container col-12"}>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
                         aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
