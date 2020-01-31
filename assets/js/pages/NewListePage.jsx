@@ -182,8 +182,8 @@ const NewListePage= ({match, history}) => {
         <div className={"container-fluid homecontainer"}>
 
             {/* Component visuel décoration liste */}
-            <div style={{maxWidth: "400px"}}>
-                <DecoListe handleChangeBorder={handleChangeBorder} handleChangeMotif={handleChangeMotif} handleChangeTimbre={handleChangeTimbre} handleChangeWallpaper={handleChangeWallpaper}/>
+            <div >
+                    <DecoListe handleChangeBorder={handleChangeBorder} handleChangeMotif={handleChangeMotif} handleChangeTimbre={handleChangeTimbre} handleChangeWallpaper={handleChangeWallpaper}/>
             </div>
 
             <div className={"liste_size container col-8"} >

@@ -4,16 +4,15 @@ body {
 
 .vertical-nav {
     position: absolute;
-    min-height: 100vh;
+    min-height: 115vh;
     padding-top: 100px;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
 }
 .liste_size{
-    padding-left:100px;
+    margin-left:20%;
     min-width: 800px;
 
 }
-
 
 .button_liste{
     background-color: #d4423e;
