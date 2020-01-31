@@ -271,7 +271,6 @@ const ListeEditPage = ({match, history}) => {
 
     // Supprimer une reservation de cadeaux en fonction de l'id
     const handleDeleteReservedGift = async(listeItem) => {
-        console.log(listeItem)
         const originalListes = liste;
         const copyModifListes = liste;
 

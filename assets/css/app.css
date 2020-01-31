@@ -9,6 +9,7 @@ body {
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
 }
 .liste_size{
+
     margin-left:20%;
     min-width: 800px;
 
@@ -24,7 +25,7 @@ body {
     border-radius: 25px;
 }
 .homecontainer{
-    padding-top: 200px;
+    padding-top: 300px;
     margin-bottom: 300px;
 }
 
@@ -131,7 +132,7 @@ body {
     font-size: 14px;
     margin-bottom: -150px;
     height: 80px;
-    max-width: 1800px;
+    max-width: 2000px;
 }
 .picture_item{
     min-width: 15vh;

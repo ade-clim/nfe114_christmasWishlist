@@ -180,27 +180,29 @@ const NewListePage= ({match, history}) => {
 
     return(
         <div className={"container-fluid homecontainer"}>
-
-            {/* Component visuel décoration liste */}
-            <div >
+            <div className={""}>
+                {/* Component visuel décoration liste */}
+                <div>
                     <DecoListe handleChangeBorder={handleChangeBorder} handleChangeMotif={handleChangeMotif} handleChangeTimbre={handleChangeTimbre} handleChangeWallpaper={handleChangeWallpaper}/>
-            </div>
+                </div>
 
-            <div className={"liste_size container"} >
-                <div className={"container d-flex col-12"} style={borderStyle}>
-                    <div className={"container col-12 wallpapers-list"} style={wallpaperStyle}>
-                        <div className={"container col-lg-6 col-md-10"}>
-                            <img src={decoListe.motif} className={"motif"}/>
-                        </div>
-                        <div className={"container col-8 text-right"}>
-                            <img src={decoListe.timbre} className={"timbre"}/>
-                        </div>
+                <div className={"liste_size container"} >
+                    <div className={"container d-flex col-12"} style={borderStyle}>
+                        <div className={"container col-12 wallpapers-list"} style={wallpaperStyle}>
+                            <div className={"container col-lg-6 col-md-10"}>
+                                <img src={decoListe.motif} className={"motif"}/>
+                            </div>
+                            <div className={"container col-8 text-right"}>
+                                <img src={decoListe.timbre} className={"timbre"}/>
+                            </div>
 
-                        {/* Boucle pour afficher les cadeaux dans la liste */}
-                        <TableListe hideReservedBtn={true} handleAddGift={handleAddGift} errors={errors} handleSearch={handleSearch} handleChange={handleChange} handleSubmit={handleSubmit} liste={liste} itemsListe={itemsListe} handleDelete={handleDelete}  filteredItems={filteredItems} search={search}> </TableListe>
+                            {/* Boucle pour afficher les cadeaux dans la liste */}
+                            <TableListe hideReservedBtn={true} handleAddGift={handleAddGift} errors={errors} handleSearch={handleSearch} handleChange={handleChange} handleSubmit={handleSubmit} liste={liste} itemsListe={itemsListe} handleDelete={handleDelete}  filteredItems={filteredItems} search={search}> </TableListe>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
     )
 };

@@ -49,11 +49,9 @@ const Navbar = ({history}) => {
 
                     <ul className={"navbar-nav"}>
                         <li className={"nav-item"}>
-                            <NavLink to={"/"} className="navbar-brand logo"></NavLink>
+                            <NavLink to={"/"} className="navbar-brand logo ml-3">logo</NavLink>
                         </li>
                     </ul>
-
-
 
 
                     <ul className="navbar-nav ml-auto">
