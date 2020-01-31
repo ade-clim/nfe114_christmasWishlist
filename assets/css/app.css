@@ -137,6 +137,36 @@ body {
     min-width: 15vh;
 }
 
+.text_title{
+    font-size: 50px;
+    color: #d4423e;
+}
+.text_content{
+    font-size: 30px;
+    color: #d4423e;
+}
+
+.text_slide{
+    position: absolute;
+    margin-left: 200px;
+    margin-top: 340px;
+}
+
+.btn_slide{
+    z-index: 1;
+    margin-top: 25px;
+    margin-left: 260px;
+}
+.btn_slide_btn{
+    z-index:1;
+    background-color: #d4423e;
+    color: white;
+}
+
+.btn_slide_btn:hover {
+    background-color: #a72925;
+    color: white;
+}
 
 .liste_edit{
     position:absolute;
@@ -184,19 +214,13 @@ body {
 }
 
 .perso_slide{
-    max-width: 1100px;
+    max-width: 1200px;
     right: 0;
-    bottom: -930px;
+    bottom: -910px;
     position: absolute;
 }
 
-.text_slide{
-    position: absolute;
-    font-size: 50px;
-    color: #d4423e;
-    margin-left: 350px;
-    margin-top: 350px;
-}
+
 
 .test{
     height: 500px;

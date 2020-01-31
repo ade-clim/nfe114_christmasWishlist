@@ -1,5 +1,6 @@
 import React from 'react';
-import slide from '../../img/HomePage/slide/slide.jpg';
+import {Link} from "react-router-dom";
+import slide from '../../img/HomePage/slide/slide.png';
 import perso from '../../img/HomePage/slide/charaNoel.png';
 import snowMan from '../../img/HomePage/img/snowman.png';
 const HomePage = () => {
@@ -10,8 +11,15 @@ const HomePage = () => {
                     <img className={"perso_slide"} src={perso}/>
                 </div>
                 <div className={"text_slide"}>
+                    <p className={"text_title col-12"}>MY CHRISTMAS WISHLIST </p>
+                    <p className={"text_content col-10 text-red"}>"Créer, partage et soit sage Hohoho"</p>
+                    <p className={"col-8"}>Papa noel</p>
+                    <div className={"btn_slide"}>
+                        <Link to={"/liste/new"}><button className={"btn btn_slide_btn col-3"}>creer</button></Link>
+                    </div>
 
                 </div>
+
                 <div className={""}>
                     <img height={"700px"} className="d-block w-100 img-responsive slide_background" src={slide}/>
 
