@@ -48,21 +48,6 @@ class AppFixtures extends Fixture
 
             $manager->persist($client);
 
-            $decoListe = new DecoListe();
-            $decoListe->setWallpaper("https://127.0.0.1:8080/build/images/Bow.231b030e.png")
-                ->setBorder("#F5624D")
-                ->setMotif();
-            $manager->persist($decoListe);
-
-
-            for ($l = 0; $l < 2; $l++){
-                $liste = new Liste();
-                $liste->setTitle($faker->words($nb = 3, $asText = false) )
-                    ->setDescription($faker->text($maxNbChars = 150) )
-                    ->setUser($client)
-                    ->setDecoListe($decoListe);
-            }
-            $manager->persist($liste);
         }
 
         for ($i = 0; $i <50; $i++){

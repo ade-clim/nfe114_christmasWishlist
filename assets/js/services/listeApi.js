@@ -1,13 +1,14 @@
 import axios from 'axios';
+import {LISTES_API} from "../config";
 
 function findAll() {
     return axios
-        .get("https://localhost:8000/api/listes")
+        .get(LISTES_API)
         .then(response => response.data['hydra:member'])
 }
 
 function deleteListe(id) {
-    return axios.delete("https://localhost:8000/api/listes/" + id)
+    return axios.delete(LISTES_API + "/" + id)
 }
 
 
@@ -15,17 +16,17 @@ function deleteListe(id) {
 
 function find(id){
     return axios
-        .get("https://localhost:8000/api/listes/" + id)
+        .get(LISTES_API + "/" + id)
         .then(response => response.data)
 }
 
 
 function update(id, liste){
-    return axios.put("https://localhost:8000/api/listes/" + id, {...liste, decoListe: `/api/deco_listes/${liste.decoListe.id}`});
+    return axios.put(LISTES_API + "/" + id, {...liste, decoListe: `/api/deco_listes/${liste.decoListe.id}`});
 }
 
 function create(liste){
-    return axios.post("https://localhost:8000/api/listes", {...liste, decoListe: `/api/deco_listes/${liste.decoListe}`});
+    return axios.post(LISTES_API, {...liste, decoListe: `/api/deco_listes/${liste.decoListe}`});
 }
 
 export default {
