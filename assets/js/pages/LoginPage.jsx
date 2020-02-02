@@ -3,6 +3,7 @@ import authApi from "../services/authApi";
 import AuthContext from "../contexts/AuthContext";
 import Field from "../components/forms/Fields";
 import {Link} from "react-router-dom";
+import {toast} from "react-toastify";
 
 const LoginPage = ({history}) => {
 
@@ -27,10 +28,12 @@ const LoginPage = ({history}) => {
             await authApi.authenticate(credentials);
             setError("");
             setIsAuthenticated(true);
+            toast.success("Vous êtes connecté 🎅");
             history.replace("/");
 
         }catch (error) {
             setError("Aucun compte ne possède cette adresse ou alors les informations ne correspondent pas !")
+            toast.error("Une erreur est survenue 🎅");
         }
     };
 

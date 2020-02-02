@@ -6,6 +6,7 @@ import AuthContext from "../contexts/AuthContext";
 import jwtDecode from "jwt-decode";
 import iconeUserNoel from '../../img/icones/Xmas_C-01.png';
 import logo from "../../img/logo/logo.png"
+import {toast} from "react-toastify";
 
 const Navbar = ({history}) => {
 
@@ -29,6 +30,7 @@ const Navbar = ({history}) => {
     const handleLogout = () => {
         authApi.logout();
         setIsAuthenticated(false);
+        toast.info("Vous êtes déconnecté 🎅");
         history.push("/")
     };
 

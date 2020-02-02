@@ -10,7 +10,7 @@ import { faEdit, faGift } from '@fortawesome/free-solid-svg-icons';
 import santaGift from "../../img/santa/santa_gift.png";
 import SweetAlert from "react-bootstrap-sweetalert";
 import TableListeStatic from "../components/TableListeStatic";
-
+import {toast} from "react-toastify";
 
 
 const ListesPage = ({match, history}) => {
@@ -121,10 +121,11 @@ const ListesPage = ({match, history}) => {
         try{
             const cancelReservedUser = {...listeItem, userItem: userSession};
             await listeItemsApi.deleteUserItem(listeItem.id, cancelReservedUser);
-
+            toast.info("Votre réservation est supprimée 🎅");
         }catch(error){
             console.log(error.response);
             setListes(originalListes);
+            toast.error("Une erreur est survenue 🎅");
         }
     };
 
@@ -148,12 +149,15 @@ const ListesPage = ({match, history}) => {
                 }
             }
         };
+
         try{
             const addReservedUser = {...listeItem, userItem: idUserSession};
             await listeItemsApi.update(listeItem.id, addReservedUser);
+            toast.success("Votre cadeaux est réservé 🎅");
         }catch(error){
             console.log(error.response);
             setListes(originalListes);
+            toast.error("Une erreur est survenue 🎅");
         }
     };
 

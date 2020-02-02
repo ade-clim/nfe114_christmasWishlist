@@ -4,7 +4,7 @@ import Field from "../components/forms/Fields";
 import {Link} from "react-router-dom";
 import addressApi from "../services/addressApi";
 import jwtDecode from "jwt-decode";
-
+import {toast} from "react-toastify";
 const UserPage = ({history, match}) => {
 
     const {id} = match.params;
@@ -88,20 +88,19 @@ const UserPage = ({history, match}) => {
         try {
             await userApi.update(id,user);
             await addressApi.update(address.id, address);
-            // TODO : Flash notification de succéss
+            toast.success("Modification de vos informations 🎅");
 
             setErrors({});
 
         }catch ({response}) {
             const {violations} = response.data;
-
             if(violations){
                 const apiErrors = {};
                 violations.forEach(({propertyPath, message}) => {
                     apiErrors[propertyPath] = message;
                 });
                 setErrors(apiErrors);
-                // TODO : Flash notification de d'erreurs
+                toast.error("Une erreur est survenue 🎅");
             }
         }
     };

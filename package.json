@@ -24,6 +24,7 @@
         "react": "^16.8.6",
         "react-bootstrap-sweetalert": "^5.1.9",
         "react-dom": "^16.8.6",
-        "react-router-dom": "^5.0.0"
+        "react-router-dom": "^5.0.0",
+        "react-toastify": "^5.5.0"
     }
 }

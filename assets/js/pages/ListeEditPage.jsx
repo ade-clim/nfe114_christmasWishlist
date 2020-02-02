@@ -5,7 +5,7 @@ import listeApi from "../services/listeApi";
 import decoListeApi from "../services/decoListeApi";
 import listeItemsApi from "../services/listeItemsApi";
 import SweetAlert from 'react-bootstrap-sweetalert';
-
+import {toast} from "react-toastify";
 //Wallpapers
 import Bow from '../../img/listes/wallpapers/Bow.png';
 import Ice from '../../img/listes/wallpapers/Ice.png';
@@ -184,9 +184,11 @@ const ListeEditPage = ({match, history}) => {
 
         try{
             await listeItemsApi.deleteListeItem(listeItem.id);
+            toast.info("Votre cadeaux est supprimée 🎅");
         }catch (error) {
             console.log(error.response);
             setItemsListe(originalItemsListe);
+            toast.error("Une erreur est survenue 🎅");
         }
     };
 
@@ -201,14 +203,13 @@ const ListeEditPage = ({match, history}) => {
         setSearch("");
         try{
             await listeItemsApi.createListeEditPage(listeItemAdd);
+            toast.success("Votre cadeaux est ajouter 🎅");
         }catch(error){
             console.log(error.response);
+            toast.error("Une erreur est survenue 🎅");
         }
         setUpdateFetch(true);
     };
-
-
-
 
 
 
@@ -284,10 +285,11 @@ const ListeEditPage = ({match, history}) => {
         try{
             const cancelReservedUser = {...listeItem, userItem: null};
             await listeItemsApi.deleteUserItem(listeItem.id, cancelReservedUser);
-
+            toast.info("Votre réservation est supprimée 🎅");
         }catch(error){
             console.log(error.response);
             setListe(originalListes);
+            toast.error("Une erreur est survenue 🎅");
         }
     };
 
@@ -306,10 +308,11 @@ const ListeEditPage = ({match, history}) => {
         try{
             const addReservedUser = {...listeItem, userItem: copyModifListes.user};
             await listeItemsApi.update(listeItem.id, addReservedUser);
-
+            toast.success("Votre cadeaux est réservé 🎅");
         }catch(error){
             console.log(error.response);
             setListe(originalListes);
+            toast.error("Une erreur est survenue 🎅");
         }
     };
 
@@ -318,10 +321,11 @@ const ListeEditPage = ({match, history}) => {
         try {
             await listeApi.delete(listeId);
             history.replace("/user/"+ liste.user.id+"/listes");
-
+            toast.success("Votre liste est supprimée 🎅");
 
         } catch (error) {
-            console.log(error)
+            console.log(error);
+            toast.error("Une erreur est survenue 🎅");
         }
     }
 

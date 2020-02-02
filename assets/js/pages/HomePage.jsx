@@ -11,7 +11,7 @@ const HomePage = () => {
                     <img className={"perso_slide"} src={perso}/>
                 </div>
                 <div className={"text_slide"}>
-                    <p className={"text_title col-12"}>MY CHRISTMASsss WISHLIST</p>
+                    <p className={"text_title col-12"}>MY CHRISTMAS WISHLIST</p>
                     <p className={"text_content text-red text-center"}>"Créer, partage et soit sage Hohoho"</p>
                     <p className={"text-center"}>Papa noel</p>
                     <div className={"text-center mt-4"}>
