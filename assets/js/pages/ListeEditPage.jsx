@@ -31,12 +31,14 @@ import {Link} from "react-router-dom";
 import TableListe from "../components/TableListe";
 import jwtDecode from "jwt-decode";
 import DecoListe from "../components/DecoListe";
+import ListeLoader from "../components/loaders/ListeLoader";
 
 const ListeEditPage = ({match, history}) => {
 
     const {id} = match.params;
     const idUrl = parseInt(id, 10);
 
+    const[loading, setLoading] = useState(true);
     let i = 0;
     const [borderColor, setBorderColor] = useState("");
     const [wallpaper, setWallpaper] = useState();
@@ -105,7 +107,7 @@ const ListeEditPage = ({match, history}) => {
             setListe({id, title, description, decoListe, listeItems, user});
             setDecoListe(myDecoListe);
             setItemsListe(listeItems);
-
+            setLoading(false);
             // verif securité
             handleFetchUser(user);
 
@@ -139,7 +141,7 @@ const ListeEditPage = ({match, history}) => {
         try {
             const listeSend = {decoListe : decoListe, title: liste.title, description: liste.description};
             await listeApi.update(liste.id, listeSend);
-            // TODO : Flash notification success
+            toast.success("Votre liste est modifié 🎅");
             setErrors({});
 
         }catch ({response}) {
@@ -150,7 +152,7 @@ const ListeEditPage = ({match, history}) => {
                     apiErrors[propertyPath] = message;
                 });
                 setErrors(apiErrors);
-                // TODO : Flash notification de d'erreurs
+                toast.error("Une erreur est survenue 🎅");
             }
         }
     };
@@ -329,7 +331,6 @@ const ListeEditPage = ({match, history}) => {
         }
     }
 
-    //<button className={"btn btn-sm bg-white"} onClick={() => {handleDeleteListe(liste.id)}}><FontAwesomeIcon icon={faTrash} color={"red"} size={"2x"}/></button>
   return(
 
       <div className={"container-fluid homecontainer"}>
@@ -340,6 +341,7 @@ const ListeEditPage = ({match, history}) => {
           </div>
 
           <div className={"liste_size container"} >
+              {loading && <div style={{position: "absolute"}}><ListeLoader/></div>}
               <div className={"container d-flex col-12"} style={borderStyle}>
                   <div className={"container col-12 wallpapers-list"} style={wallpaperStyle}>
                       <div className={"text-right liste_edit"}>

@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faGift} from "@fortawesome/free-solid-svg-icons";
+import {faBan, faGift} from "@fortawesome/free-solid-svg-icons";
 import Field from "./forms/Fields";
 import SweetAlert from 'react-bootstrap-sweetalert';
 import {Link} from "react-router-dom";
@@ -13,7 +13,7 @@ const TableListeStatic = ({userSession, auth, hideReservedBtn, liste, itemsListe
     return(
         <div className={"container"}>
             <div className={"row"}>
-                <div className={"col-12"}>
+                <div>
                     <table className={"table_gift table-responsive table-sm"}>
                         <tbody>
                         {liste.listeItems.map(e =>{
@@ -23,20 +23,31 @@ const TableListeStatic = ({userSession, auth, hideReservedBtn, liste, itemsListe
                                     <div style={{paddingTop: "25px"}}>
                                         {i !== 1 && <hr/>}
                                         <p className={"mb-5 mt-5"} key={i} >
-                                            <td scope={"row"}>{i}</td>
+
                                             <td><img className={"picture_item"} width={"100%"} src={e.item.picture}/></td>
-                                            <td width={"400px"}>{e.item.title} <br/> {e.item.description} <br/>{e.item.price} euros </td>
+                                            <td className={"info_gift"} width={"400px"}>
+                                                <p className={"title_gift"}>{e.item.title}</p>
+                                                <p className={"description_gift"}>{e.item.description}</p>
+                                                <p className={"price_gift"}>{e.item.price} euros</p></td>
 
                                             {/* si le cadeau est reserver alors afficher l'utilisateur et cacher le button de reservation */}
 
                                             {e.userItem &&
-                                            <td><FontAwesomeIcon color={"green"} icon={faGift} size={"lg"}/>{e.userItem.firstName}{e.userItem.lastName}
+                                            <td>
+
+                                                <FontAwesomeIcon color={"green"} icon={faGift} size={"lg"}/>
+                                                {e.userItem.firstName} {e.userItem.lastName}
+
                                                 {userSession.id === e.userItem.id
+
                                                 &&
                                                 <>
-                                                    <button onClick={() => {setConfirmDeleteReservedGift(true)}}>
-                                                        X
-                                                    </button>
+
+                                                        <span className={"btn"} onClick={() => {setConfirmDeleteReservedGift(true)}}>
+                                                            <FontAwesomeIcon icon={faBan} color={"red"} size={"lg"}/>
+                                                        </span>
+
+
 
                                                     {confirmDeleteReservedGift &&
                                                     <SweetAlert

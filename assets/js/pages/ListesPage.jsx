@@ -177,7 +177,7 @@ const ListesPage = ({match, history}) => {
             <div className={"container homecontainer"}>
 
                 {listes.length > 1  && <div className={"col-9"}>
-                    <p><input type={"text"} onChange={handleSearch} value={search} className={"form-control"} placeholder={"Rechercher ..."}/></p>
+                    <p><input type={"text"} onChange={handleSearch} value={search} className={"form-control"} placeholder={"Rechercher une liste..."}/></p>
                 </div>}
                 {loading && <ListeLoader/>}
                 {paginatedListes.map(liste => <>

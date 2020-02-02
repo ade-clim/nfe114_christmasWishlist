@@ -102,6 +102,25 @@ body {
     margin-left: 50px;
 }
 
+.info_gift{
+    margin-top:auto;
+    margin-bottom:auto;
+}
+.title_gift{
+
+    font-size: 1.5em;
+    color:#6e6e6e;
+}
+
+.description_gift{
+
+    font-size: 1em;
+}
+
+.price_gift{
+    color:#9683ec;
+}
+
 .reservation_fond{
     height:250px;
     width : 40%;

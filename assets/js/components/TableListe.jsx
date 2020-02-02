@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faGift} from "@fortawesome/free-solid-svg-icons";
+import {faBan, faGift, faTrash} from "@fortawesome/free-solid-svg-icons";
 import Field from "./forms/Fields";
 import SweetAlert from 'react-bootstrap-sweetalert';
 
@@ -37,9 +37,16 @@ const TableListe = ({hideReservedBtn, liste, itemsListe, handleDeleteReservedGif
                             <tbody>
                                 {filteredItems.map(item => <div key={item.id}>
                                     <tr>
-                                        <td><img className={"picture_item"} src={item.picture} width={"100%"}/> </td>
-                                        <td>{item.title} <br/>{item.description} <br/>{item.price} euros</td>
-                                        <td><div className={"btn btn-success btn-sm"} onClick={() => handleAddGift(item)}>Add</div></td>
+                                        <div className={"mt-4 mb-4"}>
+                                            <td ><img className={"picture_item"} src={item.picture} width={"100%"}/> </td>
+                                            <td className={"info_gift"} width={"400px"}>
+                                                <p className={"title_gift"}>{item.title}</p>
+                                                <p className={"description_gift"}>{item.description}</p>
+                                                <p className={"price_gift"}>{item.price} euros</p>
+                                            </td>
+                                            <td><div className={"btn btn-success btn-sm"} onClick={() => handleAddGift(item)}>Add</div></td>
+                                        </div>
+
 
 
 
@@ -60,12 +67,14 @@ const TableListe = ({hideReservedBtn, liste, itemsListe, handleDeleteReservedGif
                                         i++;
                                         return(<>
                                                 {i !== 1 && <hr/>}
-                                                <div className={"mt-5 mb-5 container"}>
+                                                <div className={"mt-5 mb-5"}>
                                                     <tr>
-                                                        <td scope={"row"}>{i}<span hidden>{liste.item.idProvisoire = i}</span></td>
                                                         <td ><img className={"picture_item"} width={"100%"} src={liste.item.picture}/></td>
-                                                        <td>{liste.id}{liste.item.title} <br/> {liste.item.description}<br/>{liste.item.price} euros</td>
-
+                                                        <td className={"info_gift"} width={"400px"}>
+                                                            <p className={"title_gift"}>{liste.item.title}</p>
+                                                            <p className={"description_gift"}>{liste.item.description}</p>
+                                                            <p className={"price_gift"}>{liste.item.price} euros</p>
+                                                        </td>
                                                         {/* si le cadeau est reserver alors afficher l'utilisateur et cacher le button de reservation */}
                                                         {!hideReservedBtn && <>
                                                             {liste.userItem &&
@@ -96,7 +105,7 @@ const TableListe = ({hideReservedBtn, liste, itemsListe, handleDeleteReservedGif
                                                             </button></td>
                                                             }
                                                         </>}
-                                                        <td><button className={"btn btn-danger btn-sm"} onClick={() => handleDelete(liste)}>ddd</button></td>
+                                                        <td><button className={"btn btn-sm"} onClick={() => handleDelete(liste)}><FontAwesomeIcon icon={faBan} color={"red"} size={"2x"}/></button></td>
                                                     </tr>
                                                 </div>
                                             </>
@@ -109,7 +118,7 @@ const TableListe = ({hideReservedBtn, liste, itemsListe, handleDeleteReservedGif
                     </div>
 
                     <div className={"form-group text-center mt-5"}>
-                        <button className={"btn button_liste text-white"} type={"submit"}>Enregistrer</button>
+                        <button style={{backgroundColor: "#2bbdc1"}} className={"btn button_liste text-white"} type={"submit"}>Enregistrer</button>
                     </div>
                 </form>
 

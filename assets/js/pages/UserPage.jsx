@@ -176,11 +176,8 @@ const UserPage = ({history, match}) => {
                     </div>
                 </form>
             </div>
-
             }
-
         </>
-
     )
 };
 

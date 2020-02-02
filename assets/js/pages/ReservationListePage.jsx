@@ -7,11 +7,13 @@ import {faEdit, faGift} from "@fortawesome/free-solid-svg-icons";
 import jwtDecode from "jwt-decode";
 import listeItemsApi from "../services/listeItemsApi";
 import TableListeStatic from "../components/TableListeStatic";
+import ListeLoader from "../components/loaders/ListeLoader";
 
 const ReservationListePage = ({match ,history}) => {
     const {id} = match.params;
     const idUrl = parseInt(id, 10);
 
+    const[loading, setLoading] = useState(true);
     const [auth, setAuth] = useState(false);
     // Recuperation des cadeaux pour affichage dans la liste
     const [itemsListe, setItemsListe] = useState([]);
@@ -64,6 +66,7 @@ const ReservationListePage = ({match ,history}) => {
             setListe({id, title, description, decoListe, user, listeItems});
             setDecoListe(myDecoListe);
             setItemsListe(listeItems);
+            setLoading(false);
         } catch (error) {
             console.log(error.response);
         }
@@ -129,6 +132,7 @@ const ReservationListePage = ({match ,history}) => {
     return (
         <>
             <div className={"container homecontainer"}>
+                {loading && <ListeLoader/>}
                 <div key={liste.id} className={"container contour-list d-flex"} style={{backgroundColor: decoListe.border}}>
                     <div className={"container col-12 wallpapers-list"} style={{backgroundImage: `url(${decoListe.wallpaper})`}}>
                         {liste.user.id === userSession.id && <div className={"text-right liste_edit"}>
