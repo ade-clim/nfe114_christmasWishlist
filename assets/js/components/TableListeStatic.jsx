@@ -20,61 +20,62 @@ const TableListeStatic = ({userSession, auth, hideReservedBtn, liste, itemsListe
                             i++;
                             return(
                                 <>
-                                    {i !== 1 && <hr/>}
-                                    <p className={"mt-5 mb-5"} key={i}>
-                                        <td scope={"row"}>{i}</td>
-                                        <td><img className={"picture_item"} width={"100%"} src={e.item.picture}/></td>
-                                        <td>{e.item.title} <br/> {e.item.description}</td>
-                                        <td>{e.item.price} euros</td>
+                                    <div style={{paddingTop: "25px"}}>
+                                        {i !== 1 && <hr/>}
+                                        <p className={"mb-5 mt-5"} key={i} >
+                                            <td scope={"row"}>{i}</td>
+                                            <td><img className={"picture_item"} width={"100%"} src={e.item.picture}/></td>
+                                            <td width={"400px"}>{e.item.title} <br/> {e.item.description} <br/>{e.item.price} euros </td>
 
-                                        {/* si le cadeau est reserver alors afficher l'utilisateur et cacher le button de reservation */}
+                                            {/* si le cadeau est reserver alors afficher l'utilisateur et cacher le button de reservation */}
 
-                                        {e.userItem &&
-                                        <td><FontAwesomeIcon color={"green"} icon={faGift} size={"lg"}/>{e.userItem.firstName}{e.userItem.lastName}
-                                            {userSession.id === e.userItem.id
-                                            &&
-                                            <>
-                                                <button onClick={() => {setConfirmDeleteReservedGift(true)}}>
-                                                    X
-                                                </button>
+                                            {e.userItem &&
+                                            <td><FontAwesomeIcon color={"green"} icon={faGift} size={"lg"}/>{e.userItem.firstName}{e.userItem.lastName}
+                                                {userSession.id === e.userItem.id
+                                                &&
+                                                <>
+                                                    <button onClick={() => {setConfirmDeleteReservedGift(true)}}>
+                                                        X
+                                                    </button>
 
-                                                {confirmDeleteReservedGift &&
-                                                <SweetAlert
-                                                    info
-                                                    showCancel
-                                                    confirmBtnText="Oui"
-                                                    confirmBtnBsStyle="danger"
-                                                    btnSize="xs"
-                                                    title="Supprimer la réservation ?"
-                                                    onConfirm={() => {{handleDeleteReservedGift(e, liste.id), setConfirmDeleteReservedGift(false)}}}
-                                                    onCancel={() => {setConfirmDeleteReservedGift(true)}}
-                                                    focusCancelBtn
-                                                >
-                                                    Oh oh oh
-                                                </SweetAlert>
+                                                    {confirmDeleteReservedGift &&
+                                                    <SweetAlert
+                                                        info
+                                                        showCancel
+                                                        confirmBtnText="Oui"
+                                                        confirmBtnBsStyle="danger"
+                                                        btnSize="xs"
+                                                        title="Supprimer la réservation ?"
+                                                        onConfirm={() => {{handleDeleteReservedGift(e, liste.id), setConfirmDeleteReservedGift(false)}}}
+                                                        onCancel={() => {setConfirmDeleteReservedGift(true)}}
+                                                        focusCancelBtn
+                                                    >
+                                                        Oh oh oh
+                                                    </SweetAlert>
+                                                    }
+
+                                                </>
                                                 }
-
-                                            </>
-                                            }
-                                        </td>
-                                        ||
-                                        <>
-                                            {auth &&
-                                            <td>
-                                                <button className={"btn btn-sm button_liste text-white"} onClick={() => {handleReservedItem(e, liste.id)}}>
-                                                    reserver
-                                                </button>
                                             </td>
                                             ||
-                                            <td>
-                                                <button className={"btn btn-sm button_liste text-white"}>
-                                                    <Link to={"/login"} className={"text-white"}><span>reserver</span></Link>
-                                                </button>
-                                            </td>
+                                            <>
+                                                {auth &&
+                                                <td>
+                                                    <button className={"btn btn-sm button_liste text-white"} onClick={() => {handleReservedItem(e, liste.id)}}>
+                                                        reserver
+                                                    </button>
+                                                </td>
+                                                ||
+                                                <td>
+                                                    <button className={"btn btn-sm button_liste text-white"}>
+                                                        <Link to={"/login"} className={"text-white"}><span>reserver</span></Link>
+                                                    </button>
+                                                </td>
+                                                }
+                                            </>
                                             }
-                                        </>
-                                        }
-                                    </p>
+                                        </p>
+                                    </div>
                                 </>
                             )
                         })}

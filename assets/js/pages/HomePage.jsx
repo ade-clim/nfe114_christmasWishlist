@@ -11,10 +11,10 @@ const HomePage = () => {
                     <img className={"perso_slide"} src={perso}/>
                 </div>
                 <div className={"text_slide"}>
-                    <p className={"text_title col-12"}>MY CHRISTMAS WISHLIST </p>
-                    <p className={"text_content col-10 text-red"}>"Créer, partage et soit sage Hohoho"</p>
-                    <p className={"col-8"}>Papa noel</p>
-                    <div className={"btn_slide"}>
+                    <p className={"text_title col-12"}>MY CHRISTMAS WISHLIST</p>
+                    <p className={"text_content text-red text-center"}>"Créer, partage et soit sage Hohoho"</p>
+                    <p className={"text-center"}>Papa noel</p>
+                    <div className={"text-center mt-4"}>
                         <Link to={"/liste/new"}><button className={"btn btn_slide_btn col-3"}>creer</button></Link>
                     </div>
 

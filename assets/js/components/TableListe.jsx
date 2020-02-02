@@ -33,11 +33,22 @@ const TableListe = ({hideReservedBtn, liste, itemsListe, handleDeleteReservedGif
 
                     {/* Boucle pour afficher la selection de cadeaux disponible */}
                     {search.length !== 0 &&  <>
-                        {filteredItems.map(item => <div key={item.id}>
-                                <img src={item.picture}/> {item.title} {item.description} {item.price}
-                                <div className={"btn btn-success btn-sm"} onClick={() => handleAddGift(item)}>Add</div>
-                            </div>
-                        )}
+                        <table>
+                            <tbody>
+                                {filteredItems.map(item => <div key={item.id}>
+                                    <tr>
+                                        <td><img className={"picture_item"} src={item.picture} width={"100%"}/> </td>
+                                        <td>{item.title} <br/>{item.description} <br/>{item.price} euros</td>
+                                        <td><div className={"btn btn-success btn-sm"} onClick={() => handleAddGift(item)}>Add</div></td>
+
+
+
+                                    </tr>
+
+                                </div>
+                                )}
+                            </tbody>
+                        </table>
                     </>}
 
                     <div className={"container"}>
@@ -49,12 +60,11 @@ const TableListe = ({hideReservedBtn, liste, itemsListe, handleDeleteReservedGif
                                         i++;
                                         return(<>
                                                 {i !== 1 && <hr/>}
-                                                <div className={"mt-5 mb-5"}>
+                                                <div className={"mt-5 mb-5 container"}>
                                                     <tr>
-                                                        <td scope={"row"}>{i}<span hidden >{liste.item.idProvisoire = i}</span></td>
+                                                        <td scope={"row"}>{i}<span hidden>{liste.item.idProvisoire = i}</span></td>
                                                         <td ><img className={"picture_item"} width={"100%"} src={liste.item.picture}/></td>
-                                                        <td>{liste.id}{liste.item.title} <br/> {liste.item.description}</td>
-                                                        <td>{liste.item.price} euros</td>
+                                                        <td>{liste.id}{liste.item.title} <br/> {liste.item.description}<br/>{liste.item.price} euros</td>
 
                                                         {/* si le cadeau est reserver alors afficher l'utilisateur et cacher le button de reservation */}
                                                         {!hideReservedBtn && <>
@@ -86,35 +96,6 @@ const TableListe = ({hideReservedBtn, liste, itemsListe, handleDeleteReservedGif
                                                             </button></td>
                                                             }
                                                         </>}
-
-                                                        <td>
-                                                            <button className={"btn btn-danger btn-sm"} onClick={() => setConfirmDeleteItem(true)}>
-                                                                Delete{liste.id}
-                                                            </button>
-
-                                                            {confirmDeleteItem &&
-                                                            <>
-
-                                                                {liste.id}
-                                                                <SweetAlert
-                                                                    danger
-                                                                    showCancel
-                                                                    confirmBtnText="Oui"
-                                                                    confirmBtnBsStyle="danger"
-                                                                    btnSize="xs"
-                                                                    title="Supprimer le cadeaux?"
-                                                                    onConfirm={() => {{handleDelete(liste), setConfirmDeleteItem(false)}}}
-                                                                    onCancel={() => {setConfirmDeleteItem(false)}}
-                                                                    focusCancelBtn
-                                                                >
-                                                                    Oh oh oh
-                                                                </SweetAlert>
-                                                            </>
-
-
-                                                            }
-
-                                                        </td>
                                                         <td><button className={"btn btn-danger btn-sm"} onClick={() => handleDelete(liste)}>ddd</button></td>
                                                     </tr>
                                                 </div>

@@ -185,8 +185,8 @@ const ListesPage = ({match, history}) => {
                             </div>
                             <div className={"container col-11 list"}>
                                 <div className={"container info-list"}>
-                                    <p className={"text-center text-uppercase mt-5"}>{liste.title}</p>
-                                    <p className={"mt-5"}>{liste.description}</p>
+                                    <p style={{marginTop: "35px"}} className={"text-center text-uppercase"}>{liste.title}</p>
+                                    <p style={{marginTop: "65px"}} className={"ml-3"}>{liste.description}</p>
 
 
                                     {liste.listeItems.length === 0 &&
@@ -205,7 +205,6 @@ const ListesPage = ({match, history}) => {
                                     </>
                                     }
 
-
                                 </div>
                             </div>
                         </div>
@@ -218,7 +217,7 @@ const ListesPage = ({match, history}) => {
             <div className={"reservation_fond"} >
                 <div className={"text-center"}>
                     <p style={{fontSize: "1.1em"}}>Vous n'avez pas encore crée de liste</p>
-                    <Link to={"/listes/searchlistes"}><button className={"btn button_liste text-white"}>Crée une liste</button></Link>
+                    <Link to={"/liste/new"}><button className={"btn button_liste text-white"}>Crée une liste</button></Link>
                 </div>
                 <div className={"liste_santa_gift"}>
                     <img src={santaGift}/>
