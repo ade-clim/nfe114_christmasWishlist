@@ -11,9 +11,12 @@ import santaGift from "../../img/santa/santa_gift.png";
 import SweetAlert from "react-bootstrap-sweetalert";
 import TableListeStatic from "../components/TableListeStatic";
 import {toast} from "react-toastify";
+import ListeLoader from "../components/loaders/ListeLoader";
 
 
 const ListesPage = ({match, history}) => {
+
+    const[loading, setLoading] = useState(true);
     const {id} = match.params;
     const idUrl = parseInt(id, 10);
     let i = 0;
@@ -54,6 +57,7 @@ const ListesPage = ({match, history}) => {
             if(data.length === 0){
                 setUp(true);
             }
+            setLoading(false);
         } catch (error) {
             console.log(error.response);
         }
@@ -164,15 +168,18 @@ const ListesPage = ({match, history}) => {
 
     return(<>
         {!up && <div>
+
             <div className={"container-fluid"}>
                 <PaginationListes currentPage={currentPage} itemsPerPage={itemsPerPage} length={filteredListes.length} onPageChanged={handlePageChange}/>
             </div>
 
 
             <div className={"container homecontainer"}>
+
                 {listes.length > 1  && <div className={"col-9"}>
                     <p><input type={"text"} onChange={handleSearch} value={search} className={"form-control"} placeholder={"Rechercher ..."}/></p>
                 </div>}
+                {loading && <ListeLoader/>}
                 {paginatedListes.map(liste => <>
                     <div key={liste.id} className={"container contour-list d-flex"} style={{backgroundColor: liste.decoListe.border}}>
                         <div className={"container col-12 wallpapers-list"} style={{backgroundImage: `url(${liste.decoListe.wallpaper})`}}>

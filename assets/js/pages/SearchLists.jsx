@@ -2,9 +2,12 @@ import React,{useState, useEffect} from 'react';
 import {Link} from "react-router-dom";
 import userApi from "../services/userApi";
 import Pagination from "../components/Pagination";
+import TableLoader from "../components/loaders/TableLoader";
 
 
 const SearchLists = () => {
+
+    const[loading, setLoading] = useState(true);
     const [users, setUsers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [search, setSearch] = useState("");
@@ -15,6 +18,7 @@ const SearchLists = () => {
         try{
             const data = await userApi.findAll();
             setUsers(data);
+            setLoading(false);
 
         }catch(error){
             console.log(error.response);
@@ -79,6 +83,8 @@ const SearchLists = () => {
                     </tr>)}
                     </tbody>
                 </table>
+                {loading && <TableLoader/>}
+
                 <Pagination currentPage={currentPage} itemsPerPage={itemsPerPage} length={filteredUsers.length} onPageChanged={handlePageChange}/>
             </div>
         </>
