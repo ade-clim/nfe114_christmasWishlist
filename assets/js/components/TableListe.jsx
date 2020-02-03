@@ -40,18 +40,14 @@ const TableListe = ({hideReservedBtn, liste, itemsListe, handleDeleteReservedGif
                                         <div className={"mt-4 mb-4"}>
                                             <td ><img className={"picture_item"} src={item.picture} width={"100%"}/> </td>
                                             <td className={"info_gift"} width={"400px"}>
+                                                {item.idProvisoire}
                                                 <p className={"title_gift"}>{item.title}</p>
                                                 <p className={"description_gift"}>{item.description}</p>
                                                 <p className={"price_gift"}>{item.price} euros</p>
                                             </td>
                                             <td><div className={"btn btn-success btn-sm"} onClick={() => handleAddGift(item)}>Add</div></td>
                                         </div>
-
-
-
-
                                     </tr>
-
                                 </div>
                                 )}
                             </tbody>
@@ -69,35 +65,21 @@ const TableListe = ({hideReservedBtn, liste, itemsListe, handleDeleteReservedGif
                                                 {i !== 1 && <hr/>}
                                                 <div className={"mt-5 mb-5"}>
                                                     <tr>
+
                                                         <td ><img className={"picture_item"} width={"100%"} src={liste.item.picture}/></td>
                                                         <td className={"info_gift"} width={"400px"}>
                                                             <p className={"title_gift"}>{liste.item.title}</p>
                                                             <p className={"description_gift"}>{liste.item.description}</p>
                                                             <p className={"price_gift"}>{liste.item.price} euros</p>
+                                                            <p className={""}><button className={"btn btn-sm button_liste"} onClick={() => handleDelete(liste)}>delete</button></p>
                                                         </td>
                                                         {/* si le cadeau est reserver alors afficher l'utilisateur et cacher le button de reservation */}
                                                         {!hideReservedBtn && <>
                                                             {liste.userItem &&
-                                                            <td ><FontAwesomeIcon color={"green"} icon={faGift} size={"lg"}/>{liste.userItem.firstName}{liste.userItem.lastName}
-                                                                <button onClick={() => {setConfirmDeleteReservedGiftGift(true)}}>
-                                                                    X
+                                                            <td><FontAwesomeIcon color={"green"} icon={faGift} size={"lg"}/>{liste.userItem.firstName}{liste.userItem.lastName}
+                                                                <button  className={"btn btn-sm"} onClick={() => {handleDeleteReservedGift(liste)}}>
+                                                                    <FontAwesomeIcon icon={faBan} color={"red"} size={"lg"}/>
                                                                 </button>
-
-                                                                {confirmDeleteReservedGiftGift &&
-                                                                <SweetAlert
-                                                                    info
-                                                                    showCancel
-                                                                    confirmBtnText="Oui"
-                                                                    confirmBtnBsStyle="danger"
-                                                                    btnSize="xs"
-                                                                    title="Supprimer la réservation ?"
-                                                                    onConfirm={() => {{handleDeleteReservedGift(liste), setConfirmDeleteReservedGiftGift(false)}}}
-                                                                    onCancel={() => {setConfirmDeleteReservedGiftGift(false)}}
-                                                                    focusCancelBtn
-                                                                >
-                                                                    Oh oh oh
-                                                                </SweetAlert>
-                                                                }
                                                             </td>
                                                             ||
                                                             <td><button className={"btn btn-sm button_liste text-white"} onClick={() => {handleReservedItem(liste)}}>
@@ -105,7 +87,7 @@ const TableListe = ({hideReservedBtn, liste, itemsListe, handleDeleteReservedGif
                                                             </button></td>
                                                             }
                                                         </>}
-                                                        <td><button className={"btn btn-sm"} onClick={() => handleDelete(liste)}><FontAwesomeIcon icon={faBan} color={"red"} size={"2x"}/></button></td>
+
                                                     </tr>
                                                 </div>
                                             </>

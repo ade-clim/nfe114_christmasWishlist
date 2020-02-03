@@ -180,9 +180,8 @@ const ListeEditPage = ({match, history}) => {
 
     // On supprime le cadeaux dans la liste, on utilise une id provisoire (cpt) pour eviter de supprimer les produits avec la meme id (produit identique)
     const handleDelete = async (listeItem) => {
-        console.log(listeItem);
         const originalItemsListe = [...itemsListe];
-        setItemsListe(itemsListe.filter(item => item.item.idProvisoire !== listeItem.item.idProvisoire));
+        setItemsListe(itemsListe.filter(item => item.id !== listeItem.id));
 
         try{
             await listeItemsApi.deleteListeItem(listeItem.id);
@@ -345,27 +344,9 @@ const ListeEditPage = ({match, history}) => {
               <div className={"container d-flex col-12"} style={borderStyle}>
                   <div className={"container col-12 wallpapers-list"} style={wallpaperStyle}>
                       <div className={"text-right liste_edit"}>
-                          <button className={"btn btn-sm bg-white"} onClick={() => {setConfirmDeleteListe(true)}}>
+                          <button className={"btn btn-sm bg-white"} onClick={() => {{handleDeleteListe(liste.id)}}}>
                               <FontAwesomeIcon icon={faTrash} color={"red"} size={"2x"}/>
                           </button>
-                          {confirmDeleteListe &&
-                          <SweetAlert
-                              warning
-                              showCancel
-                              showCloseButton
-                              confirmBtnText="Oui ,supprimer la liste"
-                              confirmBtnBsStyle="danger"
-                              btnSize ="xs"
-                              cancelBtnText="Non"
-                              title="Supprimer la liste ?"
-                              focusCancelBtn
-                              onCancel={() => {setConfirmDeleteListe(false)}}
-                              onConfirm={() => {handleDeleteListe(liste.id)}}
-                          >
-                              Oh oh oh
-                          </SweetAlert>
-                          }
-
 
                       </div>
                       <div className={"container col-lg-6 col-md-10"}>

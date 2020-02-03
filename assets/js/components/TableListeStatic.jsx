@@ -23,7 +23,7 @@ const TableListeStatic = ({userSession, auth, hideReservedBtn, liste, itemsListe
                                     <div style={{paddingTop: "25px"}}>
                                         {i !== 1 && <hr/>}
                                         <p className={"mb-5 mt-5"} key={i} >
-
+                                            {i}
                                             <td><img className={"picture_item"} width={"100%"} src={e.item.picture}/></td>
                                             <td className={"info_gift"} width={"400px"}>
                                                 <p className={"title_gift"}>{e.item.title}</p>
@@ -37,33 +37,17 @@ const TableListeStatic = ({userSession, auth, hideReservedBtn, liste, itemsListe
 
                                                 <FontAwesomeIcon color={"green"} icon={faGift} size={"lg"}/>
                                                 {e.userItem.firstName} {e.userItem.lastName}
-
                                                 {userSession.id === e.userItem.id
 
                                                 &&
                                                 <>
 
-                                                        <span className={"btn"} onClick={() => {setConfirmDeleteReservedGift(true)}}>
+                                                        <button className={"btn"} onClick={() => {handleDeleteReservedGift(e, liste.id)}}>
                                                             <FontAwesomeIcon icon={faBan} color={"red"} size={"lg"}/>
-                                                        </span>
+                                                        </button>
 
 
 
-                                                    {confirmDeleteReservedGift &&
-                                                    <SweetAlert
-                                                        info
-                                                        showCancel
-                                                        confirmBtnText="Oui"
-                                                        confirmBtnBsStyle="danger"
-                                                        btnSize="xs"
-                                                        title="Supprimer la réservation ?"
-                                                        onConfirm={() => {{handleDeleteReservedGift(e, liste.id), setConfirmDeleteReservedGift(false)}}}
-                                                        onCancel={() => {setConfirmDeleteReservedGift(true)}}
-                                                        focusCancelBtn
-                                                    >
-                                                        Oh oh oh
-                                                    </SweetAlert>
-                                                    }
 
                                                 </>
                                                 }
@@ -89,12 +73,15 @@ const TableListeStatic = ({userSession, auth, hideReservedBtn, liste, itemsListe
                                     </div>
                                 </>
                             )
+
                         })}
                         </tbody>
                     </table>
+
                 </div>
             </div>
         </div>
+
     )
 };
 
