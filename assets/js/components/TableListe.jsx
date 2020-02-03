@@ -33,22 +33,22 @@ const TableListe = ({hideReservedBtn, liste, itemsListe, handleDeleteReservedGif
 
                     {/* Boucle pour afficher la selection de cadeaux disponible */}
                     {search.length !== 0 &&  <>
-                        <table>
+                        <table className={"table_gift table-responsive table-sm"}>
                             <tbody>
-                                {filteredItems.map(item => <div key={item.id}>
-                                    <tr>
-                                        <div className={"mt-4 mb-4"}>
+                                {filteredItems.map(item => <tr key={item.id}>
+                                        <p className={"mt-4 mb-4"}>
                                             <td ><img className={"picture_item"} src={item.picture} width={"100%"}/> </td>
-                                            <td className={"info_gift"} width={"400px"}>
-                                                {item.idProvisoire}
+                                            <td width={"600px"}>
                                                 <p className={"title_gift"}>{item.title}</p>
                                                 <p className={"description_gift"}>{item.description}</p>
                                                 <p className={"price_gift"}>{item.price} euros</p>
+                                                <div className={"text-right"}>
+                                                    <button className={"btn btn-success btn-sm"} onClick={() => handleAddGift(item)}>Add</button>
+                                                </div>
+
                                             </td>
-                                            <td><div className={"btn btn-success btn-sm"} onClick={() => handleAddGift(item)}>Add</div></td>
-                                        </div>
-                                    </tr>
-                                </div>
+                                        </p>
+                                </tr>
                                 )}
                             </tbody>
                         </table>
@@ -61,36 +61,41 @@ const TableListe = ({hideReservedBtn, liste, itemsListe, handleDeleteReservedGif
                                     <tbody>
                                     {itemsListe.map(liste =>{
                                         i++;
-                                        return(<>
+                                        return(<tr>
                                                 {i !== 1 && <hr/>}
-                                                <div className={"mt-5 mb-5"}>
+                                                <p className={"mt-5 mb-5"}>
                                                     <tr>
 
                                                         <td ><img className={"picture_item"} width={"100%"} src={liste.item.picture}/></td>
-                                                        <td className={"info_gift"} width={"400px"}>
+                                                        <td width={"600px"}>
                                                             <p className={"title_gift"}>{liste.item.title}</p>
                                                             <p className={"description_gift"}>{liste.item.description}</p>
                                                             <p className={"price_gift"}>{liste.item.price} euros</p>
-                                                            <p className={""}><button className={"btn btn-sm button_liste"} onClick={() => handleDelete(liste)}>delete</button></p>
-                                                        </td>
-                                                        {/* si le cadeau est reserver alors afficher l'utilisateur et cacher le button de reservation */}
-                                                        {!hideReservedBtn && <>
-                                                            {liste.userItem &&
-                                                            <td><FontAwesomeIcon color={"green"} icon={faGift} size={"lg"}/>{liste.userItem.firstName}{liste.userItem.lastName}
-                                                                <button  className={"btn btn-sm"} onClick={() => {handleDeleteReservedGift(liste)}}>
-                                                                    <FontAwesomeIcon icon={faBan} color={"red"} size={"lg"}/>
-                                                                </button>
-                                                            </td>
-                                                            ||
-                                                            <td><button className={"btn btn-sm button_liste text-white"} onClick={() => {handleReservedItem(liste)}}>
-                                                                reserver
-                                                            </button></td>
-                                                            }
-                                                        </>}
+                                                            <div className={"text-right"}>
+                                                                {/* si le cadeau est reserver alors afficher l'utilisateur et cacher le button de reservation */}
+                                                                {!hideReservedBtn && <>
+                                                                    {liste.userItem &&
+                                                                    <span>
+                                                                        <FontAwesomeIcon color={"green"} icon={faGift} size={"lg"}/>{liste.userItem.firstName}{liste.userItem.lastName}
+                                                                            <button  className={"btn btn-sm"} onClick={() => {handleDeleteReservedGift(liste)}}>
+                                                                                <FontAwesomeIcon icon={faBan} color={"red"} size={"lg"}/>
+                                                                            </button>
+                                                                    </span>
+                                                                    ||
+                                                                    <button className={"btn btn-sm button_reserved text-danger"} onClick={() => {handleReservedItem(liste)}}>
+                                                                        reserver
+                                                                    </button>
 
+                                                                    }
+                                                                </>}
+
+                                                                <button className={"btn btn-sm button_liste text-white"} onClick={() => handleDelete(liste)}>delete</button>
+                                                            </div>
+
+                                                        </td>
                                                     </tr>
-                                                </div>
-                                            </>
+                                                </p>
+                                            </tr>
                                         )
                                     })}
                                     </tbody>

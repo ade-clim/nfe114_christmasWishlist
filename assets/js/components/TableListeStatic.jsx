@@ -14,66 +14,57 @@ const TableListeStatic = ({userSession, auth, hideReservedBtn, liste, itemsListe
         <div className={"container"}>
             <div className={"row"}>
                 <div>
-                    <table className={"table_gift table-responsive table-sm"}>
+                    <table  className={"table_gift table-responsive table-sm"}>
                         <tbody>
                         {liste.listeItems.map(e =>{
                             i++;
                             return(
-                                <>
-                                    <div style={{paddingTop: "25px"}}>
+                                <tr>
+                                    <div>
                                         {i !== 1 && <hr/>}
                                         <p className={"mb-5 mt-5"} key={i} >
-                                            {i}
                                             <td><img className={"picture_item"} width={"100%"} src={e.item.picture}/></td>
-                                            <td className={"info_gift"} width={"400px"}>
+                                            <td width={"600px"}>
                                                 <p className={"title_gift"}>{e.item.title}</p>
                                                 <p className={"description_gift"}>{e.item.description}</p>
-                                                <p className={"price_gift"}>{e.item.price} euros</p></td>
-
-                                            {/* si le cadeau est reserver alors afficher l'utilisateur et cacher le button de reservation */}
-
-                                            {e.userItem &&
-                                            <td>
-
-                                                <FontAwesomeIcon color={"green"} icon={faGift} size={"lg"}/>
-                                                {e.userItem.firstName} {e.userItem.lastName}
-                                                {userSession.id === e.userItem.id
-
+                                                <br/>
+                                                <p className={"price_gift"}>{e.item.price} euros</p>
+                                                {e.userItem
                                                 &&
                                                 <>
+                                                    {userSession.id === e.userItem.id
+                                                    &&
+                                                    <div  className={"text-right"}><FontAwesomeIcon color={"green"} icon={faGift} size={"lg"}/>{e.userItem.firstName} {e.userItem.lastName}
+                                                    <button className={"btn"} onClick={() => {handleDeleteReservedGift(e, liste.id)}}><FontAwesomeIcon icon={faBan} color={"red"} size={"lg"}/></button>
+                                                    </div>
+                                                    }
+                                                </>
+                                                ||
+                                                <>
+                                                    {auth &&
+                                                        <div className={"text-right"}>
+                                                            <button className={"btn btn-sm button_liste text-white"} onClick={() => {handleReservedItem(e)}}>
+                                                                reserver
+                                                            </button>
+                                                        </div>
 
-                                                        <button className={"btn"} onClick={() => {handleDeleteReservedGift(e, liste.id)}}>
-                                                            <FontAwesomeIcon icon={faBan} color={"red"} size={"lg"}/>
+                                                    ||
+                                                    <td>
+                                                        <button className={"btn btn-sm button_liste text-white"}>
+                                                            <Link to={"/login"} className={"text-white"}><span>reserver</span></Link>
                                                         </button>
-
-
-
-
+                                                    </td>
+                                                    }
                                                 </>
                                                 }
                                             </td>
-                                            ||
-                                            <>
-                                                {auth &&
-                                                <td>
-                                                    <button className={"btn btn-sm button_liste text-white"} onClick={() => {handleReservedItem(e, liste.id)}}>
-                                                        reserver
-                                                    </button>
-                                                </td>
-                                                ||
-                                                <td>
-                                                    <button className={"btn btn-sm button_liste text-white"}>
-                                                        <Link to={"/login"} className={"text-white"}><span>reserver</span></Link>
-                                                    </button>
-                                                </td>
-                                                }
-                                            </>
-                                            }
+
+                                            {/* si le cadeau est reserver alors afficher l'utilisateur et cacher le button de reservation */}
+
                                         </p>
                                     </div>
-                                </>
+                                </tr>
                             )
-
                         })}
                         </tbody>
                     </table>

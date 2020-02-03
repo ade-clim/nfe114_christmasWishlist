@@ -102,10 +102,7 @@ body {
     margin-left: 50px;
 }
 
-.info_gift{
-    margin-top:auto;
-    margin-bottom:auto;
-}
+
 .title_gift{
 
     font-size: 1.5em;
@@ -121,6 +118,15 @@ body {
     color:#9683ec;
 }
 
+.button_reserved{
+    backGround-color:white;
+    border: 1px  #a72925 solid;
+
+}
+.button_reserved:hover{
+    background-color: #a72925;
+    color:white;
+}
 .reservation_fond{
     height:250px;
     width : 40%;
