@@ -143,7 +143,6 @@ const ListeEditPage = ({match, history}) => {
             await listeApi.update(liste.id, listeSend);
             toast.success("Votre liste est modifié 🎅");
             setErrors({});
-
         }catch ({response}) {
             const {violations} = response.data;
             if(violations){
