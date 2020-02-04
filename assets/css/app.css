@@ -72,17 +72,10 @@ body {
 
 .pagination-listes{
     position: absolute;
-    z-index: 1;
-    margin-top: 30vh;
+    z-index: 4;
+    margin-top: 600px;
 }
 
-.arrow_right{
-    padding-left: 68vw;
-
- }
-.arrow_left{
-    padding-left: 10vw;
-}
 
 .fa-arrow-alt-circle-left:hover{
     color:#a72925;

@@ -169,60 +169,57 @@ const ListesPage = ({match, history}) => {
     return(<>
         {!up && <div>
 
-            <div className={"container-fluid"}>
                 <PaginationListes currentPage={currentPage} itemsPerPage={itemsPerPage} length={filteredListes.length} onPageChanged={handlePageChange}/>
-            </div>
+                <div className={"container homecontainer"}>
 
 
-            <div className={"container homecontainer"}>
-
-                {listes.length > 1  && <div className={"col-9"}>
-                    <p><input type={"text"} onChange={handleSearch} value={search} className={"form-control"} placeholder={"Rechercher une liste..."}/></p>
-                </div>}
-                {loading && <ListeLoader/>}
-                {paginatedListes.map(liste => <>
-                    <div key={liste.id} className={"container contour-list d-flex"} style={{backgroundColor: liste.decoListe.border}}>
-                        <div className={"container col-12 wallpapers-list"} style={{backgroundImage: `url(${liste.decoListe.wallpaper})`}}>
-                            {liste.user.id === userSession.id && <div className={"text-right liste_edit"}>
-                                <Link to={"/liste/edit/"+ liste.id}>
-                                    <button className={"btn btn-sm bg-white"}><FontAwesomeIcon icon={faEdit} color={"gray"} size={"2x"}/></button>
-                                </Link>
-                            </div>}
-                            <div className={"container col-lg-6 col-md-10"}>
-                                <img src={liste.decoListe.motif} className={"motif"}/>
-                            </div>
-                            <div className={"container col-8 text-right"}>
-                                <img src={liste.decoListe.timbre} className={"timbre"}/>
-                            </div>
-                            <div className={"container col-11 list"}>
-                                <div className={"container info-list"}>
-                                    <p style={{marginTop: "35px"}} className={"text-center text-uppercase"}>{liste.title}</p>
-                                    <p style={{marginTop: "65px"}} className={"ml-3"}>{liste.description}</p>
+                    {listes.length > 1  && <div className={"col-9"}>
+                        <p><input type={"text"} onChange={handleSearch} value={search} className={"form-control"} placeholder={"Rechercher une liste..."}/></p>
+                    </div>}
+                    {loading && <ListeLoader/>}
+                    {paginatedListes.map(liste => <>
+                        <div key={liste.id} className={"container contour-list d-flex"} style={{backgroundColor: liste.decoListe.border}}>
+                            <div className={"container col-12 wallpapers-list"} style={{backgroundImage: `url(${liste.decoListe.wallpaper})`}}>
+                                {liste.user.id === userSession.id && <div className={"text-right liste_edit"}>
+                                    <Link to={"/liste/edit/"+ liste.id}>
+                                        <button className={"btn btn-sm bg-white"}><FontAwesomeIcon icon={faEdit} color={"gray"} size={"2x"}/></button>
+                                    </Link>
+                                </div>}
+                                <div className={"container col-lg-6 col-md-10"}>
+                                    <img src={liste.decoListe.motif} className={"motif"}/>
+                                </div>
+                                <div className={"container col-8 text-right"}>
+                                    <img src={liste.decoListe.timbre} className={"timbre"}/>
+                                </div>
+                                <div className={"container col-11 list"}>
+                                    <div className={"container info-list"}>
+                                        <p style={{marginTop: "35px"}} className={"text-center text-uppercase"}>{liste.title}</p>
+                                        <p style={{marginTop: "65px"}} className={"ml-3"}>{liste.description}</p>
 
 
-                                    {liste.listeItems.length === 0 &&
-                                        <div className={"text-center mt-5 "}>
-                                            <div className={"no_gift"}>
-                                                <h6>Aucun cadeaux pour l'instant</h6>
-                                                <img src={santaGift}/>
+                                        {liste.listeItems.length === 0 &&
+                                            <div className={"text-center mt-5 "}>
+                                                <div className={"no_gift"}>
+                                                    <h6>Aucun cadeaux pour l'instant</h6>
+                                                    <img src={santaGift}/>
+                                                </div>
+
                                             </div>
 
-                                        </div>
+                                        ||
+                                        <>
+                                            {/* Boucle pour afficher les cadeaux dans la liste */}
+                                            <TableListeStatic  userSession={userSession} auth={auth} handleSearch={handleSearch}  liste={liste} itemsListe={liste.itemsListe} handleDelete={handleDelete} handleDeleteReservedGift={handleDeleteReservedGift} handleReservedItem={handleReservedItem} filteredItems={filteredListes} search={search}> </TableListeStatic>
+                                        </>
+                                        }
 
-                                    ||
-                                    <>
-                                        {/* Boucle pour afficher les cadeaux dans la liste */}
-                                        <TableListeStatic  userSession={userSession} auth={auth} handleSearch={handleSearch}  liste={liste} itemsListe={liste.itemsListe} handleDelete={handleDelete} handleDeleteReservedGift={handleDeleteReservedGift} handleReservedItem={handleReservedItem} filteredItems={filteredListes} search={search}> </TableListeStatic>
-                                    </>
-                                    }
-
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </>)}
+                    </>)}
+                </div>
             </div>
-        </div>
         ||
         <div className={"container homecontainer"}>
             <div className={"reservation_fond"} >
