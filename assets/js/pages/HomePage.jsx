@@ -56,7 +56,7 @@ const HomePage = () => {
                             <div className="mx-auto mb-5 mb-lg-0 mb-lg-3 ">
                                 <h3>Bootstrap 4 Ready</h3>
                                 <p className="lead mb-0">Featuring the latest build of the new Bootstrap 4
-                                    framework!</p>
+                                    framework</p>
                             </div>
                         </div>
                     </div>
