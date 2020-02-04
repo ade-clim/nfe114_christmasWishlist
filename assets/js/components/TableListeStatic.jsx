@@ -19,24 +19,26 @@ const TableListeStatic = ({userSession, auth, hideReservedBtn, liste, itemsListe
                         {liste.listeItems.map(e =>{
                             i++;
                             return(
-                                <tr>
-                                    <div>
-                                        {i !== 1 && <hr/>}
-                                        <p className={"mb-4 mt-4"} key={i} >
-                                            <td><img className={"picture_item"} width={"100%"} src={e.item.picture}/></td>
-                                            <td width={"600px"}>
-                                                <p className={"title_gift"}>{e.item.title}</p>
-                                                <p className={"description_gift"}>{e.item.description}</p>
-                                                <br/>
-                                                <p className={"price_gift"}>{e.item.price} euros</p>
-                                                {e.userItem
+                                <>
+                                    {i !== 1 && <hr/>}
+                                    <p className={"mb-4 mt-4"} key={i}>
+                                        <tr>
+                                        <td>
+                                            <img className={"picture_item"} width={"100%"} src={e.item.picture}/>
+                                        </td>
+                                        <td width={"600px"}>
+                                            <p className={"title_gift"}>{e.item.title}</p>
+                                            <p className={"description_gift"}>{e.item.description}</p>
+                                            <br/>
+                                            <p className={"price_gift"}>{e.item.price} euros</p>
+                                            {e.userItem
+                                            &&
+                                            <>
+                                                {userSession.id === e.userItem.id
                                                 &&
-                                                <>
-                                                    {userSession.id === e.userItem.id
-                                                    &&
-                                                    <div  className={"text-right"}><FontAwesomeIcon color={"green"} icon={faGift} size={"lg"}/>{e.userItem.firstName} {e.userItem.lastName}
+                                                <div  className={"text-right"}><FontAwesomeIcon color={"green"} icon={faGift} size={"lg"}/>{e.userItem.firstName} {e.userItem.lastName}
                                                     <button className={"btn"} onClick={() => {handleDeleteReservedGift(e, liste.id)}}><FontAwesomeIcon icon={faBan} color={"red"} size={"lg"}/></button>
-                                                    </div>
+                                                </div>
                                                     }
                                                 </>
                                                 ||
@@ -58,12 +60,10 @@ const TableListeStatic = ({userSession, auth, hideReservedBtn, liste, itemsListe
                                                 </>
                                                 }
                                             </td>
-
+                                        </tr>
                                             {/* si le cadeau est reserver alors afficher l'utilisateur et cacher le button de reservation */}
-
                                         </p>
-                                    </div>
-                                </tr>
+                                </>
                             )
                         })}
                         </tbody>

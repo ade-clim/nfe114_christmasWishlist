@@ -59,17 +59,14 @@ const TableListe = ({hideReservedBtn, liste, itemsListe, handleDeleteReservedGif
                                     {itemsListe.map(liste =>{
                                         i++;
                                         return(
-                                        <>
-                                            {i !== 1 && <hr/>}
-                                            <p className={"mt-4 mb-4"}>
-
-                                            <tr key={i}>
-
-
-                                                <td>
-                                                    <span hidden >{liste.idProvisoire = i}</span>
-                                                    <img className={"picture_item"} width={"100%"} src={liste.item.picture}/>
-                                                </td>
+                                            <>
+                                                {i !== 1 && <hr/>}
+                                                <p className={"mt-4 mb-4"} key={i}>
+                                                    <tr>
+                                                        <td>
+                                                            <span hidden >{liste.idProvisoire = i}</span>
+                                                            <img className={"picture_item"} width={"100%"} src={liste.item.picture}/>
+                                                        </td>
                                                         <td width={"600px"}>
                                                             <p className={"title_gift"}>{liste.item.title}</p>
                                                             <p className={"description_gift"}>{liste.item.description}</p>
