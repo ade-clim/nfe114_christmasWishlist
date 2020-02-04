@@ -22,7 +22,7 @@ const TableListeStatic = ({userSession, auth, hideReservedBtn, liste, itemsListe
                                 <tr>
                                     <div>
                                         {i !== 1 && <hr/>}
-                                        <p className={"mb-5 mt-5"} key={i} >
+                                        <p className={"mb-4 mt-4"} key={i} >
                                             <td><img className={"picture_item"} width={"100%"} src={e.item.picture}/></td>
                                             <td width={"600px"}>
                                                 <p className={"title_gift"}>{e.item.title}</p>

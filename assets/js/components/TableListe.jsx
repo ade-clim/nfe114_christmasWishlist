@@ -36,8 +36,7 @@ const TableListe = ({hideReservedBtn, liste, itemsListe, handleDeleteReservedGif
                         <table className={"table_gift table-responsive table-sm"}>
                             <tbody>
                                 {filteredItems.map(item => <tr key={item.id}>
-                                        <p className={"mt-4 mb-4"}>
-                                            <td ><img className={"picture_item"} src={item.picture} width={"100%"}/> </td>
+                                        <td ><p className={"mt-4 mb-4"}/><img className={"picture_item"} src={item.picture} width={"100%"}/> </td>
                                             <td width={"600px"}>
                                                 <p className={"title_gift"}>{item.title}</p>
                                                 <p className={"description_gift"}>{item.description}</p>
@@ -45,9 +44,7 @@ const TableListe = ({hideReservedBtn, liste, itemsListe, handleDeleteReservedGif
                                                 <div className={"text-right"}>
                                                     <button className={"btn btn-success btn-sm"} onClick={() => handleAddGift(item)}>Add</button>
                                                 </div>
-
                                             </td>
-                                        </p>
                                 </tr>
                                 )}
                             </tbody>
@@ -61,13 +58,18 @@ const TableListe = ({hideReservedBtn, liste, itemsListe, handleDeleteReservedGif
                                     <tbody>
                                     {itemsListe.map(liste =>{
                                         i++;
-                                        return(<tr key={i}>
-                                                {i !== 1 && <hr/>}
-                                                <p className={"mt-5 mb-5"}>
-                                                    <span hidden >{liste.idProvisoire = i}</span>
-                                                    <tr>
+                                        return(
+                                        <>
+                                            {i !== 1 && <hr/>}
+                                            <p className={"mt-4 mb-4"}>
 
-                                                        <td ><img className={"picture_item"} width={"100%"} src={liste.item.picture}/></td>
+                                            <tr key={i}>
+
+
+                                                <td>
+                                                    <span hidden >{liste.idProvisoire = i}</span>
+                                                    <img className={"picture_item"} width={"100%"} src={liste.item.picture}/>
+                                                </td>
                                                         <td width={"600px"}>
                                                             <p className={"title_gift"}>{liste.item.title}</p>
                                                             <p className={"description_gift"}>{liste.item.description}</p>
@@ -92,11 +94,11 @@ const TableListe = ({hideReservedBtn, liste, itemsListe, handleDeleteReservedGif
 
                                                                 <button className={"btn btn-sm button_liste text-white"} onClick={() => handleDelete(liste)}>delete</button>
                                                             </div>
-
                                                         </td>
-                                                    </tr>
-                                                </p>
+
                                             </tr>
+                                            </p>
+                                        </>
                                         )
                                     })}
                                     </tbody>
