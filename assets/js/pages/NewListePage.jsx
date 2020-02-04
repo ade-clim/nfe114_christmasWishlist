@@ -165,14 +165,12 @@ const NewListePage= ({match, history}) => {
 
 
     // On supprime le cadeaux dans la liste, on utilise une id provisoire (cpt) pour eviter de supprimer les produits avec la meme id (produit identique)
-    const handleDelete = async (listeItem) => {
+    const handleDelete = (listeItem) => {
         const originalItemsListe = [...itemsListe];
-        setItemsListe(itemsListe.filter(item => item.item.idProvisoire !== listeItem.item.idProvisoire));
-
         try{
-
+            setItemsListe(itemsListe.filter(item => item.idProvisoire !== listeItem.idProvisoire));
         }catch (error) {
-            console.log(error.response)
+            console.log(error.response);
             setItemsListe(originalItemsListe);
         }
     };

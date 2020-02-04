@@ -202,32 +202,40 @@ body {
 
 
 .section01{
-    min-height: 400px;
+    min-height: 600px;
     padding-top: 200px;
 }
-
+.section01_letter{
+    margin-top: -120px;
+}
 .section02{
-    min-height: 400px;
+    min-height: 600px;
     padding-top: 150px;
-}
-.section03{
-    min-height: 400px;
-    padding-top: 150px;
-}
-.section04{
-    min-height: 400px;
-    padding-top: 150px;
-}
 
+}
+.section02_bg{
+    position: absolute;
+    margin-top: -150px;
+}
 .snow_man{
-    margin-top: -90px;
+    margin-top: 40px;
 
 }
 
 .snow_man > img {
-    max-width: 300px;
-    min-height: 100px;
+    max-width: 320px;
+    min-height: 150px;
 }
+.section03{
+    min-height: 600px;
+    padding-top: 150px;
+}
+.section04{
+    min-height: 600px;
+    padding-top: 150px;
+}
+
+
 
 .slide_background{
     min-height: 950px;

@@ -61,9 +61,10 @@ const TableListe = ({hideReservedBtn, liste, itemsListe, handleDeleteReservedGif
                                     <tbody>
                                     {itemsListe.map(liste =>{
                                         i++;
-                                        return(<tr>
+                                        return(<tr key={i}>
                                                 {i !== 1 && <hr/>}
                                                 <p className={"mt-5 mb-5"}>
+                                                    <span hidden >{liste.idProvisoire = i}</span>
                                                     <tr>
 
                                                         <td ><img className={"picture_item"} width={"100%"} src={liste.item.picture}/></td>
