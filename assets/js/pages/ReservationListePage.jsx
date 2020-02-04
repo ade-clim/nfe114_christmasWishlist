@@ -78,12 +78,11 @@ const ReservationListePage = ({match ,history}) => {
     const handleDeleteReservedGift = async(listeItem) => {
         console.log(listeItem)
         const originalListes = {...liste};
-
-        for (let p = 0; p < liste.listeItems.length; p++) {
-            if (liste.listeItems[p].id === listeItem.id) {
-                liste.listeItems[p].userItem = null;
-                setListe(liste);
-                setUpdateFetch(true);
+        const copyModifListes = {...liste};
+        for (let p = 0; p < copyModifListes.listeItems.length; p++) {
+            if (copyModifListes.listeItems[p].id === listeItem.id) {
+                copyModifListes.listeItems[p].userItem = null;
+                setListe(copyModifListes);
 
             }
         };
@@ -101,9 +100,8 @@ const ReservationListePage = ({match ,history}) => {
 
     // Reserve l'item en fonction de l'id de l'utilisateur en session
     const handleReservedItem = async (listeItem) => {
-        console.log(listeItem);
-        const originalListes = liste;
-        const copyModifListes = liste;
+        const originalListes = {...liste};
+        const copyModifListes = {...liste};
 
         // on recupére l'utilisateur en session dans le state
         const idUserSession = userSession;
@@ -112,11 +110,10 @@ const ReservationListePage = ({match ,history}) => {
             if (copyModifListes.listeItems[p].id === listeItem.id) {
                 copyModifListes.listeItems[p].userItem = idUserSession;
                 setListe(copyModifListes);
-                setUpdateFetch(true);
             }
         }
         try{
-            const addReservedUser = {...listeItem, userItem: idUserSession};
+            const addReservedUser = {...listeItem};
             await listeItemsApi.update(listeItem.id, addReservedUser);
             toast.success("Votre cadeaux est réservé 🎅");
         }catch(error){

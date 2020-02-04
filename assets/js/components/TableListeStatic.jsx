@@ -43,7 +43,7 @@ const TableListeStatic = ({userSession, auth, hideReservedBtn, liste, itemsListe
                                                 <>
                                                     {auth &&
                                                         <div className={"text-right"}>
-                                                            <button className={"btn btn-sm button_liste text-white"} onClick={() => {handleReservedItem(e)}}>
+                                                            <button className={"btn btn-sm button_liste text-white"} onClick={() => {handleReservedItem(e, liste.id)}}>
                                                                 reserver
                                                             </button>
                                                         </div>
