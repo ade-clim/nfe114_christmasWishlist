@@ -17,6 +17,8 @@ import ListesPage from "./pages/ListesPage";
 import SearchLists from "./pages/SearchLists";
 import ReservationGift from "./pages/ReservationGift"
 import ReservationListePage from "./pages/ReservationListePage";
+import {toast, ToastContainer} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import jwtDecode from "jwt-decode";
 import userApi from "./services/userApi";
 authApi.setup();
@@ -60,6 +62,7 @@ const App = () => {
                     </Switch>
                 </main>
             </HashRouter>
+        <ToastContainer position={toast.POSITION.BOTTOM_LEFT} autoClose={4500}/>
         </AuthContext.Provider>
     )
 

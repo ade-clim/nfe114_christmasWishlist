@@ -72,17 +72,10 @@ body {
 
 .pagination-listes{
     position: absolute;
-    z-index: 1;
-    margin-top: 30vh;
+    z-index: 4;
+    margin-top: 600px;
 }
 
-.arrow_right{
-    padding-left: 68vw;
-
- }
-.arrow_left{
-    padding-left: 10vw;
-}
 
 .fa-arrow-alt-circle-left:hover{
     color:#a72925;
@@ -102,6 +95,31 @@ body {
     margin-left: 50px;
 }
 
+
+.title_gift{
+
+    font-size: 1.5em;
+    color:#6e6e6e;
+}
+
+.description_gift{
+
+    font-size: 1em;
+}
+
+.price_gift{
+    color:#9683ec;
+}
+
+.button_reserved{
+    backGround-color:white;
+    border: 1px  #a72925 solid;
+
+}
+.button_reserved:hover{
+    background-color: #a72925;
+    color:white;
+}
 .reservation_fond{
     height:250px;
     width : 40%;
@@ -177,32 +195,40 @@ body {
 
 
 .section01{
-    min-height: 400px;
+    min-height: 600px;
     padding-top: 200px;
 }
-
+.section01_letter{
+    margin-top: -120px;
+}
 .section02{
-    min-height: 400px;
+    min-height: 600px;
     padding-top: 150px;
-}
-.section03{
-    min-height: 400px;
-    padding-top: 150px;
-}
-.section04{
-    min-height: 400px;
-    padding-top: 150px;
-}
 
+}
+.section02_bg{
+    position: absolute;
+    margin-top: -150px;
+}
 .snow_man{
-    margin-top: -90px;
+    margin-top: 40px;
 
 }
 
 .snow_man > img {
-    max-width: 300px;
-    min-height: 100px;
+    max-width: 320px;
+    min-height: 150px;
 }
+.section03{
+    min-height: 600px;
+    padding-top: 150px;
+}
+.section04{
+    min-height: 600px;
+    padding-top: 150px;
+}
+
+
 
 .slide_background{
     min-height: 950px;

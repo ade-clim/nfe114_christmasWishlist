@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faGift} from "@fortawesome/free-solid-svg-icons";
+import {faBan, faGift, faTrash} from "@fortawesome/free-solid-svg-icons";
 import Field from "./forms/Fields";
 import SweetAlert from 'react-bootstrap-sweetalert';
 
@@ -33,19 +33,19 @@ const TableListe = ({hideReservedBtn, liste, itemsListe, handleDeleteReservedGif
 
                     {/* Boucle pour afficher la selection de cadeaux disponible */}
                     {search.length !== 0 &&  <>
-                        <table>
+                        <table className={"table_gift table-responsive table-sm"}>
                             <tbody>
-                                {filteredItems.map(item => <div key={item.id}>
-                                    <tr>
-                                        <td><img className={"picture_item"} src={item.picture} width={"100%"}/> </td>
-                                        <td>{item.title} <br/>{item.description} <br/>{item.price} euros</td>
-                                        <td><div className={"btn btn-success btn-sm"} onClick={() => handleAddGift(item)}>Add</div></td>
-
-
-
-                                    </tr>
-
-                                </div>
+                                {filteredItems.map(item => <tr key={item.id}>
+                                        <td ><p className={"mt-4 mb-4"}/><img className={"picture_item"} src={item.picture} width={"100%"}/> </td>
+                                            <td width={"600px"}>
+                                                <p className={"title_gift"}>{item.title}</p>
+                                                <p className={"description_gift"}>{item.description}</p>
+                                                <p className={"price_gift"}>{item.price} euros</p>
+                                                <div className={"text-right"}>
+                                                    <button className={"btn btn-success btn-sm"} onClick={() => handleAddGift(item)}>Add</button>
+                                                </div>
+                                            </td>
+                                </tr>
                                 )}
                             </tbody>
                         </table>
@@ -58,48 +58,44 @@ const TableListe = ({hideReservedBtn, liste, itemsListe, handleDeleteReservedGif
                                     <tbody>
                                     {itemsListe.map(liste =>{
                                         i++;
-                                        return(<>
+                                        return(
+                                            <>
                                                 {i !== 1 && <hr/>}
-                                                <div className={"mt-5 mb-5 container"}>
+                                                <p className={"mt-4 mb-4"} key={i}>
                                                     <tr>
-                                                        <td scope={"row"}>{i}<span hidden>{liste.item.idProvisoire = i}</span></td>
-                                                        <td ><img className={"picture_item"} width={"100%"} src={liste.item.picture}/></td>
-                                                        <td>{liste.id}{liste.item.title} <br/> {liste.item.description}<br/>{liste.item.price} euros</td>
+                                                        <td>
+                                                            <span hidden >{liste.idProvisoire = i}</span>
+                                                            <img className={"picture_item"} width={"100%"} src={liste.item.picture}/>
+                                                        </td>
+                                                        <td width={"600px"}>
+                                                            <p className={"title_gift"}>{liste.item.title}</p>
+                                                            <p className={"description_gift"}>{liste.item.description}</p>
+                                                            <p className={"price_gift"}>{liste.item.price} euros</p>
+                                                            <div className={"text-right"}>
+                                                                {/* si le cadeau est reserver alors afficher l'utilisateur et cacher le button de reservation */}
+                                                                {!hideReservedBtn && <>
+                                                                    {liste.userItem &&
+                                                                    <span>
+                                                                        <FontAwesomeIcon color={"green"} icon={faGift} size={"lg"}/>{liste.userItem.firstName}{liste.userItem.lastName}
+                                                                            <button  className={"btn btn-sm"} onClick={() => {handleDeleteReservedGift(liste)}}>
+                                                                                <FontAwesomeIcon icon={faBan} color={"red"} size={"lg"}/>
+                                                                            </button>
+                                                                    </span>
+                                                                    ||
+                                                                    <button className={"btn btn-sm button_reserved text-danger"} onClick={() => {handleReservedItem(liste)}}>
+                                                                        reserver
+                                                                    </button>
 
-                                                        {/* si le cadeau est reserver alors afficher l'utilisateur et cacher le button de reservation */}
-                                                        {!hideReservedBtn && <>
-                                                            {liste.userItem &&
-                                                            <td ><FontAwesomeIcon color={"green"} icon={faGift} size={"lg"}/>{liste.userItem.firstName}{liste.userItem.lastName}
-                                                                <button onClick={() => {setConfirmDeleteReservedGiftGift(true)}}>
-                                                                    X
-                                                                </button>
+                                                                    }
+                                                                </>}
 
-                                                                {confirmDeleteReservedGiftGift &&
-                                                                <SweetAlert
-                                                                    info
-                                                                    showCancel
-                                                                    confirmBtnText="Oui"
-                                                                    confirmBtnBsStyle="danger"
-                                                                    btnSize="xs"
-                                                                    title="Supprimer la réservation ?"
-                                                                    onConfirm={() => {{handleDeleteReservedGift(liste), setConfirmDeleteReservedGiftGift(false)}}}
-                                                                    onCancel={() => {setConfirmDeleteReservedGiftGift(false)}}
-                                                                    focusCancelBtn
-                                                                >
-                                                                    Oh oh oh
-                                                                </SweetAlert>
-                                                                }
-                                                            </td>
-                                                            ||
-                                                            <td><button className={"btn btn-sm button_liste text-white"} onClick={() => {handleReservedItem(liste)}}>
-                                                                reserver
-                                                            </button></td>
-                                                            }
-                                                        </>}
-                                                        <td><button className={"btn btn-danger btn-sm"} onClick={() => handleDelete(liste)}>ddd</button></td>
-                                                    </tr>
-                                                </div>
-                                            </>
+                                                                <button className={"btn btn-sm button_liste text-white"} onClick={() => handleDelete(liste)}>delete</button>
+                                                            </div>
+                                                        </td>
+
+                                            </tr>
+                                            </p>
+                                        </>
                                         )
                                     })}
                                     </tbody>
@@ -109,7 +105,7 @@ const TableListe = ({hideReservedBtn, liste, itemsListe, handleDeleteReservedGif
                     </div>
 
                     <div className={"form-group text-center mt-5"}>
-                        <button className={"btn button_liste text-white"} type={"submit"}>Enregistrer</button>
+                        <button style={{backgroundColor: "#2bbdc1"}} className={"btn button_liste text-white"} type={"submit"}>Enregistrer</button>
                     </div>
                 </form>
 

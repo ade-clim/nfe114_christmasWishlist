@@ -13,18 +13,29 @@ const PaginationListes = ({currentPage, itemsPerPage, length, onPageChanged}) =>
     }
 
     return(
-        <div className={"pagination pagination-listes"}>
-            <ul className="pagination pagination-listes pagination-sm">
-                <li className={"arrow_left page-item"}>
-                    {currentPage !== 1 && <button style={{backgroundColor: "transparent"}} className="page-link" onClick={() => onPageChanged(currentPage - 1)}><FontAwesomeIcon color={"#d4423e"} icon={faArrowAltCircleLeft} size={"6x"} /></button>}
-                </li>
+        <div className={"container-fluid"}>
+            <div className={"pagination-listes"} style={{width: "99%"}}>
+                <ul className="pagination pagination-sm">
+                    <div className={"row col-12 justify-content-around"}>
+                            <div className={"col-8"}>
+                                <li>
+                                    {currentPage !== 1 && <button style={{backgroundColor: "transparent"}} className="page-link" onClick={() => onPageChanged(currentPage - 1)}><FontAwesomeIcon color={"#d4423e"} icon={faArrowAltCircleLeft} size={"6x"} /></button>}
+                                </li>
+                            </div>
 
-                <li className={"arrow_right page-item"}>
-                    {currentPage !==  pagesCount &&  <button style={{backgroundColor: "transparent"}} className="page-link" onClick={() => onPageChanged(currentPage + 1)}><FontAwesomeIcon color={"#d4423e"} icon={faArrowAltCircleRight} size={"6x"}/></button>}
+                            <div >
+                                <li >
+                                    {currentPage !==  pagesCount &&  <button style={{backgroundColor: "transparent"}} className="page-link " onClick={() => onPageChanged(currentPage + 1)}><FontAwesomeIcon color={"#d4423e"} icon={faArrowAltCircleRight} size={"6x"}/></button>}
+                                </li>
+                            </div>
+                    </div>
+                </ul>
 
-                </li>
-            </ul>
+
+
+            </div>
         </div>
+
     )
 };
 

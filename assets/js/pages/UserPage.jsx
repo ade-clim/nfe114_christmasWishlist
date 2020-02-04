@@ -4,9 +4,11 @@ import Field from "../components/forms/Fields";
 import {Link} from "react-router-dom";
 import addressApi from "../services/addressApi";
 import jwtDecode from "jwt-decode";
-
+import {toast} from "react-toastify";
+import FormContentLoader from "../components/loaders/FormContentLoader";
 const UserPage = ({history, match}) => {
 
+    const[loading, setLoading] = useState(true);
     const {id} = match.params;
     const idUrl = parseInt(id, 10);
 
@@ -57,9 +59,10 @@ const UserPage = ({history, match}) => {
             const {firstName, lastName, email, phone, address} = await userApi.find(id);
             setUser({firstName, lastName, email, phone});
             setAddress({id: address.id, street: address.street, number: address.number, city: address.city, postalCode: address.postalCode});
+            setLoading(false);
         }catch (error) {
             console.log(error.response);
-            // TODO : notification flash d'une erreur
+            toast.error("Une erreur est survenue 🎅");
             history.replace("/users");
         }
     };
@@ -88,20 +91,19 @@ const UserPage = ({history, match}) => {
         try {
             await userApi.update(id,user);
             await addressApi.update(address.id, address);
-            // TODO : Flash notification de succéss
+            toast.success("Modification de vos informations 🎅");
 
             setErrors({});
 
         }catch ({response}) {
             const {violations} = response.data;
-
             if(violations){
                 const apiErrors = {};
                 violations.forEach(({propertyPath, message}) => {
                     apiErrors[propertyPath] = message;
                 });
                 setErrors(apiErrors);
-                // TODO : Flash notification de d'erreurs
+                toast.error("Une erreur est survenue 🎅");
             }
         }
     };
@@ -110,6 +112,7 @@ const UserPage = ({history, match}) => {
         <>
             <div className={"container homecontainer"}>
                 <h1>Modification du client</h1>
+                {loading && <FormContentLoader/>}
                 <form onSubmit={handleSubmit}>
                     <Field name={"lastName"}
                            label={"Nom de famille"}
@@ -173,11 +176,8 @@ const UserPage = ({history, match}) => {
                     </div>
                 </form>
             </div>
-
             }
-
         </>
-
     )
 };
 

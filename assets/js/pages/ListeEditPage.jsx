@@ -5,7 +5,7 @@ import listeApi from "../services/listeApi";
 import decoListeApi from "../services/decoListeApi";
 import listeItemsApi from "../services/listeItemsApi";
 import SweetAlert from 'react-bootstrap-sweetalert';
-
+import {toast} from "react-toastify";
 //Wallpapers
 import Bow from '../../img/listes/wallpapers/Bow.png';
 import Ice from '../../img/listes/wallpapers/Ice.png';
@@ -31,12 +31,14 @@ import {Link} from "react-router-dom";
 import TableListe from "../components/TableListe";
 import jwtDecode from "jwt-decode";
 import DecoListe from "../components/DecoListe";
+import ListeLoader from "../components/loaders/ListeLoader";
 
 const ListeEditPage = ({match, history}) => {
 
     const {id} = match.params;
     const idUrl = parseInt(id, 10);
 
+    const[loading, setLoading] = useState(true);
     let i = 0;
     const [borderColor, setBorderColor] = useState("");
     const [wallpaper, setWallpaper] = useState();
@@ -105,7 +107,7 @@ const ListeEditPage = ({match, history}) => {
             setListe({id, title, description, decoListe, listeItems, user});
             setDecoListe(myDecoListe);
             setItemsListe(listeItems);
-
+            setLoading(false);
             // verif securité
             handleFetchUser(user);
 
@@ -139,9 +141,8 @@ const ListeEditPage = ({match, history}) => {
         try {
             const listeSend = {decoListe : decoListe, title: liste.title, description: liste.description};
             await listeApi.update(liste.id, listeSend);
-            // TODO : Flash notification success
+            toast.success("Votre liste est modifié 🎅");
             setErrors({});
-
         }catch ({response}) {
             const {violations} = response.data;
             if(violations){
@@ -150,7 +151,7 @@ const ListeEditPage = ({match, history}) => {
                     apiErrors[propertyPath] = message;
                 });
                 setErrors(apiErrors);
-                // TODO : Flash notification de d'erreurs
+                toast.error("Une erreur est survenue 🎅");
             }
         }
     };
@@ -178,15 +179,16 @@ const ListeEditPage = ({match, history}) => {
 
     // On supprime le cadeaux dans la liste, on utilise une id provisoire (cpt) pour eviter de supprimer les produits avec la meme id (produit identique)
     const handleDelete = async (listeItem) => {
-        console.log(listeItem);
         const originalItemsListe = [...itemsListe];
-        setItemsListe(itemsListe.filter(item => item.item.idProvisoire !== listeItem.item.idProvisoire));
+        setItemsListe(itemsListe.filter(item => item.id !== listeItem.id));
 
         try{
             await listeItemsApi.deleteListeItem(listeItem.id);
+            toast.info("Votre cadeaux est supprimée 🎅");
         }catch (error) {
             console.log(error.response);
             setItemsListe(originalItemsListe);
+            toast.error("Une erreur est survenue 🎅");
         }
     };
 
@@ -201,14 +203,13 @@ const ListeEditPage = ({match, history}) => {
         setSearch("");
         try{
             await listeItemsApi.createListeEditPage(listeItemAdd);
+            toast.success("Votre cadeaux est ajouter 🎅");
         }catch(error){
             console.log(error.response);
+            toast.error("Une erreur est survenue 🎅");
         }
         setUpdateFetch(true);
     };
-
-
-
 
 
 
@@ -284,10 +285,11 @@ const ListeEditPage = ({match, history}) => {
         try{
             const cancelReservedUser = {...listeItem, userItem: null};
             await listeItemsApi.deleteUserItem(listeItem.id, cancelReservedUser);
-
+            toast.info("Votre réservation est supprimée 🎅");
         }catch(error){
             console.log(error.response);
             setListe(originalListes);
+            toast.error("Une erreur est survenue 🎅");
         }
     };
 
@@ -306,10 +308,11 @@ const ListeEditPage = ({match, history}) => {
         try{
             const addReservedUser = {...listeItem, userItem: copyModifListes.user};
             await listeItemsApi.update(listeItem.id, addReservedUser);
-
+            toast.success("Votre cadeaux est réservé 🎅");
         }catch(error){
             console.log(error.response);
             setListe(originalListes);
+            toast.error("Une erreur est survenue 🎅");
         }
     };
 
@@ -318,14 +321,14 @@ const ListeEditPage = ({match, history}) => {
         try {
             await listeApi.delete(listeId);
             history.replace("/user/"+ liste.user.id+"/listes");
-
+            toast.success("Votre liste est supprimée 🎅");
 
         } catch (error) {
-            console.log(error)
+            console.log(error);
+            toast.error("Une erreur est survenue 🎅");
         }
     }
 
-    //<button className={"btn btn-sm bg-white"} onClick={() => {handleDeleteListe(liste.id)}}><FontAwesomeIcon icon={faTrash} color={"red"} size={"2x"}/></button>
   return(
 
       <div className={"container-fluid homecontainer"}>
@@ -336,30 +339,13 @@ const ListeEditPage = ({match, history}) => {
           </div>
 
           <div className={"liste_size container"} >
+              {loading && <div style={{position: "absolute"}}><ListeLoader/></div>}
               <div className={"container d-flex col-12"} style={borderStyle}>
                   <div className={"container col-12 wallpapers-list"} style={wallpaperStyle}>
                       <div className={"text-right liste_edit"}>
-                          <button className={"btn btn-sm bg-white"} onClick={() => {setConfirmDeleteListe(true)}}>
+                          <button className={"btn btn-sm bg-white"} onClick={() => {{handleDeleteListe(liste.id)}}}>
                               <FontAwesomeIcon icon={faTrash} color={"red"} size={"2x"}/>
                           </button>
-                          {confirmDeleteListe &&
-                          <SweetAlert
-                              warning
-                              showCancel
-                              showCloseButton
-                              confirmBtnText="Oui ,supprimer la liste"
-                              confirmBtnBsStyle="danger"
-                              btnSize ="xs"
-                              cancelBtnText="Non"
-                              title="Supprimer la liste ?"
-                              focusCancelBtn
-                              onCancel={() => {setConfirmDeleteListe(false)}}
-                              onConfirm={() => {handleDeleteListe(liste.id)}}
-                          >
-                              Oh oh oh
-                          </SweetAlert>
-                          }
-
 
                       </div>
                       <div className={"container col-lg-6 col-md-10"}>

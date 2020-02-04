@@ -14,7 +14,7 @@ import rennes from "../../img/listes/motifs/rennes.png";
 import timbre01 from '../../img/listes/timbres/timbre01.png';
 import TableListe from "../components/TableListe";
 import DecoListe from "../components/DecoListe";
-
+import {toast} from "react-toastify";
 
 const NewListePage= ({match, history}) => {
 
@@ -104,14 +104,13 @@ const NewListePage= ({match, history}) => {
 
                 // tab de stockage du useState des items selectionner dans la liste
                 const maListeItems = [...itemsListe];
-                console.log(maListeItems)
 
                 for(let i = 0; i < maListeItems.length; i++){
                     const itemListeCreate = {liste: idMaListe, item: maListeItems[i].item.id};
                     await listeItemsApi.create(itemListeCreate);
                 };
 
-                // TODO : Flash notification success
+                toast.success("J'ai bien reçu votre liste 🎅");
 
                 setErrors({});
 
@@ -123,7 +122,7 @@ const NewListePage= ({match, history}) => {
                     apiErrors[propertyPath] = message;
                 });
                 setErrors(apiErrors);
-                // TODO : Flash notification de d'erreurs
+                toast.error("Des erreurs dans votre liste 🎅");
             }
         }
     };
@@ -166,14 +165,12 @@ const NewListePage= ({match, history}) => {
 
 
     // On supprime le cadeaux dans la liste, on utilise une id provisoire (cpt) pour eviter de supprimer les produits avec la meme id (produit identique)
-    const handleDelete = async (listeItem) => {
+    const handleDelete = (listeItem) => {
         const originalItemsListe = [...itemsListe];
-        setItemsListe(itemsListe.filter(item => item.item.idProvisoire !== listeItem.item.idProvisoire));
-
         try{
-
+            setItemsListe(itemsListe.filter(item => item.idProvisoire !== listeItem.idProvisoire));
         }catch (error) {
-            console.log(error.response)
+            console.log(error.response);
             setItemsListe(originalItemsListe);
         }
     };

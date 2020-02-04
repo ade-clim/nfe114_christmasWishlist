@@ -6,6 +6,7 @@ import AuthContext from "../contexts/AuthContext";
 import jwtDecode from "jwt-decode";
 import iconeUserNoel from '../../img/icones/Xmas_C-01.png';
 import logo from "../../img/logo/logo.png"
+import {toast} from "react-toastify";
 
 const Navbar = ({history}) => {
 
@@ -29,6 +30,7 @@ const Navbar = ({history}) => {
     const handleLogout = () => {
         authApi.logout();
         setIsAuthenticated(false);
+        toast.info("Vous êtes déconnecté 🎅");
         history.push("/")
     };
 
@@ -56,7 +58,7 @@ const Navbar = ({history}) => {
 
                     <ul className="navbar-nav ml-auto">
                         <li className="nav-item">
-                            <NavLink to={"/liste/new"} className="nav-link text-dark">demo</NavLink>
+                            <NavLink to={"/"} className="nav-link text-dark">demo</NavLink>
                         </li>
                         <li className="nav-item">
                             <NavLink to={"/liste/new"} className="nav-link text-dark">Creer</NavLink>
