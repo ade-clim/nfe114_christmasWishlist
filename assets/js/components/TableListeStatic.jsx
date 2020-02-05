@@ -23,43 +23,43 @@ const TableListeStatic = ({userSession, auth, hideReservedBtn, liste, itemsListe
                                     {i !== 1 && <hr/>}
                                     <p className={"mb-4 mt-4"} key={i}>
                                         <tr>
-                                        <td>
-                                            <img className={"picture_item"} width={"100%"} src={e.item.picture}/>
-                                        </td>
-                                        <td width={"600px"}>
-                                            <p className={"title_gift"}>{e.item.title}</p>
-                                            <p className={"description_gift"}>{e.item.description}</p>
-                                            <br/>
-                                            <p className={"price_gift"}>{e.item.price} euros</p>
-                                            {e.userItem
-                                            &&
-                                            <>
-                                                {userSession.id === e.userItem.id
-                                                &&
-                                                <div  className={"text-right"}><FontAwesomeIcon color={"green"} icon={faGift} size={"lg"}/>{e.userItem.firstName} {e.userItem.lastName}
-                                                    <button className={"btn"} onClick={() => {handleDeleteReservedGift(e, liste.id)}}><FontAwesomeIcon icon={faBan} color={"red"} size={"lg"}/></button>
-                                                </div>
-                                                    }
-                                                </>
-                                                ||
-                                                <>
-                                                    {auth &&
-                                                        <div className={"text-right"}>
-                                                            <button className={"btn btn-sm button_liste text-white"} onClick={() => {handleReservedItem(e, liste.id)}}>
-                                                                reserver
-                                                            </button>
-                                                        </div>
-
-                                                    ||
-                                                    <td>
-                                                        <button className={"btn btn-sm button_liste text-white"}>
-                                                            <Link to={"/login"} className={"text-white"}><span>reserver</span></Link>
-                                                        </button>
-                                                    </td>
-                                                    }
-                                                </>
-                                                }
+                                            <td>
+                                                <img className={"picture_item"} width={"100%"} src={e.item.picture}/>
                                             </td>
+                                            <td width={"600px"}>
+                                                <p className={"title_gift"}>{e.item.title}</p>
+                                                <p className={"description_gift"}>{e.item.description}</p>
+                                                <br/>
+                                                <p className={"price_gift"}>{e.item.price} euros</p>
+
+                                                {e.userItem &&
+                                                    <>
+                                                        <div className={"text-right"}><FontAwesomeIcon color={"green"} icon={faGift} size={"lg"}/>{e.userItem.firstName} {e.userItem.lastName}
+
+                                                        {userSession.id === e.userItem.id &&
+                                                            <button className={"btn"} onClick={() => {handleDeleteReservedGift(e, liste.id)}}><FontAwesomeIcon icon={faBan} color={"red"} size={"lg"}/></button>
+                                                        }
+                                                        </div>
+                                                    </>
+
+                                                        ||
+                                                        <>
+                                                            {auth &&
+                                                            <div className={"text-right"}>
+                                                                <button className={"btn btn-sm button_liste text-white"} onClick={() => {handleReservedItem(e, liste.id)}}>
+                                                                    reserver
+                                                                </button>
+                                                            </div>
+                                                            ||
+                                                            <div className={"text-right"}>
+                                                                <button className={"btn btn-sm button_liste text-white"}>
+                                                                    <Link to={"/login"} className={"text-white"}><span>reserver</span></Link>
+                                                                </button>
+                                                            </div>
+                                                            }
+                                                        </>
+                                                }
+                                                </td>
                                         </tr>
                                             {/* si le cadeau est reserver alors afficher l'utilisateur et cacher le button de reservation */}
                                         </p>
