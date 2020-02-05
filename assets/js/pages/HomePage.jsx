@@ -5,6 +5,7 @@ import perso from '../../img/HomePage/slide/charaNoel.png';
 import snowMan from '../../img/HomePage/Section02/snowman.png';
 import bgSnowman from '../../img/HomePage/Section02/snowman_bg.png'
 import letter from '../../img/HomePage/Section01/letter.png'
+import bagGift from '../../img/HomePage/Section03/bagGifts.png';
 const HomePage = () => {
 
 
@@ -13,8 +14,8 @@ const HomePage = () => {
                     <img className={"perso_slide"} src={perso}/>
                 </div>
                 <div className={"text_slide"}>
-                    <p className={"text_title col-12"}>MY CHRISTMAS WISHLIST</p>
-                    <p className={"text_content text-red text-center"}>"Créer, partage et soit sage Hohoho"</p>
+                    <h1 className={"text_title col-12"}>MY CHRISTMAS WISHLIST</h1>
+                    <p className={"text_content text-center"}>"Créer, partage et soit sage Hohoho"</p>
                     <p className={"text-center"}>Papa noel</p>
                     <div className={"text-center mt-4"}>
                         <Link to={"/liste/new"}><button className={"btn btn_slide_btn col-3"}>creer</button></Link>
@@ -44,24 +45,43 @@ const HomePage = () => {
                 </div>
 
             <section className={"text-center section01"}>
-                <div className="container-fuild">
                     <div className="row">
                         <div className="col-lg-7">
                             <div className="section01_letter">
-                                <img width={"50%"} src={letter}/>
+                                <img width={"60%"} src={letter}/>
                             </div>
                         </div>
 
-                        <div className="col-lg-4">
-                            <div className="mx-auto mb-5 mb-lg-0 mb-lg-3 ">
+                        <div className="col-lg-5">
+                            <div className="mx-auto mb-5 mb-lg-0 mb-lg-3 text-left">
                                 <h3>Bootstrap 4 Ready</h3>
                                 <p className="lead mb-0">Featuring the latest build of the new Bootstrap 4
                                     framework</p>
                             </div>
                         </div>
                     </div>
+            </section>
+
+            <section className={"text-center section03 border"}>
+                <div className="container-fluid" >
+                    <div className="row">
+                        <div className="col-lg-6">
+                            <div className="mx-auto mb-5 mb-lg-0 mb-lg-3 text-right">
+                                <h3>Bootstrap 4 Ready</h3>
+                                <p className="lead mb-0">Featuring the latest build of the new Bootstrap 4
+                                    framework!</p>
+                            </div>
+                        </div>
+                        <div className="col-lg-6">
+                            <div className=" mx-auto mb-5 mb-lg-0 mb-lg-3 section02_bag">
+                                <img  src={bagGift}/>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
+
+
 
             <section className={"text-center section02 border container-fluid"}>
                 <div className={"section02_bg"}>

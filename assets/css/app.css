@@ -162,10 +162,11 @@ body {
 }
 .text_content{
     font-size: 30px;
-    color: #d4423e;
+
 }
 
 .text_slide{
+    z-index:2;
     position: absolute;
     margin-left: 200px;
     margin-top: 340px;
@@ -195,16 +196,19 @@ body {
 
 
 .section01{
-    min-height: 600px;
-    padding-top: 200px;
+    min-height: 400px;
+    padding-top: 180px;
 }
 .section01_letter{
-    margin-top: -120px;
+    margin-top: -160px;
 }
 .section02{
     min-height: 600px;
     padding-top: 150px;
 
+}
+.section02_bag{
+    margin-top: -160px;
 }
 .section02_bg{
     position: absolute;
