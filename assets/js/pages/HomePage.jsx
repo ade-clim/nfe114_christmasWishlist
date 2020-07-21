@@ -56,9 +56,8 @@ const HomePage = () => {
 
                         <div className="col-lg-5">
                             <div className="mx-auto mb-5 mb-lg-0 mb-lg-3 text-left">
-                                <h3>Bootstrap 4 Ready</h3>
-                                <p className="lead mb-0">Featuring the latest build of the new Bootstrap 4
-                                    framework</p>
+                                <h3> Sed nec erat bibendum</h3>
+                                <p className="lead mb-0">Quisque convallis mauris a lectus lacinia pulvinar. Proin vel lorem nisl. Phasellus in ante id ante tincidunt ultrices.</p>
                             </div>
                         </div>
                     </div>
@@ -69,9 +68,8 @@ const HomePage = () => {
                         <div className="row">
                             <div className="col-lg-6">
                                 <div className="mx-auto mb-5 mb-lg-0 mb-lg-3 text-right">
-                                    <h3>Bootstrap 4 Ready</h3>
-                                    <p className="lead mb-0">Featuring the latest build of the new Bootstrap 4
-                                        framework!</p>
+                                    <h3>Lorem ipsum dolor sit amet</h3>
+                                    <p className="lead mb-0">Quisque convallis mauris a lectus lacinia pulvinar.</p>
                                 </div>
                             </div>
                             <div className="col-lg-6">
