@@ -211,17 +211,16 @@ body {
     margin-top: -160px;
 }
 .section02_bg{
-    position: absolute;
+
     margin-top: -150px;
 }
 .snow_man{
-    margin-top: 40px;
-
+    position: absolute;
 }
 
 .snow_man > img {
-    max-width: 320px;
-    min-height: 150px;
+    max-width: 80%;
+
 }
 .section03{
     min-height: 600px;
@@ -241,7 +240,7 @@ body {
 
 .perso_slide_container{
     position: relative;
-    max-width: 1900px;
+
 }
 
 .perso_slide{

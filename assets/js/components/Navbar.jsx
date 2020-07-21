@@ -58,7 +58,7 @@ const Navbar = ({history}) => {
 
                     <ul className="navbar-nav ml-auto">
                         <li className="nav-item">
-                            <NavLink to={"/"} className="nav-link text-dark">demo</NavLink>
+                            <NavLink to={"/demo"} className="nav-link text-danger">demo</NavLink>
                         </li>
                         <li className="nav-item">
                             <NavLink to={"/liste/new"} className="nav-link text-dark">Creer</NavLink>

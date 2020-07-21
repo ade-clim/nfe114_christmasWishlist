@@ -21,6 +21,7 @@ import {toast, ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import jwtDecode from "jwt-decode";
 import userApi from "./services/userApi";
+import DemoPage from "./pages/DemoPage";
 authApi.setup();
 
 const App = () => {
@@ -41,7 +42,7 @@ const App = () => {
                     <Switch>
                         <Route path={"/login"} component={LoginPage}/>
                         <Route path={"/register"} component={RegisterPage}/>
-
+                        <Route path={"/demo"} component={DemoPage}/>
 
                         <PrivateRoute path={"/reservations/listes/:id"} component={ReservationListePage}/>
                         <PrivateRoute path={"/reservations/:id"} component={ReservationGift}/>
